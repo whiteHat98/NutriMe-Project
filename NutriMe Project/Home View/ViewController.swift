@@ -9,9 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-  
-  
   @IBOutlet weak var dashboardTableView: UITableView!
   
   let nutriens:[(String,String)]=[("Lemak","Daging"),("Protein","Telur"),("Karbohidrat","Jagung")]
@@ -20,13 +17,48 @@ class ViewController: UIViewController {
     performSegue(withIdentifier: "toProfil", sender: self)
   }
   
+  @IBAction func addFoodButton(_ sender: Any) {
+    let storyboard = UIStoryboard(name: "Diary", bundle: nil)
+    let nextVC = storyboard.instantiateViewController(identifier: "SearchView") as! SearchViewController
+    self.tabBarController?.show(nextVC, sender: self)
+    //self.show(nextVC, sender: self)
+  }
+  
+  var userInfo : UserInfo?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
-    setUpXib()
-    dashboardTableView.delegate = self
-    dashboardTableView.dataSource = self
-    dashboardTableView.tableFooterView = UIView()
+    UserDefaults.standard.set(false, forKey: "userInfoExist")
+    checkUserInfo{
+      let decoded = UserDefaults.standard.object(forKey: "userInfo") as! Data
+      do{
+        let decodedData = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [], from: decoded) as! UserInfo
+        print(decodedData)
+      }catch{
+        print(error)
+      }
+      
+      
+      self.setUpXib()
+      self.dashboardTableView.delegate = self
+      self.dashboardTableView.dataSource = self
+      self.dashboardTableView.tableFooterView = UIView()
+    }
+  }
+  
+  func checkUserInfo(completionHandler: @escaping()-> Void){
+    if !UserDefaults.standard.bool(forKey: "userInfoExist"){
+      let registerVC : RegisterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "registerVC") as! RegisterViewController
+      
+      if let navBar = self.navigationController{
+        //navBar.present(registerVC, animated: true, completion: nil)
+        navBar.pushViewController(registerVC, animated: false)
+      }else{
+        let navBar = UINavigationController(rootViewController: registerVC)
+        self.present(registerVC, animated: true, completion: nil)
+      }
+    }
   }
 
   func setUpXib(){
@@ -34,7 +66,6 @@ class ViewController: UIViewController {
     dashboardTableView.register(UINib(nibName: "giziTableViewCell", bundle: nil), forCellReuseIdentifier: "cellMakro")
     dashboardTableView.register(UINib(nibName: "mineralTableViewCell", bundle: nil), forCellReuseIdentifier: "cellMineral")
   }
-
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
@@ -92,7 +123,5 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     let cell = tableView.dequeueReusableCell(withIdentifier: "cellMineral", for: indexPath) as? mineralTableViewCell
     return cell!
   }
-  
-  
 }
 

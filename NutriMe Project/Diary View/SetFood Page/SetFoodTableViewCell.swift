@@ -1,19 +1,20 @@
 //
-//  FoodListTableViewCell.swift
+//  SetFoodTableViewCell.swift
 //  NutriMe Project
 //
-//  Created by Randy Noel on 18/11/19.
+//  Created by Randy Noel on 01/12/19.
 //  Copyright © 2019 whiteHat. All rights reserved.
 //
 
 import UIKit
 
-class FoodListTableViewCell: UITableViewCell {
+class SetFoodTableViewCell: UITableViewCell {
 
-  @IBOutlet weak var lblFoodName: UILabel!
-  @IBOutlet weak var lblFoodCalorie: UILabel!
+  @IBOutlet weak var imgIcon: UIImageView!
+  @IBOutlet weak var lblName: UILabel!
+  @IBOutlet weak var lblDetail: UILabel!
   
-  override func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
@@ -23,5 +24,5 @@ class FoodListTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

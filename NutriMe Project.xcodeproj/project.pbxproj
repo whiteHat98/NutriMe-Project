@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		971C42C22397D0D100E249A8 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971C42C12397D0D100E249A8 /* PickerViewController.swift */; };
+		971C42ED239A4A3C00E249A8 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971C42EC239A4A3C00E249A8 /* Model.swift */; };
+		971C42EF239DEB4200E249A8 /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971C42EE239DEB4200E249A8 /* helper.swift */; };
 		9778A4D2237E936500E93BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D1237E936500E93BA1 /* AppDelegate.swift */; };
 		9778A4D4237E936500E93BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D3237E936500E93BA1 /* SceneDelegate.swift */; };
 		9778A4D6237E936500E93BA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D5237E936500E93BA1 /* ViewController.swift */; };
@@ -24,10 +27,21 @@
 		9778A5012382B36800E93BA1 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A5002382B36800E93BA1 /* DiaryViewController.swift */; };
 		9778A5032382B38500E93BA1 /* Diary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9778A5022382B38500E93BA1 /* Diary.storyboard */; };
 		9778A50B2382B64800E93BA1 /* FoodListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A5092382B64800E93BA1 /* FoodListTableViewCell.swift */; };
-		9778A50C2382B64800E93BA1 /* FoodListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9778A50A2382B64800E93BA1 /* FoodListTableViewCell.xib */; };
+		977CEF7C2394080F00B24AE6 /* SetFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977CEF7B2394080F00B24AE6 /* SetFoodTableViewCell.swift */; };
+		977CEF7E2394081D00B24AE6 /* SetFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977CEF7D2394081D00B24AE6 /* SetFoodViewController.swift */; };
+		978B9F1B23A9FC6600B75E34 /* Report.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978B9F1A23A9FC6600B75E34 /* Report.storyboard */; };
+		978B9F1D23A9FC7C00B75E34 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978B9F1C23A9FC7C00B75E34 /* ReportViewController.swift */; };
+		978B9F2023A9FD9200B75E34 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978B9F1F23A9FD9200B75E34 /* RegisterViewController.swift */; };
+		978B9F2623AC697300B75E34 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978B9F2523AC697300B75E34 /* CloudKit.framework */; };
+		979607D123917B16001A07B9 /* AddFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979607D023917B16001A07B9 /* AddFoodTableViewCell.swift */; };
+		979607D323924DB2001A07B9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979607D223924DB2001A07B9 /* SearchViewController.swift */; };
+		979607D7239257C4001A07B9 /* FoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979607D6239257C4001A07B9 /* FoodTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		971C42C12397D0D100E249A8 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		971C42EC239A4A3C00E249A8 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		971C42EE239DEB4200E249A8 /* helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helper.swift; sourceTree = "<group>"; };
 		9778A4CE237E936500E93BA1 /* NutriMe Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NutriMe Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9778A4D1237E936500E93BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9778A4D3237E936500E93BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +61,16 @@
 		9778A5002382B36800E93BA1 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		9778A5022382B38500E93BA1 /* Diary.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Diary.storyboard; sourceTree = "<group>"; };
 		9778A5092382B64800E93BA1 /* FoodListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListTableViewCell.swift; sourceTree = "<group>"; };
-		9778A50A2382B64800E93BA1 /* FoodListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FoodListTableViewCell.xib; sourceTree = "<group>"; };
+		977CEF7B2394080F00B24AE6 /* SetFoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFoodTableViewCell.swift; sourceTree = "<group>"; };
+		977CEF7D2394081D00B24AE6 /* SetFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFoodViewController.swift; sourceTree = "<group>"; };
+		978B9F1A23A9FC6600B75E34 /* Report.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Report.storyboard; sourceTree = "<group>"; };
+		978B9F1C23A9FC7C00B75E34 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		978B9F1F23A9FD9200B75E34 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		978B9F2323AC696800B75E34 /* NutriMe Project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "NutriMe Project.entitlements"; sourceTree = "<group>"; };
+		978B9F2523AC697300B75E34 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		979607D023917B16001A07B9 /* AddFoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodTableViewCell.swift; sourceTree = "<group>"; };
+		979607D223924DB2001A07B9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		979607D6239257C4001A07B9 /* FoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				978B9F2623AC697300B75E34 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +90,7 @@
 			children = (
 				9778A4D0237E936500E93BA1 /* NutriMe Project */,
 				9778A4CF237E936500E93BA1 /* Products */,
+				978B9F2423AC697300B75E34 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,16 +105,21 @@
 		9778A4D0237E936500E93BA1 /* NutriMe Project */ = {
 			isa = PBXGroup;
 			children = (
+				978B9F2323AC696800B75E34 /* NutriMe Project.entitlements */,
+				971C42EE239DEB4200E249A8 /* helper.swift */,
 				9778A4D1237E936500E93BA1 /* AppDelegate.swift */,
 				9778A4D3237E936500E93BA1 /* SceneDelegate.swift */,
 				9778A4D7237E936500E93BA1 /* Main.storyboard */,
+				978B9F1E23A9FD5500B75E34 /* Register */,
 				9778A4FE2382B24700E93BA1 /* Profil View */,
 				9778A4FA2382B1DE00E93BA1 /* Home View */,
 				9778A4FF2382B33800E93BA1 /* Diary View */,
+				978B9F1923A9FC3E00B75E34 /* Report View */,
 				9778A4DD237E936900E93BA1 /* Assets.xcassets */,
 				9778A4DF237E936900E93BA1 /* LaunchScreen.storyboard */,
 				9778A4E2237E936900E93BA1 /* Info.plist */,
 				9778A4DA237E936500E93BA1 /* NutriMe_Project.xcdatamodeld */,
+				971C42EC239A4A3C00E249A8 /* Model.swift */,
 			);
 			path = "NutriMe Project";
 			sourceTree = "<group>";
@@ -143,12 +173,58 @@
 		9778A4FF2382B33800E93BA1 /* Diary View */ = {
 			isa = PBXGroup;
 			children = (
-				9778A5002382B36800E93BA1 /* DiaryViewController.swift */,
 				9778A5022382B38500E93BA1 /* Diary.storyboard */,
 				9778A5092382B64800E93BA1 /* FoodListTableViewCell.swift */,
-				9778A50A2382B64800E93BA1 /* FoodListTableViewCell.xib */,
+				979607D023917B16001A07B9 /* AddFoodTableViewCell.swift */,
+				9778A5002382B36800E93BA1 /* DiaryViewController.swift */,
+				979607D8239257CD001A07B9 /* Search Page */,
+				977CEF7A239407F000B24AE6 /* SetFood Page */,
 			);
 			path = "Diary View";
+			sourceTree = "<group>";
+		};
+		977CEF7A239407F000B24AE6 /* SetFood Page */ = {
+			isa = PBXGroup;
+			children = (
+				977CEF7B2394080F00B24AE6 /* SetFoodTableViewCell.swift */,
+				977CEF7D2394081D00B24AE6 /* SetFoodViewController.swift */,
+				971C42C12397D0D100E249A8 /* PickerViewController.swift */,
+			);
+			path = "SetFood Page";
+			sourceTree = "<group>";
+		};
+		978B9F1923A9FC3E00B75E34 /* Report View */ = {
+			isa = PBXGroup;
+			children = (
+				978B9F1A23A9FC6600B75E34 /* Report.storyboard */,
+				978B9F1C23A9FC7C00B75E34 /* ReportViewController.swift */,
+			);
+			path = "Report View";
+			sourceTree = "<group>";
+		};
+		978B9F1E23A9FD5500B75E34 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				978B9F1F23A9FD9200B75E34 /* RegisterViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		978B9F2423AC697300B75E34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				978B9F2523AC697300B75E34 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		979607D8239257CD001A07B9 /* Search Page */ = {
+			isa = PBXGroup;
+			children = (
+				979607D223924DB2001A07B9 /* SearchViewController.swift */,
+				979607D6239257C4001A07B9 /* FoodTableViewCell.swift */,
+			);
+			path = "Search Page";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,10 +286,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9778A5032382B38500E93BA1 /* Diary.storyboard in Resources */,
-				9778A50C2382B64800E93BA1 /* FoodListTableViewCell.xib in Resources */,
 				9778A4F3237E99A200E93BA1 /* giziTableViewCell.xib in Resources */,
 				9778A4E1237E936900E93BA1 /* LaunchScreen.storyboard in Resources */,
 				9778A4F7237E9B1100E93BA1 /* mineralTableViewCell.xib in Resources */,
+				978B9F1B23A9FC6600B75E34 /* Report.storyboard in Resources */,
 				9778A4DE237E936900E93BA1 /* Assets.xcassets in Resources */,
 				9778A4EF237E978E00E93BA1 /* rekomendasiTableViewCell.xib in Resources */,
 				9778A4D9237E936500E93BA1 /* Main.storyboard in Resources */,
@@ -228,10 +304,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				9778A4F9237EA05B00E93BA1 /* ProfilViewController.swift in Sources */,
+				979607D123917B16001A07B9 /* AddFoodTableViewCell.swift in Sources */,
+				978B9F1D23A9FC7C00B75E34 /* ReportViewController.swift in Sources */,
+				971C42C22397D0D100E249A8 /* PickerViewController.swift in Sources */,
 				9778A5012382B36800E93BA1 /* DiaryViewController.swift in Sources */,
+				979607D7239257C4001A07B9 /* FoodTableViewCell.swift in Sources */,
 				9778A4F6237E9B1100E93BA1 /* mineralTableViewCell.swift in Sources */,
 				9778A50B2382B64800E93BA1 /* FoodListTableViewCell.swift in Sources */,
 				9778A4D6237E936500E93BA1 /* ViewController.swift in Sources */,
+				979607D323924DB2001A07B9 /* SearchViewController.swift in Sources */,
+				971C42EF239DEB4200E249A8 /* helper.swift in Sources */,
+				978B9F2023A9FD9200B75E34 /* RegisterViewController.swift in Sources */,
+				977CEF7E2394081D00B24AE6 /* SetFoodViewController.swift in Sources */,
+				971C42ED239A4A3C00E249A8 /* Model.swift in Sources */,
+				977CEF7C2394080F00B24AE6 /* SetFoodTableViewCell.swift in Sources */,
 				9778A4D2237E936500E93BA1 /* AppDelegate.swift in Sources */,
 				9778A4DC237E936500E93BA1 /* NutriMe_Project.xcdatamodeld in Sources */,
 				9778A4EE237E978E00E93BA1 /* rekomendasiTableViewCell.swift in Sources */,
@@ -380,6 +466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "NutriMe Project/NutriMe Project.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3N7N4BXCRP;
 				INFOPLIST_FILE = "NutriMe Project/Info.plist";
@@ -398,6 +485,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "NutriMe Project/NutriMe Project.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3N7N4BXCRP;
 				INFOPLIST_FILE = "NutriMe Project/Info.plist";
