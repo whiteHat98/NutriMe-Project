@@ -459,9 +459,14 @@
                                 <action selector="cancelButtonClick:" destination="fMV-Cc-Uqc" id="aiq-YY-Svg"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="1rW-9B-TwK"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="1rW-9B-TwK">
+                            <connections>
+                                <action selector="saveButtonClick:" destination="fMV-Cc-Uqc" id="x63-1a-hdJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="TXk-b5-xBD" id="NGW-kV-4nf"/>
                         <outlet property="newFoodTableView" destination="yQW-Pg-AgS" id="IyY-aS-bog"/>
                         <outlet property="saveButton" destination="1rW-9B-TwK" id="7Jd-4N-7GW"/>
                     </connections>

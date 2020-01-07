@@ -13,6 +13,7 @@ class newFoodViewController: UIViewController {
 
     @IBOutlet weak var newFoodTableView: UITableView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     var namaMakanan = String()
     var porsiMakanan = String()
@@ -20,6 +21,8 @@ class newFoodViewController: UIViewController {
     var lemakMakanan = String()
     var proteinMakanan = String()
     var karbohidratMakanan = String()
+    
+    let database = CKContainer.default().publicCloudDatabase
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,46 @@ class newFoodViewController: UIViewController {
             saveButton.isEnabled = true
         }
     }
+    
+    @IBAction func saveButtonClick(_ sender: Any) {
+        saveButton.isEnabled = true
+        cancelButton.isEnabled = true
+        
+        let makroRecord = CKRecord(recordType: "Makros")
+        
+        makroRecord.setValue(lemakMakanan.floatValue, forKey: "fat")
+        makroRecord.setValue(proteinMakanan.floatValue, forKey: "protein")
+        makroRecord.setValue(karbohidratMakanan.floatValue, forKey: "carbohydrate")
+        
+        database.save(makroRecord) { (record, error) in
+            if error == nil {
+                print(record!.recordID.recordName)
+                
+                let foodRecord = CKRecord(recordType: "Food")
+                
+                foodRecord.setValue(self.namaMakanan, forKey: "name")
+                foodRecord.setValue(record!.recordID.recordName, forKey: "makrosID")
+                foodRecord.setValue(self.kaloriMakanan.floatValue, forKey: "calories")
+                //Restriction belum masuk
+                
+                self.database.save(foodRecord) { (record, error) in
+                    if error == nil {
+                        print(record!.recordID.recordName)
+                        
+                        DispatchQueue.main.async {
+                            self.navigationController?.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+            else{
+                print("error saving new food")
+                print(error)
+            }
+            
+        }
+    }
+    
     
     @IBAction func cancelButtonClick(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: nil)
@@ -107,6 +150,10 @@ extension newFoodViewController : UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
+        if indexPath.row != 0 {
+            cell.textField.keyboardType = UIKeyboardType.numberPad
+        }
+        
         return cell
     }
     
@@ -161,7 +208,6 @@ extension newFoodViewController: UITextFieldDelegate {
         let textFieldRow = textField.tag
         
         if textFieldRow == 1 {
-            
             if porsiMakanan != "" {
                 textField.text = "\(porsiMakanan) g"
             }
@@ -176,12 +222,12 @@ extension newFoodViewController: UITextFieldDelegate {
                 textField.text = "\(lemakMakanan) g"
             }
         }
-        else if textFieldRow == 2 {
+        else if textFieldRow == 4 {
             if proteinMakanan != "" {
                 textField.text = "\(proteinMakanan) g"
             }
         }
-        else if textFieldRow == 2 {
+        else if textFieldRow == 5 {
             if karbohidratMakanan != "" {
                 textField.text = "\(karbohidratMakanan) g"
             }

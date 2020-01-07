@@ -280,12 +280,6 @@ extension RegisterViewController: UITextFieldDelegate{
             weightText = txtWeight.text ?? ""
         }
         
-        print(nameText)
-        print(dobText)
-        print(selectedGender)
-        print(heightText)
-        print(weightText)
-        
         enableDoneButton()
     }
 }
