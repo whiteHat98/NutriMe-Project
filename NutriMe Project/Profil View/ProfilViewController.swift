@@ -10,8 +10,6 @@ import UIKit
 
 struct User{
   var name : String
-  var weight : Int
-  var height : Int
   var dob : String
 }
 
@@ -24,7 +22,7 @@ class ProfilViewController: UIViewController {
   let profilData = ["Nama","Tanggal Lahir","Berat Badan","Tinggi Badan"]
   let settings = ["Pantangan Makanan","Reminders"]
   
-  let user = User(name: "Monic", weight: 61, height: 178, dob: "9 Agustus 1998")
+  let user = User(name: "Monic", dob: "9 Agustus 1998")
   let userData = ["Monic","9 Agustus 1998","61 kg","178 cm"]
     override func viewDidLoad() {
         super.viewDidLoad()
