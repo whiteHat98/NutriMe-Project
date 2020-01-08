@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 class SearchViewController: UIViewController {
     
@@ -16,14 +17,23 @@ class SearchViewController: UIViewController {
     var foodList:[(food: String, calorie: Float)]=[("Nasi", 10),("Apple",12),("Nanas", 6),("Salmon",20)]
     var foodArr:[Hits]=[]
     var selectedSection: EatCategory?
-    var selectedFood: Food?
+    var selectedFood: UserFood?
     var delegate: SaveData?
     var newFoodInDiary : FoodInDiary?
+    
+//    var userFood: Food?
+    var user: UserInfo?
+    var userFood: UserFood?
+    var foodMakro: FoodMakro?
+    var arrayUserFood: [UserFood] = []
+    var arrayFoodMakro: [FoodMakro] = []
     
     var searching = false
     var searchResult: [Hits] = []
     
     let requestAPI = RequestAPI()
+    
+    let database = CKContainer.default().publicCloudDatabase
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +49,84 @@ class SearchViewController: UIViewController {
         //      }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
+        
+        let userFoodQuery = CKQuery(recordType: "Food", predicate: NSPredicate(format: "userID == %@", userID))
+        
+        database.perform(userFoodQuery, inZoneWith: nil) { (record, error) in
+            if error == nil {
+                self.arrayUserFood.removeAll()
+                for data in record! {
+                    
+                    self.userFood = UserFood(ID: data.recordID.recordName, name: data.value(forKey: "name") as! String, calories: data.value(forKey: "calories") as! Float, restrictions: nil)
+                    
+//                    print(newFood)
+                    
+//                    foodRestrictions.append(data.value(forKey: "restrictions") as! [String])
+                    if let food = self.userFood{
+                        self.arrayUserFood.append(food)
+                    }
+                    
+                }
+                
+                
+                self.queryMakros()
+                DispatchQueue.main.async {
+                    self.foodTableView.reloadData()
+                }
+                
+            }
+        }
+        
+    }
+    
+    func queryMakros() {
+        let foodMakros = CKQuery(recordType: "Makros", predicate: NSPredicate(value: true))
+        
+        database.perform(foodMakros, inZoneWith: nil) { (record, error) in
+            if error == nil {
+                self.arrayFoodMakro.removeAll()
+                
+                for data in record! {
+                    
+                    self.foodMakro = FoodMakro(FoodID: data.value(forKey: "foodID") as! String, protein: data.value(forKey: "protein") as! Float, fat: data.value(forKey: "fat") as! Float, carbohydrate: data.value(forKey: "carbohydrate") as! Float)
+
+                    for (i,food) in self.arrayUserFood.enumerated(){
+                        if food.ID == self.foodMakro?.FoodID{
+                            self.arrayUserFood[i].makros = self.foodMakro
+                        }
+                    }
+                    
+//                    if let makro = self.foodMakro {
+//                        self.arrayFoodMakro.append(makro)
+//                    }
+                }
+                
+            
+                
+                print(self.arrayUserFood)
+               // print(self.arrayFoodMakro)
+               
+            }
+        }
+    }
+    
+    func clearFoodData() {
+        foodIDs.removeAll()
+        foodName.removeAll()
+        foodCal.removeAll()
+        foodMakrosID.removeAll()
+        foodRestrictions.removeAll()
+    }
+    
+    func clearMakrosData(){
+        makrosFoodID.removeAll()
+        foodProtein.removeAll()
+        foodFat.removeAll()
+        foodCarbohydrate.removeAll()
+    }
     
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -122,9 +210,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             return foodArr.count
         }else{
             if searching{
-                return searchResult.count + 1
+                return arrayUserFood.count + 1
             }
-            return foodArr.count+1
+            return arrayUserFood.count + 1
         }
     }
     
@@ -156,16 +244,32 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             cell.lblCalories.text = "\(food.fields.nf_calories) Kkal"
             cell.lblNutrition.text = "Carb: \(food.fields.nf_total_carbohydrate), Pro: \(food.fields.nf_protein), Fat: \(food.fields.nf_total_fat)"
             cell.foodHits = food
+            cell.isUserFood = false
             cell.delegate = self
             
             return cell
         }else if searchBar.selectedScopeButtonIndex == 1{
-            if indexPath.row == searchResult.count{
+            if indexPath.row == arrayUserFood.count{
                 tableView.rowHeight = 44
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cellAddNewFood", for: indexPath)
                 
+                
                 return cell
             }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellFood") as! FoodTableViewCell
+            //    print(foodArr.count)
+            //    var food = foodArr[indexPath.row]
+            
+            var food = arrayUserFood[indexPath.row]
+            
+            cell.lblFoodName.text = food.name
+            cell.lblCalories.text = "\(food.calories) Kkal"
+            cell.lblNutrition.text = "Carb: \(food.makros?.carbohydrate), Pro: \(food.makros?.protein), Fat: \(food.makros?.fat)"
+            cell.userFood = food
+            cell.isUserFood = true
+            cell.delegate = self
+            
+            return cell
         }
         return UITableViewCell()
     }
@@ -175,7 +279,8 @@ extension SearchViewController: ButtonAddFood{
     func buttonClicked(section: EatCategory) {
         
     }
-    func sendFoodData(food: Food) {
+    
+    func sendFoodData(food: UserFood) {
         self.selectedFood = food
         performSegue(withIdentifier: "toEditDetail", sender: self)
     }

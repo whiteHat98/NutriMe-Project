@@ -10,7 +10,7 @@ import UIKit
 
 protocol ButtonAddFood{
   func buttonClicked(section: EatCategory)
-  func sendFoodData(food: Food)
+  func sendFoodData(food: UserFood)
 }
 
 extension ButtonAddFood{
