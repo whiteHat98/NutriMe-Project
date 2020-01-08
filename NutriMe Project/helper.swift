@@ -110,15 +110,22 @@ struct Fields: Decodable{
 }
 
 struct UserInfo{
-  var name: String
-  var dob: Date
-  var height: Float
-  var weight: Float
-  var currCalories: Float
-  var caloriesNeed: Float
-  var activities: String?
-  var foodRestriction: String?
-  var reminder: String?
+    var userID: String
+    var name: String
+    var dob: Date
+    var gender: String
+    var height: Float
+    var weight: Float
+    var currCalories: Float
+    var caloriesNeed: Float
+    var activities: String?
+    var foodRestriction: String?
+    var reminder: String?
+    var caloriesGoal: Float?
+    var carbohydrateGoal: Float?
+    var fatGoal: Float?
+    var proteinGoal: Float?
+    var mineralGoal: Float?
 }
 
 struct Activity{

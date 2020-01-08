@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y7L-8E-qJy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y7L-8E-qJy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -150,6 +150,10 @@
                     <tabBarItem key="tabBarItem" title="Item" id="ewK-51-tiq"/>
                     <navigationItem key="navigationItem" title="Dashboard" id="k8U-Fz-HDi"/>
                     <connections>
+                        <outlet property="activityCaloriesLabel" destination="10H-yE-Pdu" id="cas-ww-mi7"/>
+                        <outlet property="caloriesGoalLabel" destination="fwr-9p-mSE" id="VQp-nU-nWb"/>
+                        <outlet property="caloriesNeededLabel" destination="NwN-Zp-khl" id="ec5-1q-Omj"/>
+                        <outlet property="currentCaloriesLabel" destination="wh6-g6-vdX" id="8Ay-DY-hlt"/>
                         <outlet property="dashboardTableView" destination="oP3-rS-EUB" id="hxz-K9-HUg"/>
                         <segue destination="Mrm-TO-fVb" kind="show" identifier="toProfil" id="sgW-G2-d99"/>
                     </connections>
@@ -263,7 +267,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="160" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TYO-1g-t0u">
+                            <textField opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="160" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TYO-1g-t0u">
                                 <rect key="frame" x="20" y="530" width="342" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -283,7 +287,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="01 January 1998" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V7j-mz-jbD">
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="01 January 1998" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V7j-mz-jbD">
                                 <rect key="frame" x="20" y="278" width="374" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -296,7 +300,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="65" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3DL-2G-6Ub">
+                            <textField opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="65" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3DL-2G-6Ub">
                                 <rect key="frame" x="20" y="621" width="342" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -392,9 +396,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="KVz-qI-k9f"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Registration" id="RpR-RK-eLy"/>
+                    <navigationItem key="navigationItem" title="Registration" id="RpR-RK-eLy">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="s6v-IJ-QL9">
+                            <connections>
+                                <action selector="doneButtonClick:" destination="REK-CN-3SC" id="qrz-Bc-ek9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="btnRegister" destination="c7E-fW-B0M" id="dfX-Ng-lvt"/>
+                        <outlet property="doneButton" destination="s6v-IJ-QL9" id="i6W-hU-wQ3"/>
                         <outlet property="restrictionSwitch" destination="V5A-CQ-QaM" id="LoP-j7-Q67"/>
                         <outlet property="tableGender" destination="XZl-Jr-mtu" id="VwM-Fd-HkG"/>
                         <outlet property="txtDob" destination="V7j-mz-jbD" id="hND-Ky-une"/>
@@ -414,7 +425,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="LSn-SR-Jkg">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Y7L-8E-qJy" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="dashboard" automaticallyAdjustsScrollViewInsets="NO" id="Y7L-8E-qJy" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8Yj-fX-V6S">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -443,6 +454,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Agb-Wl-T7l">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Juq-Kx-MUI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Rsq-ZH-CcB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Gcx-uU-YaI">
@@ -454,7 +466,6 @@
                         <segue destination="REK-CN-3SC" kind="relationship" relationship="rootViewController" id="1Yd-Ul-Ncg"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Juq-Kx-MUI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="976.81159420289862" y="-608.03571428571422"/>
         </scene>
