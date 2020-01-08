@@ -26,7 +26,7 @@
         <!--Item-->
         <scene sceneID="l6K-Ny-TC0">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wfV-hc-zhr" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="third" automaticallyAdjustsScrollViewInsets="NO" id="wfV-hc-zhr" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" image="book.fill" catalog="system" id="dxb-x8-jk9"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

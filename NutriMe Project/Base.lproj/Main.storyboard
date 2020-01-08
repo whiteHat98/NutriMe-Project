@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y7L-8E-qJy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y7L-8E-qJy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -224,7 +224,7 @@
         <scene sceneID="5UY-yW-QeS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GT5-b2-fXO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="bU6-LA-Yjp"/>
+                    <tabBarItem key="tabBarItem" title="Item" selectedImage="house.fill" catalog="system" id="bU6-LA-Yjp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QzU-vs-2w9">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -435,6 +435,7 @@
                     <connections>
                         <segue destination="GT5-b2-fXO" kind="relationship" relationship="viewControllers" id="5sY-Um-W7L"/>
                         <segue destination="HBf-6I-mFd" kind="relationship" relationship="viewControllers" id="gBi-8S-kIh"/>
+                        <segue destination="xJP-Ti-9fz" kind="relationship" relationship="viewControllers" id="oIT-Lz-tZZ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0w-EF-yjq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -451,10 +452,19 @@
             </objects>
             <point key="canvasLocation" x="1075" y="670"/>
         </scene>
+        <!--third-->
+        <scene sceneID="D64-v5-uTi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Report" referencedIdentifier="third" id="xJP-Ti-9fz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="ikf-2w-OHY"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ybo-DO-Ygn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1390" y="669"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Agb-Wl-T7l">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Juq-Kx-MUI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Rsq-ZH-CcB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Gcx-uU-YaI">
@@ -466,11 +476,13 @@
                         <segue destination="REK-CN-3SC" kind="relationship" relationship="rootViewController" id="1Yd-Ul-Ncg"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Juq-Kx-MUI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="976.81159420289862" y="-608.03571428571422"/>
         </scene>
     </scenes>
     <resources>
+        <image name="house.fill" catalog="system" width="64" height="52"/>
         <image name="person.crop.circle" catalog="system" width="64" height="60"/>
     </resources>
 </document>
