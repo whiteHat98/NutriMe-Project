@@ -128,16 +128,7 @@ struct UserInfo{
     var mineralGoal: Float?
 }
 
-struct Activity{
-  var level : ActivityLevel
-  var caloriesMultiply : Float?
-}
 
-enum ActivityLevel: String{
-  case low = "Low"
-  case medium = "Medium"
-  case high = "High"
-}
 
 protocol SaveToDisk: Codable {
   static var defaultEncoder: JSONEncoder{get}

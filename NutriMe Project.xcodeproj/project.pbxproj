@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,6 +29,8 @@
 		9778A50B2382B64800E93BA1 /* FoodListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A5092382B64800E93BA1 /* FoodListTableViewCell.swift */; };
 		977CEF7C2394080F00B24AE6 /* SetFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977CEF7B2394080F00B24AE6 /* SetFoodTableViewCell.swift */; };
 		977CEF7E2394081D00B24AE6 /* SetFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977CEF7D2394081D00B24AE6 /* SetFoodViewController.swift */; };
+		9786625B23C6FADA00741B1B /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9786625A23C6FADA00741B1B /* ActivityViewController.swift */; };
+		9786625E23C6FBE800741B1B /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9786625D23C6FBE800741B1B /* ActivityTableViewCell.swift */; };
 		978B9F1B23A9FC6600B75E34 /* Report.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978B9F1A23A9FC6600B75E34 /* Report.storyboard */; };
 		978B9F1D23A9FC7C00B75E34 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978B9F1C23A9FC7C00B75E34 /* ReportViewController.swift */; };
 		978B9F2023A9FD9200B75E34 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978B9F1F23A9FD9200B75E34 /* RegisterViewController.swift */; };
@@ -75,6 +77,8 @@
 		9778A5092382B64800E93BA1 /* FoodListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListTableViewCell.swift; sourceTree = "<group>"; };
 		977CEF7B2394080F00B24AE6 /* SetFoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFoodTableViewCell.swift; sourceTree = "<group>"; };
 		977CEF7D2394081D00B24AE6 /* SetFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFoodViewController.swift; sourceTree = "<group>"; };
+		9786625A23C6FADA00741B1B /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		9786625D23C6FBE800741B1B /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
 		978B9F1A23A9FC6600B75E34 /* Report.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Report.storyboard; sourceTree = "<group>"; };
 		978B9F1C23A9FC7C00B75E34 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		978B9F1F23A9FD9200B75E34 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 				9778A4FC2382B20B00E93BA1 /* mineralCell */,
 				9778A4FB2382B1F100E93BA1 /* giziCell */,
 				9778A4D5237E936500E93BA1 /* ViewController.swift */,
+				9786625C23C6FBC900741B1B /* Activity */,
 			);
 			path = "Home View";
 			sourceTree = "<group>";
@@ -221,6 +226,15 @@
 			path = "SetFood Page";
 			sourceTree = "<group>";
 		};
+		9786625C23C6FBC900741B1B /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				9786625A23C6FADA00741B1B /* ActivityViewController.swift */,
+				9786625D23C6FBE800741B1B /* ActivityTableViewCell.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
 		978B9F1923A9FC3E00B75E34 /* Report View */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,7 +276,6 @@
 				75D184E2C6E557E63DDF3C1E /* Pods-NutriMe Project.debug.xcconfig */,
 				EB610ED262DEADA7B4A20417 /* Pods-NutriMe Project.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -416,6 +429,7 @@
 				978B9F1D23A9FC7C00B75E34 /* ReportViewController.swift in Sources */,
 				FE86407A23B73AC5009F92C8 /* Diary.swift in Sources */,
 				971C42C22397D0D100E249A8 /* PickerViewController.swift in Sources */,
+				9786625E23C6FBE800741B1B /* ActivityTableViewCell.swift in Sources */,
 				9778A5012382B36800E93BA1 /* DiaryViewController.swift in Sources */,
 				FE86407C23B73B75009F92C8 /* Activity.swift in Sources */,
 				FE86407E23B73BFA009F92C8 /* Food.swift in Sources */,
@@ -426,6 +440,7 @@
 				9778A4D6237E936500E93BA1 /* ViewController.swift in Sources */,
 				979607D323924DB2001A07B9 /* SearchViewController.swift in Sources */,
 				971C42EF239DEB4200E249A8 /* helper.swift in Sources */,
+				9786625B23C6FADA00741B1B /* ActivityViewController.swift in Sources */,
 				978B9F2023A9FD9200B75E34 /* RegisterViewController.swift in Sources */,
 				977CEF7E2394081D00B24AE6 /* SetFoodViewController.swift in Sources */,
 				FE86408023B73C6A009F92C8 /* Nutrition.swift in Sources */,

@@ -15,17 +15,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var caloriesGoalLabel: UILabel!
     @IBOutlet weak var activityCaloriesLabel: UILabel!
     @IBOutlet weak var currentCaloriesLabel: UILabel!
-        
-
     @IBOutlet weak var dashboardTableView: UITableView!
-    
+    @IBOutlet weak var btnActivityLevel: UIButton!
+  
     let nutriens:[(String,String)]=[("Lemak","Daging"),("Protein","Telur"),("Karbohidrat","Jagung")]
     
     @IBAction func profilButton(_ sender: Any) {
         performSegue(withIdentifier: "toProfil", sender: self)
     }
-    
-    @IBAction func addFoodButton(_ sender: Any) {
+  
+  //activity level in diary (0-2) gak blh lebih / kurang
+  var defaultActivityLevel = 0
+  var selectedActivities : Activity?
+  @IBAction func setActivityButton(_ sender: Any) {
+    performSegue(withIdentifier: "toActivityPage", sender: self)
+  }
+  
+  @IBAction func addFoodButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Diary", bundle: nil)
         let nextVC = storyboard.instantiateViewController(identifier: "SearchView") as! SearchViewController
         self.tabBarController?.show(nextVC, sender: self)
@@ -48,7 +54,16 @@ class ViewController: UIViewController {
                 print(error)
             }
         }
-        
+      
+      //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
+
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      if segue.identifier == "toActivityPage"{
+        let nextVC = segue.destination as! ActivityViewController
+        nextVC.activityLevel = self.defaultActivityLevel
+        nextVC.delegate = self
+      }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,16 +93,16 @@ class ViewController: UIViewController {
                 self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height , weight: weight , currCalories: 0, caloriesNeed: caloriesGoal!, activities: nil, foodRestriction: nil, reminder: nil, caloriesGoal: caloriesGoal!, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
                 
                 print(self.userInfo?.name)
-
             }
             DispatchQueue.main.async {
-                self.caloriesGoalLabel.text = "\(self.userInfo!.caloriesGoal!)"
+              self.caloriesGoalLabel.text = "\(Int(self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
+              self.activityCaloriesLabel.text = "\(Int((self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - self.userInfo!.caloriesGoal!)) cal"
+              self.currentCaloriesLabel.text = "ambil dari diary"
+              
             }
             
         }
-        
-        
-        
+
         self.setUpXib()
         self.dashboardTableView.delegate = self
         self.dashboardTableView.dataSource = self
@@ -170,5 +185,24 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellMineral", for: indexPath) as? mineralTableViewCell
         return cell!
     }
+}
+
+extension ViewController : UpdateData{
+  func updateActivity(activity: Activity) {
+    self.selectedActivities = activity
+    self.defaultActivityLevel = activity.id
+    DispatchQueue.main.async {
+      if activity.id == 1{
+        self.btnActivityLevel.titleLabel?.text = "Activity Level-Med"
+
+      }else{
+        self.btnActivityLevel.titleLabel?.numberOfLines = 0
+        //self.btnActivityLevel.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.btnActivityLevel.titleLabel?.text = "Activity Level-\(activity.level.rawValue)"
+      }
+    }
+      
+  }
+  
 }
 

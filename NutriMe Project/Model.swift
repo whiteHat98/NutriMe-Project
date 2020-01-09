@@ -53,3 +53,16 @@ struct FoodInDiary {
   var date: Date?
   var portion: Float?
 }
+
+struct Activity{
+  var id : Int
+  var level : ActivityLevel
+  var desc : String
+  var caloriesMultiply : Float?
+}
+
+enum ActivityLevel: String{
+  case low = "Low"
+  case medium = "Medium"
+  case high = "High"
+}
