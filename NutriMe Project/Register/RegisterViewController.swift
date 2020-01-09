@@ -136,7 +136,8 @@ class RegisterViewController: UIViewController {
     //MARK: FUNCTIONS
     
     func setTabNavBar(){
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+//        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.backgroundColor = .clear
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
     }
@@ -159,7 +160,8 @@ class RegisterViewController: UIViewController {
             gender = "Female"
         }
         
-        user = UserInfo(userID: userID, name: nameText, dob: stringToDate(dobText), gender: gender, height: heightText.floatValue , weight: weightText.floatValue , currCalories: 0, caloriesNeed: caloriesNeed!, activities: nil, foodRestriction: nil, reminder: nil)
+        user = UserInfo(userID: userID, name: nameText, dob: stringToDate(dobText), gender: gender, height: heightText.floatValue, weight: weightText.floatValue, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, caloriesGoal: caloriesNeed, carbohydrateGoal: 123, fatGoal: 123, proteinGoal: 123, mineralGoal: 123)
+        
 //        do{
 //            //      let encodedData = try NSKeyedArchiver.archivedData(withRootObject: user!, requiringSecureCoding: false)
 //            //      UserDefaults.standard.set(encodedData, forKey: "userInfo")
