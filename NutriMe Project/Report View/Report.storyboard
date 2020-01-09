@@ -10,14 +10,24 @@
         <!--Report-->
         <scene sceneID="A9X-iF-Veb">
             <objects>
-                <viewController id="Dys-E6-m6v" sceneMemberID="viewController">
+                <viewController id="Dys-E6-m6v" customClass="ReportViewController" customModule="NutriMe_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wDP-zF-uLN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Asf-Dd-n2J" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="107" width="374" height="304"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ah3-op-tf9"/>
                     </view>
                     <navigationItem key="navigationItem" title="Report" id="BwM-l3-QkR"/>
+                    <connections>
+                        <outlet property="chartReportView" destination="Asf-Dd-n2J" id="8oN-eV-GSM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3p9-GN-P2w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

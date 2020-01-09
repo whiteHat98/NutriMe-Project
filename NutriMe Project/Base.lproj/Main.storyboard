@@ -306,7 +306,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7E-fW-B0M">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7E-fW-B0M">
                                 <rect key="frame" x="20" y="749" width="374" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.20392156859999999" green="1" blue="0.20012727047123291" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -317,17 +317,6 @@
                                     <action selector="registerAction:" destination="REK-CN-3SC" eventType="touchUpInside" id="VOX-FJ-C0c"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="I have food restriction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfz-La-fEe">
-                                <rect key="frame" x="20" y="684" width="166" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="V5A-CQ-QaM">
-                                <rect key="frame" x="347" y="679" width="49" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="cm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Hh-Rv-h1k">
                                 <rect key="frame" x="370" y="537" width="24" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -406,7 +395,6 @@
                     <connections>
                         <outlet property="btnRegister" destination="c7E-fW-B0M" id="dfX-Ng-lvt"/>
                         <outlet property="doneButton" destination="s6v-IJ-QL9" id="i6W-hU-wQ3"/>
-                        <outlet property="restrictionSwitch" destination="V5A-CQ-QaM" id="LoP-j7-Q67"/>
                         <outlet property="tableGender" destination="XZl-Jr-mtu" id="VwM-Fd-HkG"/>
                         <outlet property="txtDob" destination="V7j-mz-jbD" id="hND-Ky-une"/>
                         <outlet property="txtHeight" destination="TYO-1g-t0u" id="4Ll-zP-SeP"/>
