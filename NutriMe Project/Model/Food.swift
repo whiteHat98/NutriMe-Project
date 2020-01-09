@@ -9,8 +9,8 @@
 import Foundation
 import CloudKit
 
-var foodIDs = [CKRecord.ID]()
+var foodIDs = [String]()
 var foodName = [String]()
 var foodCal = [Float]()
-var FoodNutritionID = [String]()
-var foodRestrictionID = [String]()
+var foodMakrosID = [String]()
+var foodRestrictions = [[String]]()

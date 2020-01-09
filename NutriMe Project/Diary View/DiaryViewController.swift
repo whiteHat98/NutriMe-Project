@@ -117,6 +117,10 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension DiaryViewController: ButtonAddFood{
+    func sendFoodData(food: UserFood) {
+        
+    }
+    
     func buttonClicked(section: EatCategory) {
         self.selectedSection = section
         performSegue(withIdentifier: "toSearchPage", sender: self)

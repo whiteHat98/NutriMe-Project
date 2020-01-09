@@ -9,8 +9,7 @@
 import Foundation
 import CloudKit
 
-var nutritionID = [CKRecord.ID]()
-var nutritionType = [String]()
-var nutritionName = [String]()
-var nutritionInfo = [String]()
-var nutritionValue = [Float]()
+var makrosFoodID = [String]()
+var foodProtein = [Float]()
+var foodFat = [Float]()
+var foodCarbohydrate = [Float]()

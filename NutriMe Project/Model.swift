@@ -14,6 +14,21 @@ struct Food {
   var perEach: Float?
 }
 
+struct UserFood {
+    var ID: String
+    var name: String
+    var calories: Float
+    var restrictions: [String]?
+    var makros: FoodMakro?
+}
+
+struct FoodMakro {
+    var FoodID: String
+    var protein: Float
+    var fat: Float
+    var carbohydrate: Float
+}
+
 struct DiaryList{
   let diaries: [Diary]
 }

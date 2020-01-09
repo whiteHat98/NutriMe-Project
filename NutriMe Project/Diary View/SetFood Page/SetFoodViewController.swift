@@ -16,7 +16,7 @@ protocol SaveData {
 class SetFoodViewController: UIViewController {
   
   var selectedSection: EatCategory?
-  var selectedFood: Food?
+  var selectedFood: UserFood?
   var totalPorsi: Float = 1.0
   
   var date = Date()
@@ -28,7 +28,7 @@ class SetFoodViewController: UIViewController {
     self.navigationController?.dismiss(animated: true, completion: nil)
   }
   @IBAction func saveBtn(_ sender: Any) {
-    delegate?.saveData(food: selectedFood!, eatCategory: selectedSection!, portion: totalPorsi, date: date)
+//    delegate?.saveData(food: selectedFood!, eatCategory: selectedSection!, portion: totalPorsi, date: date)
     delegate?.dismissPage(dismiss: true)
     self.dismiss(animated: true)
   }
@@ -79,7 +79,7 @@ extension SetFoodViewController: UITableViewDelegate, UITableViewDataSource{
       cell.lblDetail.text = ""
     }else if indexPath.row == 1{
       cell.lblName.text = "\(totalPorsi) Porsi"
-      cell.lblDetail.text = "\(selectedFood!.calorie * totalPorsi) Kkl"
+        cell.lblDetail.text = "\(selectedFood!.calories * totalPorsi) Kkl"
       cell.accessoryType = .disclosureIndicator
     }else if indexPath.row == 2{
       cell.lblName.text = selectedSection.map { $0.rawValue }

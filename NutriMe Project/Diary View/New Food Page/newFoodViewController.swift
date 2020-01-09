@@ -23,6 +23,7 @@ class newFoodViewController: UIViewController {
     var karbohidratMakanan = String()
     
     let database = CKContainer.default().publicCloudDatabase
+    let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,24 +49,25 @@ class newFoodViewController: UIViewController {
         saveButton.isEnabled = true
         cancelButton.isEnabled = true
         
-        let makroRecord = CKRecord(recordType: "Makros")
+        let foodRecord = CKRecord(recordType: "Food")
         
-        makroRecord.setValue(lemakMakanan.floatValue, forKey: "fat")
-        makroRecord.setValue(proteinMakanan.floatValue, forKey: "protein")
-        makroRecord.setValue(karbohidratMakanan.floatValue, forKey: "carbohydrate")
+        foodRecord.setValue(self.namaMakanan, forKey: "name")
+        foodRecord.setValue(self.kaloriMakanan.floatValue, forKey: "calories")
+        foodRecord.setValue(self.userID, forKey: "userID")
+        //Restriction belum masuk
         
-        database.save(makroRecord) { (record, error) in
+        self.database.save(foodRecord) { (record, error) in
             if error == nil {
                 print(record!.recordID.recordName)
                 
-                let foodRecord = CKRecord(recordType: "Food")
+                let makroRecord = CKRecord(recordType: "Makros")
                 
-                foodRecord.setValue(self.namaMakanan, forKey: "name")
-                foodRecord.setValue(record!.recordID.recordName, forKey: "makrosID")
-                foodRecord.setValue(self.kaloriMakanan.floatValue, forKey: "calories")
-                //Restriction belum masuk
+                makroRecord.setValue(record?.recordID.recordName, forKey: "foodID")
+                makroRecord.setValue(self.lemakMakanan.floatValue, forKey: "fat")
+                makroRecord.setValue(self.proteinMakanan.floatValue, forKey: "protein")
+                makroRecord.setValue(self.karbohidratMakanan.floatValue, forKey: "carbohydrate")
                 
-                self.database.save(foodRecord) { (record, error) in
+                self.database.save(makroRecord) { (record, error) in
                     if error == nil {
                         print(record!.recordID.recordName)
                         
@@ -77,10 +79,43 @@ class newFoodViewController: UIViewController {
             }
             else{
                 print("error saving new food")
-                print(error)
             }
-            
         }
+        
+//        let makroRecord = CKRecord(recordType: "Makros")
+//
+//        makroRecord.setValue(lemakMakanan.floatValue, forKey: "fat")
+//        makroRecord.setValue(proteinMakanan.floatValue, forKey: "protein")
+//        makroRecord.setValue(karbohidratMakanan.floatValue, forKey: "carbohydrate")
+//
+//        database.save(makroRecord) { (record, error) in
+//            if error == nil {
+//                print(record!.recordID.recordName)
+//
+//                let foodRecord = CKRecord(recordType: "Food")
+//
+//                foodRecord.setValue(self.namaMakanan, forKey: "name")
+//                foodRecord.setValue(record!.recordID.recordName, forKey: "makrosID")
+//                foodRecord.setValue(self.kaloriMakanan.floatValue, forKey: "calories")
+//                foodRecord.setValue(self.userID, forKey: "userID")
+//                //Restriction belum masuk
+//
+//                self.database.save(foodRecord) { (record, error) in
+//                    if error == nil {
+//                        print(record!.recordID.recordName)
+//
+//                        DispatchQueue.main.async {
+//                            self.navigationController?.dismiss(animated: true, completion: nil)
+//                        }
+//                    }
+//                }
+//            }
+//            else{
+//                print("error saving new food")
+//                print(error)
+//            }
+//
+//        }
     }
     
     
@@ -121,12 +156,12 @@ extension newFoodViewController : UITableViewDelegate, UITableViewDataSource {
                 cell.textField.placeholder = "Apel"
             }
             else if indexPath.row == 1 {
-                cell.labelText.text = "Ukuran Porsi"
-                cell.textField.placeholder = "100"
+                cell.labelText.text = "Porsi per Penyajian"
+                cell.textField.placeholder = "100 g"
             }
             else if indexPath.row == 2 {
                 cell.labelText.text = "Jumlah Kalori"
-                cell.textField.placeholder = "200"
+                cell.textField.placeholder = "200 g"
             }
             cell.textField.tag = indexPath.row
             print(cell.textField.tag)
@@ -134,15 +169,15 @@ extension newFoodViewController : UITableViewDelegate, UITableViewDataSource {
         case 1:
             if indexPath.row == 0 {
                 cell.labelText.text = "Jumlah Lemak"
-                cell.textField.placeholder = "15"
+                cell.textField.placeholder = "15 g"
             }
             else if indexPath.row == 1 {
                 cell.labelText.text = "Jumlah Protein"
-                cell.textField.placeholder = "10"
+                cell.textField.placeholder = "10 g"
             }
             else if indexPath.row == 2 {
                 cell.labelText.text = "Jumlah Karbohidrat"
-                cell.textField.placeholder = "5"
+                cell.textField.placeholder = "5 g"
             }
             cell.textField.tag = indexPath.row + 3
             
@@ -150,7 +185,12 @@ extension newFoodViewController : UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        if indexPath.row != 0 {
+        if indexPath.section == 0 {
+            if indexPath.row != 0 {
+                cell.textField.keyboardType = UIKeyboardType.numberPad
+            }
+        }
+        else{
             cell.textField.keyboardType = UIKeyboardType.numberPad
         }
         
