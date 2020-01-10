@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 protocol SaveData {
     func saveData(food: Food, eatCategory: EatCategory, portion: Float, date: Date)
@@ -24,13 +25,43 @@ class SetFoodViewController: UIViewController {
     var pickerCode: Int?
     var delegate : SaveData?
     
+    let database = CKContainer.default().publicCloudDatabase
+    let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
+    
     @IBAction func cancelBtn(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     @IBAction func saveBtn(_ sender: Any) {
-        //    delegate?.saveData(food: selectedFood!, eatCategory: selectedSection!, portion: totalPorsi, date: date)
-        delegate?.dismissPage(dismiss: true)
-        self.dismiss(animated: true)
+        
+        let diaryRecord = CKRecord(recordType: "Diary")
+        let selectedCategory = selectedSection.map{$0.rawValue}
+        
+        formatter.dateFormat = "EEEE, d MMM yyyy"
+        
+        diaryRecord.setValue(userID, forKey: "userID")
+        diaryRecord.setValue(selectedFood?.ID, forKey: "foodID")
+        diaryRecord.setValue(selectedFood?.name, forKey: "foodName")
+        diaryRecord.setValue(selectedFood?.calories, forKey: "foodCalories")
+        diaryRecord.setValue(selectedFood?.makros?.carbohydrate, forKey: "foodCarbohydrate")
+        diaryRecord.setValue(selectedFood?.makros?.fat, forKey: "foodFat")
+        diaryRecord.setValue(selectedFood?.makros?.protein, forKey: "foodProtein")
+        diaryRecord.setValue(totalPorsi, forKey: "portion")
+        diaryRecord.setValue(formatter.string(from: date), forKey: "date")
+        diaryRecord.setValue(selectedCategory, forKey: "category")
+        
+        self.database.save(diaryRecord) { (record, error) in
+            if error == nil {
+                print(record!.recordID.recordName)
+                //Dismiss View
+                DispatchQueue.main.async {
+                    self.delegate?.dismissPage(dismiss: true)
+                    self.dismiss(animated: true)
+                }
+                
+            }
+        }
+        
+        
     }
     
     @IBOutlet weak var detailTable: UITableView!

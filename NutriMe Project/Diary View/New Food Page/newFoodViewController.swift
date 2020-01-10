@@ -46,8 +46,8 @@ class newFoodViewController: UIViewController {
     }
     
     @IBAction func saveButtonClick(_ sender: Any) {
-        saveButton.isEnabled = true
-        cancelButton.isEnabled = true
+        saveButton.isEnabled = false
+        cancelButton.isEnabled = false
         
         let foodRecord = CKRecord(recordType: "Food")
         
