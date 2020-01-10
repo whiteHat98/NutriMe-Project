@@ -9,57 +9,67 @@
 import UIKit
 
 struct User{
-  var name : String
-  var weight : Int
-  var height : Int
-  var dob : String
-  var test: String?
+    var name : String
+    var weight : Int
+    var height : Int
+    var dob : String
+    var test: String?
 }
 
 class ProfilViewController: UIViewController {
-  
-  @IBOutlet weak var imgUser: UIImageView!
-  
-  @IBOutlet weak var profilTableView: UITableView!
-  
-  let profilData = ["Nama","Tanggal Lahir","Berat Badan","Tinggi Badan"]
-  let settings = ["Pantangan Makanan","Reminders"]
-  
-  let user = User(name: "Monic", weight: 61, height: 178, dob: "9 Agustus 1998")
-  let userData = ["Monic","9 Agustus 1998","61 kg","178 cm"]
+    
+    @IBOutlet weak var imgUser: UIImageView!
+    
+    @IBOutlet weak var profilTableView: UITableView!
+    
+    let profilData = ["Nama","Tanggal Lahir","Berat Badan","Tinggi Badan"]
+    let settings = ["Pantangan Makanan","Reminders"]
+    
+    var userInfo: UserInfo?
+    
+    var userData:[String] = []
+    
+    var formatter = DateFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-      profilTableView.delegate = self
-      profilTableView.dataSource = self
-      
-      profilTableView.tableFooterView = UIView()
+        formatter.dateFormat = "dd MMMM yyyy"
+        userData = [userInfo!.name, "\(formatter.string(from: userInfo!.dob))", "\(userInfo!.weight)", "\(userInfo!.height)"]
+        
+        
+        profilTableView.delegate = self
+        profilTableView.dataSource = self
+        profilTableView.isScrollEnabled = false
+        profilTableView.tableFooterView = UIView()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToEditProfile" {
+            let nextVC = segue.destination as! editProfileViewController
+            nextVC.userInfo = self.userInfo
+        }
     }
 }
 
 extension ProfilViewController: UITableViewDelegate, UITableViewDataSource{
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return profilData.count + settings.count
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cellProfil", for: indexPath)
-    
-    if indexPath.row > 3{
-      print(indexPath.row)
-         cell.textLabel?.text = settings[indexPath.row - 4]
-         cell.detailTextLabel?.text = ""
-         cell.accessoryType = .disclosureIndicator
-      return cell
-    }else{
-      cell.textLabel?.text = profilData[indexPath.row]
-      cell.detailTextLabel?.text = userData[indexPath.row]
-      
-     
-      
-      return cell
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return profilData.count + settings.count
     }
-  }
-  
-  
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellProfil", for: indexPath)
+        
+        if indexPath.row > 3{
+            print(indexPath.row)
+            cell.textLabel?.text = settings[indexPath.row - 4]
+            cell.detailTextLabel?.text = ""
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        }else{
+            cell.textLabel?.text = profilData[indexPath.row]
+            cell.detailTextLabel?.text = userData[indexPath.row]
+            cell.accessoryType = .none
+            return cell
+        }
+    }
 }

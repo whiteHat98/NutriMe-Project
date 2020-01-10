@@ -50,11 +50,11 @@ class RegisterViewController: UIViewController {
     
     let database = CKContainer.default().publicCloudDatabase
     
-  @IBOutlet weak var indicator: UIActivityIndicatorView!
-  @IBAction func doneButtonClick(_ sender: Any) {
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBAction func doneButtonClick(_ sender: Any) {
         
-      doneButton.isEnabled = false
-      indicator.isHidden = false
+        doneButton.isEnabled = false
+        indicator.isHidden = false
         let caloriesNeeded = harrisBenedictFormula()
         
         let record = CKRecord(recordType: "User")
@@ -98,7 +98,7 @@ class RegisterViewController: UIViewController {
                     //self.performSegue(withIdentifier: "segueToDashboard", sender: nil)
                 }
                 
-              
+                
             }
             else{
                 print("Record Not Saved")
@@ -140,7 +140,7 @@ class RegisterViewController: UIViewController {
     //MARK: FUNCTIONS
     
     func setTabNavBar(){
-//        self.navigationController?.navigationBar.prefersLargeTitles = true
+        //        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.backgroundColor = .clear
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
@@ -164,16 +164,16 @@ class RegisterViewController: UIViewController {
             gender = "Female"
         }
         
-//        user = UserInfo(userID: userID, name: nameText, dob: stringToDate(dobText), gender: gender, height: heightText.floatValue, weight: weightText.floatValue, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, caloriesGoal: caloriesNeed, carbohydrateGoal: 123, fatGoal: 123, proteinGoal: 123, mineralGoal: 123)
+        //        user = UserInfo(userID: userID, name: nameText, dob: stringToDate(dobText), gender: gender, height: heightText.floatValue, weight: weightText.floatValue, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, caloriesGoal: caloriesNeed, carbohydrateGoal: 123, fatGoal: 123, proteinGoal: 123, mineralGoal: 123)
         
-//        do{
-//            //      let encodedData = try NSKeyedArchiver.archivedData(withRootObject: user!, requiringSecureCoding: false)
-//            //      UserDefaults.standard.set(encodedData, forKey: "userInfo")
-//
-//            UserDefaults.standard.set(true, forKey: "userInfoExist")
-//        }catch{
-//            print(error)
-//        }
+        //        do{
+        //            //      let encodedData = try NSKeyedArchiver.archivedData(withRootObject: user!, requiringSecureCoding: false)
+        //            //      UserDefaults.standard.set(encodedData, forKey: "userInfo")
+        //
+        //            UserDefaults.standard.set(true, forKey: "userInfoExist")
+        //        }catch{
+        //            print(error)
+        //        }
     }
     
     
