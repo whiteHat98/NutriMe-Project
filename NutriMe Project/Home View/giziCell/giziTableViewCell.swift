@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DetailAction {
+  func detailActionClicked()
+}
+
 class giziTableViewCell: UITableViewCell {
 
   
@@ -15,6 +19,12 @@ class giziTableViewCell: UITableViewCell {
   
   @IBOutlet weak var pvProtein: UIProgressView!
   @IBOutlet weak var pvKarbo: UIProgressView!
+  
+  var delegate: DetailAction?
+  @IBAction func detailAction(_ sender: Any) {
+    delegate?.detailActionClicked()
+    print("INININININI")
+  }
   
   override func awakeFromNib() {
         super.awakeFromNib()

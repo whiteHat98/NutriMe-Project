@@ -18,6 +18,8 @@ struct Report{
 
 class ReportViewController: UIViewController {
 
+  let days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+
   @IBOutlet weak var chartReportView: BarChartView!
   
     override func viewDidLoad() {
@@ -36,7 +38,6 @@ class ReportViewController: UIViewController {
     
     func generateData() -> [Report]{
       
-      let days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
       var reports = [Report]()
       
       for day in days{
@@ -83,29 +84,54 @@ class ReportViewController: UIViewController {
     }
 
     let set1 = BarChartDataSet(entries: values, label: "test")
+    set1.setColor(.red)
     let set2 = BarChartDataSet(entries: values2, label: "test2")
-    set2.setColor(.red)
+    set2.setColor(.yellow)
     let set3 = BarChartDataSet(entries: values3, label: "test3")
-    set3.setColor(.yellow)
+    set3.setColor(.blue)
 
     let data = BarChartData(dataSets: [set1, set2, set3])
 
     data.barWidth = 0.3
     data.groupBars(fromX: 0, groupSpace: 0.1, barSpace: 0)
 
-    self.chartReportView.leftAxis.axisMinimum = 0.0
-    self.chartReportView.leftAxis.axisMaximum = 10.0
-    self.chartReportView.legend.enabled = false
-    self.chartReportView.highlighter = nil
-    self.chartReportView.xAxis.labelPosition = .bottom
     self.chartReportView.rightAxis.enabled = false
-    self.chartReportView.xAxis.drawGridLinesEnabled = false
+
+    self.chartReportView.highlighter = nil
     self.chartReportView.animate(yAxisDuration: 1.5, easing: .none)
     
+    //legend -> Label
+    let legend = chartReportView.legend
+    legend.enabled = false
+    legend.horizontalAlignment = .right
+    legend.orientation = .vertical
+    legend.xOffset = 10.0
+    legend.yOffset = 10.0
+    legend.yEntrySpace = 0
     
     
+    //xAxis
+    let xAxis = self.chartReportView.xAxis
+    xAxis.valueFormatter = IndexAxisValueFormatter(values: days)
+    xAxis.labelPosition = .bottom
+    xAxis.centerAxisLabelsEnabled = true
+    xAxis.drawGridLinesEnabled = true
+    xAxis.gridLineWidth = 2
+    xAxis.spaceMax = 1
+    xAxis.axisMinimum = 0
+    xAxis.granularity = 1
+    
+    //yAxis
+    let yAxis = self.chartReportView.leftAxis
+    yAxis.spaceTop = 0.35
+    yAxis.axisMinimum = 0
+    yAxis.drawGridLinesEnabled = true
+    yAxis.gridLineWidth = 0.1
+    
+
     self.chartReportView.data = data
     self.chartReportView.drawBordersEnabled = false
+
     self.chartReportView.isUserInteractionEnabled = false
   }
 }

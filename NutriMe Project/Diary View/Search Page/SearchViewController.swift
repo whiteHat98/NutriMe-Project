@@ -195,9 +195,9 @@ extension SearchViewController: UISearchBarDelegate{
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searching = false
-        searchBar.text = ""
-        foodTableView.reloadData()
+//         searching = false
+//        searchBar.text = ""
+//        foodTableView.reloadData()
     }
 }
 
@@ -217,11 +217,17 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if searchBar.selectedScopeButtonIndex == 1{
+          if indexPath.row == 0 {
+            return 45
+          }
+        }
         return 92
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == searchResult.count {
+      if searchBar.selectedScopeButtonIndex == 1{
+        if indexPath.row == 0 {
             
             let newFoodView : UINavigationController = UIStoryboard(name: "Diary", bundle: nil).instantiateViewController(identifier: "newFoodNavigationController") as! UINavigationController
             newFoodView.modalPresentationStyle = .fullScreen
@@ -229,6 +235,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             
             self.show(newFoodView, sender: self)
         }
+      }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -249,7 +256,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             
             return cell
         }else if searchBar.selectedScopeButtonIndex == 1{
-            if indexPath.row == arrayUserFood.count{
+            if indexPath.row == 0{
                 tableView.rowHeight = 44
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cellAddNewFood", for: indexPath)
                 
@@ -260,7 +267,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             //    print(foodArr.count)
             //    var food = foodArr[indexPath.row]
             
-            var food = arrayUserFood[indexPath.row]
+            var food = arrayUserFood[indexPath.row-1]
             
             cell.lblFoodName.text = food.name
             cell.lblCalories.text = "\(food.calories) Kkal"

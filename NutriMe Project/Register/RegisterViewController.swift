@@ -50,8 +50,11 @@ class RegisterViewController: UIViewController {
     
     let database = CKContainer.default().publicCloudDatabase
     
-    @IBAction func doneButtonClick(_ sender: Any) {
+  @IBOutlet weak var indicator: UIActivityIndicatorView!
+  @IBAction func doneButtonClick(_ sender: Any) {
         
+      doneButton.isEnabled = false
+      indicator.isHidden = false
         let caloriesNeeded = harrisBenedictFormula()
         
         let record = CKRecord(recordType: "User")
@@ -95,6 +98,7 @@ class RegisterViewController: UIViewController {
                     //self.performSegue(withIdentifier: "segueToDashboard", sender: nil)
                 }
                 
+              
             }
             else{
                 print("Record Not Saved")
@@ -160,7 +164,7 @@ class RegisterViewController: UIViewController {
             gender = "Female"
         }
         
-        user = UserInfo(userID: userID, name: nameText, dob: stringToDate(dobText), gender: gender, height: heightText.floatValue, weight: weightText.floatValue, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, caloriesGoal: caloriesNeed, carbohydrateGoal: 123, fatGoal: 123, proteinGoal: 123, mineralGoal: 123)
+//        user = UserInfo(userID: userID, name: nameText, dob: stringToDate(dobText), gender: gender, height: heightText.floatValue, weight: weightText.floatValue, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, caloriesGoal: caloriesNeed, carbohydrateGoal: 123, fatGoal: 123, proteinGoal: 123, mineralGoal: 123)
         
 //        do{
 //            //      let encodedData = try NSKeyedArchiver.archivedData(withRootObject: user!, requiringSecureCoding: false)

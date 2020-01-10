@@ -11,7 +11,6 @@ import CloudKit
 
 
 enum EatCategory: String{
-    
     case pagi = "Sarapan"
     case siang = "Makan Siang"
     case malam = "Makan Malam"

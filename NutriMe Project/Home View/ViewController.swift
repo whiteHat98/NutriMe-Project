@@ -181,6 +181,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
             return cell!
         }else if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellMakro", for: indexPath) as? giziTableViewCell
+            cell?.delegate = self
             return cell!
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellMineral", for: indexPath) as? mineralTableViewCell
@@ -202,8 +203,15 @@ extension ViewController : UpdateData{
         self.btnActivityLevel.titleLabel?.text = "Activity Level-\(activity.level.rawValue)"
       }
     }
-      
   }
-  
+}
+
+extension ViewController : DetailAction{
+  func detailActionClicked() {
+    let storyboard = UIStoryboard(name: "Report", bundle: nil)
+    let vc = storyboard.instantiateViewController(withIdentifier: "third")
+    self.present(vc, animated: true, completion: nil)
+    print("Masuk gak?")
+  }
 }
 
