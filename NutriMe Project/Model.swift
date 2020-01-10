@@ -34,17 +34,23 @@ struct DiaryList{
 }
 
 struct Diary {
-    var category: EatCategory
-    var foods: [FoodInDiary]
-    var date: Date?
+    var category: String
+    var foods: [FoodInDiary]?
+    var date: String
+    var foodName: String
+    var foodCalories: Float
+    var foodCarbohydrate: Float
+    var foodFat: Float
+    var foodProtein: Float
+    var portion: Float
     
-    func sumCalories()->Float{
-        var cal:Float = 0
-        for food in foods{
-            cal += food.food.calorie
-        }
-        return cal
-    }
+//    func sumCalories()->Float{
+//        var cal:Float = 0
+//        for food in foods{
+//            cal += food.food.calorie
+//        }
+//        return cal
+//    }
 }
 
 struct FoodInDiary {

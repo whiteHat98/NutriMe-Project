@@ -73,9 +73,6 @@ class SearchViewController: UIViewController {
                 
                 
                 self.queryMakros()
-                DispatchQueue.main.async {
-                    self.foodTableView.reloadData()
-                }
                 
             }
         }
@@ -99,33 +96,17 @@ class SearchViewController: UIViewController {
                         }
                     }
                     
-//                    if let makro = self.foodMakro {
-//                        self.arrayFoodMakro.append(makro)
-//                    }
                 }
                 
-            
+                DispatchQueue.main.async {
+                    self.foodTableView.reloadData()
+                }
                 
                 print(self.arrayUserFood)
                // print(self.arrayFoodMakro)
                
             }
         }
-    }
-    
-    func clearFoodData() {
-        foodIDs.removeAll()
-        foodName.removeAll()
-        foodCal.removeAll()
-        foodMakrosID.removeAll()
-        foodRestrictions.removeAll()
-    }
-    
-    func clearMakrosData(){
-        makrosFoodID.removeAll()
-        foodProtein.removeAll()
-        foodFat.removeAll()
-        foodCarbohydrate.removeAll()
     }
     
     
@@ -238,7 +219,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             //    print(foodArr.count)
             //    var food = foodArr[indexPath.row]
             
-            var food = searchResult[indexPath.row]
+            let food = searchResult[indexPath.row]
             
             cell.lblFoodName.text = food.fields.item_name
             cell.lblCalories.text = "\(food.fields.nf_calories) Kkal"
@@ -256,18 +237,21 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 return cell
             }
+
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellFood") as! FoodTableViewCell
-            //    print(foodArr.count)
-            //    var food = foodArr[indexPath.row]
+            if arrayUserFood[indexPath.row].makros != nil {
+                //    print(foodArr.count)
+                //    var food = foodArr[indexPath.row]
+                
+                let food = arrayUserFood[indexPath.row]
+                cell.lblFoodName.text = food.name
+                cell.lblCalories.text = "\(food.calories) Kkal"
+                cell.lblNutrition.text = "Carb: \(food.makros!.carbohydrate), Pro: \(food.makros!.protein), Fat: \(food.makros!.fat)"
+                cell.userFood = food
+                cell.isUserFood = true
+                cell.delegate = self
+            }
             
-            var food = arrayUserFood[indexPath.row]
-            
-            cell.lblFoodName.text = food.name
-            cell.lblCalories.text = "\(food.calories) Kkal"
-            cell.lblNutrition.text = "Carb: \(food.makros?.carbohydrate), Pro: \(food.makros?.protein), Fat: \(food.makros?.fat)"
-            cell.userFood = food
-            cell.isUserFood = true
-            cell.delegate = self
             
             return cell
         }
