@@ -47,13 +47,17 @@ class DiaryViewController: UIViewController {
     var formatter = DateFormatter()
     
     let database = CKContainer.default().publicCloudDatabase
-    let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
+    var userID:String = ""
     
     @IBOutlet weak var lblKetHari: UILabel!
     @IBOutlet weak var diaryTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      if let id = UserDefaults.standard.value(forKey: "currentUserID") as? String{
+        userID = id
+      }
         
         for (food,calorie) in foodList{
             let eat = FoodInDiary(category: .pagi, food: Food(name: food, calorie: calorie), date: Date(), portion: 1)
@@ -314,7 +318,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "foodCell", for: indexPath) as! FoodListTableViewCell
                 
                 if diaryPagi.count != 0 {
-                    cell.lblFoodName.text = diaryPagi[indexPath.row].foodName
+                  cell.lblFoodName.text = diaryPagi[indexPath.row].foodName
                     cell.lblFoodCalorie.text = "\(diaryPagi[indexPath.row].foodCalories)"
                 }
                 else{

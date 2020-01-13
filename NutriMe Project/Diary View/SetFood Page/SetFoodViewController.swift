@@ -60,8 +60,6 @@ class SetFoodViewController: UIViewController {
                 
             }
         }
-        
-        
     }
     
     @IBOutlet weak var detailTable: UITableView!

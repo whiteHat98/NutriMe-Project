@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import CloudKit
 
 struct Report{
   var day: String
@@ -24,10 +25,6 @@ class ReportViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-      
-      
-      
         setChartValue()
         // Do any additional setup after loading the view.
     }
@@ -131,7 +128,10 @@ class ReportViewController: UIViewController {
 
     self.chartReportView.data = data
     self.chartReportView.drawBordersEnabled = false
-
     self.chartReportView.isUserInteractionEnabled = false
+  }
+  
+  func getDataFromReportDB(){
+    
   }
 }
