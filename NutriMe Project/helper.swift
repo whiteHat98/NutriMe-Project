@@ -124,7 +124,7 @@ struct UserInfo {
     var currMineral: Float
     var activityCalories: Float
     var activities: String?
-    var foodRestriction: String?
+    var foodRestrictions: [String]?
     var reminder: String?
     var caloriesGoal: Float?
     var carbohydrateGoal: Float?

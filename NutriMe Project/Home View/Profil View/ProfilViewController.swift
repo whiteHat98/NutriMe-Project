@@ -50,6 +50,10 @@ class ProfilViewController: UIViewController {
             let nextVC = segue.destination as! editProfileViewController
             nextVC.userInfo = self.userInfo
         }
+        else if segue.identifier == "segueToPantanganMakanan" {
+            let nextVC = segue.destination as! PantanganMakananViewController
+            nextVC.userInfo = self.userInfo
+        }
     }
 }
 
@@ -78,8 +82,12 @@ extension ProfilViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 5 {
+        if indexPath.row == 4 {
+            performSegue(withIdentifier: "segueToPantanganMakanan", sender: self)
+        }
+        else if indexPath.row == 5 {
             performSegue(withIdentifier: "segueToReminders", sender: self)
         }
+
     }
 }

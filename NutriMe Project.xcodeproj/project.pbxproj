@@ -57,6 +57,8 @@
 		FEB8C54D23C87A4700EB5D48 /* EditProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54C23C87A4700EB5D48 /* EditProfileTableViewCell.swift */; };
 		FEB8C55023C9A24A00EB5D48 /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54F23C9A24A00EB5D48 /* RemindersViewController.swift */; };
 		FEB8C55223C9A26200EB5D48 /* RemindersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C55123C9A26200EB5D48 /* RemindersTableViewCell.swift */; };
+		FEB8C55523CC676500EB5D48 /* PantanganMakananViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C55423CC676500EB5D48 /* PantanganMakananViewController.swift */; };
+		FEB8C55723CC677C00EB5D48 /* PantanganMakananTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C55623CC677C00EB5D48 /* PantanganMakananTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +117,8 @@
 		FEB8C54C23C87A4700EB5D48 /* EditProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewCell.swift; sourceTree = "<group>"; };
 		FEB8C54F23C9A24A00EB5D48 /* RemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewController.swift; sourceTree = "<group>"; };
 		FEB8C55123C9A26200EB5D48 /* RemindersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersTableViewCell.swift; sourceTree = "<group>"; };
+		FEB8C55423CC676500EB5D48 /* PantanganMakananViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PantanganMakananViewController.swift; sourceTree = "<group>"; };
+		FEB8C55623CC677C00EB5D48 /* PantanganMakananTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PantanganMakananTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,8 +163,6 @@
 				FE86407423B724B5009F92C8 /* Model */,
 				978B9F1E23A9FD5500B75E34 /* Register */,
 				9778A4FA2382B1DE00E93BA1 /* Home View */,
-				9778A4FE2382B24700E93BA1 /* Profil View */,
-				FEB8C54E23C9A22B00EB5D48 /* Reminders View */,
 				9778A4FF2382B33800E93BA1 /* Diary View */,
 				978B9F1923A9FC3E00B75E34 /* Report View */,
 				9778A4DD237E936900E93BA1 /* Assets.xcassets */,
@@ -179,7 +181,10 @@
 				9778A4FC2382B20B00E93BA1 /* mineralCell */,
 				9778A4FB2382B1F100E93BA1 /* giziCell */,
 				9778A4D5237E936500E93BA1 /* ViewController.swift */,
+				9778A4FE2382B24700E93BA1 /* Profil View */,
 				9786625C23C6FBC900741B1B /* Activity */,
+				FEB8C54E23C9A22B00EB5D48 /* Reminders View */,
+				FEB8C55323CC673C00EB5D48 /* Pantangan Makanan View */,
 			);
 			path = "Home View";
 			sourceTree = "<group>";
@@ -351,6 +356,15 @@
 			path = "Reminders View";
 			sourceTree = "<group>";
 		};
+		FEB8C55323CC673C00EB5D48 /* Pantangan Makanan View */ = {
+			isa = PBXGroup;
+			children = (
+				FEB8C55423CC676500EB5D48 /* PantanganMakananViewController.swift */,
+				FEB8C55623CC677C00EB5D48 /* PantanganMakananTableViewCell.swift */,
+			);
+			path = "Pantangan Makanan View";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -501,11 +515,13 @@
 				FE86407823B739FF009F92C8 /* Reminder.swift in Sources */,
 				971C42ED239A4A3C00E249A8 /* Model.swift in Sources */,
 				977CEF7C2394080F00B24AE6 /* SetFoodTableViewCell.swift in Sources */,
+				FEB8C55723CC677C00EB5D48 /* PantanganMakananTableViewCell.swift in Sources */,
 				FE4015A323C48F4E003779B6 /* newFoodTableViewCell.swift in Sources */,
 				9778A4D2237E936500E93BA1 /* AppDelegate.swift in Sources */,
 				9778A4DC237E936500E93BA1 /* NutriMe_Project.xcdatamodeld in Sources */,
 				9778A4EE237E978E00E93BA1 /* rekomendasiTableViewCell.swift in Sources */,
 				FE86408223B73CE0009F92C8 /* Report.swift in Sources */,
+				FEB8C55523CC676500EB5D48 /* PantanganMakananViewController.swift in Sources */,
 				FEB8C54D23C87A4700EB5D48 /* EditProfileTableViewCell.swift in Sources */,
 				9778A4F2237E99A200E93BA1 /* giziTableViewCell.swift in Sources */,
 				9778A4D4237E936500E93BA1 /* SceneDelegate.swift in Sources */,
