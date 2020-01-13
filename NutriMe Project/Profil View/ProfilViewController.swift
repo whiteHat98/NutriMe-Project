@@ -41,6 +41,8 @@ class ProfilViewController: UIViewController {
         profilTableView.dataSource = self
         profilTableView.isScrollEnabled = false
         profilTableView.tableFooterView = UIView()
+        
+        profilTableView.isScrollEnabled = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -59,6 +61,8 @@ extension ProfilViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellProfil", for: indexPath)
         
+        cell.selectionStyle = .none
+        
         if indexPath.row > 3{
             print(indexPath.row)
             cell.textLabel?.text = settings[indexPath.row - 4]
@@ -70,6 +74,12 @@ extension ProfilViewController: UITableViewDelegate, UITableViewDataSource{
             cell.detailTextLabel?.text = userData[indexPath.row]
             cell.accessoryType = .none
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 5 {
+            performSegue(withIdentifier: "segueToReminders", sender: self)
         }
     }
 }

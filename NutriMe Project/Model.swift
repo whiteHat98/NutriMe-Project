@@ -55,6 +55,12 @@ struct Diary {
 //    }
 }
 
+struct Reminder {
+    var hour: Int
+    var minute: Int
+    var type: String
+}
+
 struct FoodInDiary {
     var category: EatCategory
     var food: Food

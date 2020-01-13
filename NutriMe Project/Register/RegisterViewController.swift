@@ -21,7 +21,6 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var txtDob: UITextField!
     @IBOutlet weak var txtHeight: UITextField!
     @IBOutlet weak var txtWeight: UITextField!
-    @IBOutlet weak var restrictionSwitch: UISwitch!
     @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var tableGender: UITableView!
     

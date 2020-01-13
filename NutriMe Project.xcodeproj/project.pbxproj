@@ -55,6 +55,8 @@
 		FEB8C54923C8584200EB5D48 /* detailFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54823C8584200EB5D48 /* detailFoodTableViewCell.swift */; };
 		FEB8C54B23C87A0C00EB5D48 /* editProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54A23C87A0C00EB5D48 /* editProfileViewController.swift */; };
 		FEB8C54D23C87A4700EB5D48 /* EditProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54C23C87A4700EB5D48 /* EditProfileTableViewCell.swift */; };
+		FEB8C55023C9A24A00EB5D48 /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54F23C9A24A00EB5D48 /* RemindersViewController.swift */; };
+		FEB8C55223C9A26200EB5D48 /* RemindersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C55123C9A26200EB5D48 /* RemindersTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +113,8 @@
 		FEB8C54823C8584200EB5D48 /* detailFoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailFoodTableViewCell.swift; sourceTree = "<group>"; };
 		FEB8C54A23C87A0C00EB5D48 /* editProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editProfileViewController.swift; sourceTree = "<group>"; };
 		FEB8C54C23C87A4700EB5D48 /* EditProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewCell.swift; sourceTree = "<group>"; };
+		FEB8C54F23C9A24A00EB5D48 /* RemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewController.swift; sourceTree = "<group>"; };
+		FEB8C55123C9A26200EB5D48 /* RemindersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,8 +158,9 @@
 				9778A4D7237E936500E93BA1 /* Main.storyboard */,
 				FE86407423B724B5009F92C8 /* Model */,
 				978B9F1E23A9FD5500B75E34 /* Register */,
-				9778A4FE2382B24700E93BA1 /* Profil View */,
 				9778A4FA2382B1DE00E93BA1 /* Home View */,
+				9778A4FE2382B24700E93BA1 /* Profil View */,
+				FEB8C54E23C9A22B00EB5D48 /* Reminders View */,
 				9778A4FF2382B33800E93BA1 /* Diary View */,
 				978B9F1923A9FC3E00B75E34 /* Report View */,
 				9778A4DD237E936900E93BA1 /* Assets.xcassets */,
@@ -337,6 +342,15 @@
 			path = "Detail Food Page";
 			sourceTree = "<group>";
 		};
+		FEB8C54E23C9A22B00EB5D48 /* Reminders View */ = {
+			isa = PBXGroup;
+			children = (
+				FEB8C54F23C9A24A00EB5D48 /* RemindersViewController.swift */,
+				FEB8C55123C9A26200EB5D48 /* RemindersTableViewCell.swift */,
+			);
+			path = "Reminders View";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -471,10 +485,12 @@
 				FE4015A823C72F98003779B6 /* CalendarVars.swift in Sources */,
 				FE86407E23B73BFA009F92C8 /* Food.swift in Sources */,
 				979607D7239257C4001A07B9 /* FoodTableViewCell.swift in Sources */,
+				FEB8C55023C9A24A00EB5D48 /* RemindersViewController.swift in Sources */,
 				9778A4F6237E9B1100E93BA1 /* mineralTableViewCell.swift in Sources */,
 				FE86408423B73D59009F92C8 /* Restriction.swift in Sources */,
 				9778A50B2382B64800E93BA1 /* FoodListTableViewCell.swift in Sources */,
 				9778A4D6237E936500E93BA1 /* ViewController.swift in Sources */,
+				FEB8C55223C9A26200EB5D48 /* RemindersTableViewCell.swift in Sources */,
 				979607D323924DB2001A07B9 /* SearchViewController.swift in Sources */,
 				971C42EF239DEB4200E249A8 /* helper.swift in Sources */,
 				9786625B23C6FADA00741B1B /* ActivityViewController.swift in Sources */,

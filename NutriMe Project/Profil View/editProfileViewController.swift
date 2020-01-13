@@ -29,6 +29,7 @@ class editProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTapped()
         
         formatter.dateFormat = "dd MMMM yyyy"
         dobTemp = formatter.string(from: userInfo!.dob)
@@ -89,7 +90,6 @@ class editProfileViewController: UIViewController {
         dobTemp = formatter.string(from: sender.date)
         let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! EditProfileTableViewCell
         cell.txtField.text = dobTemp
-//        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
     }
     
     @IBAction func doneButtonClick(_ sender: Any) {
@@ -132,6 +132,12 @@ extension editProfileViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "editProfileCell", for: indexPath) as! EditProfileTableViewCell
         if userInfo != nil {
+            cell.selectionStyle = .none
+            
+            if indexPath.row == 1 {
+                cell.txtField.tintColor = .clear
+            }
+            
             if indexPath.row == 0 {
                 cell.txtLabel.text = "Nama"
                 cell.txtField.text = "\(userInfo!.name)"
