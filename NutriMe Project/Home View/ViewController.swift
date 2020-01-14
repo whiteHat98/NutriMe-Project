@@ -20,6 +20,12 @@ class ViewController: UIViewController {
     
     let nutriens:[(String,String)]=[("Lemak","Daging"),("Protein","Telur"),("Karbohidrat","Jagung")]
     
+    var totalCalories : Double = 0
+    var totalCarbohidrates : Double = 0
+    var totalProtein : Double = 0
+    var totalFat : Double = 0
+    var diaryID : [String] = []
+  
     @IBAction func profilButton(_ sender: Any) {
         performSegue(withIdentifier: "toProfile", sender: self)
     }
@@ -54,9 +60,8 @@ class ViewController: UIViewController {
                 print(error)
             }
         }
-        
-        //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
-        
+      //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
+
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toActivityPage"{
@@ -72,7 +77,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+                
         //FETCH DATA
         let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
         
@@ -100,14 +105,13 @@ class ViewController: UIViewController {
                 print(self.userInfo?.name)
             }
             DispatchQueue.main.async {
-                self.caloriesGoalLabel.text = "\(Int(self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
-                self.activityCaloriesLabel.text = "\(Int((self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - self.userInfo!.caloriesGoal!)) cal"
-                self.currentCaloriesLabel.text = "ambil dari diary"
-                
+              self.caloriesGoalLabel.text = "\(Int(self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
+              self.activityCaloriesLabel.text = "\(Int((self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - self.userInfo!.caloriesGoal!)) cal"
+                self.getUserData()
             }
-            
         }
         
+
         self.setUpXib()
         self.dashboardTableView.delegate = self
         self.dashboardTableView.dataSource = self
@@ -217,5 +221,123 @@ extension ViewController : DetailAction{
         self.present(vc, animated: true, completion: nil)
         print("Masuk gak?")
     }
+}
+
+extension ViewController{
+  func getUserData(){
+    totalCarbohidrates = 0; totalCalories = 0; totalProtein = 0; totalFat = 0
+    
+    if let dataDate = UserDefaults.standard.object(forKey: "reportDate") as? Date{
+        if !Calendar.current.isDateInToday(dataDate) && UserDefaults.standard.bool(forKey: "isReportCreated"){
+            UserDefaults.standard.set(false, forKey: "isReportCreated")
+            print("Masuk!")
+        }
+        // cek data report
+    }
+    
+    let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
+    let database = CKContainer.default().publicCloudDatabase
+    let predicate1 = NSPredicate(format: "userID == %@", userID)
+    let formatter = DateFormatter()
+    formatter.dateFormat = "EEEE, d MMM yyyy"
+    let predicate2 = NSPredicate(format: "date == %@", formatter.string(from: Date()))
+    let predicate3 = NSPredicate(format: "date == %@", Date() as NSDate)
+    let predicates = [predicate1, predicate2]
+    let predicates2 = [predicate1, predicate3]
+
+    
+    let diaryQuery = CKQuery(recordType: "Diary", predicate: NSCompoundPredicate(andPredicateWithSubpredicates: predicates))
+    
+    database.perform(diaryQuery, inZoneWith: nil) { (records, err) in
+      if err != nil{
+        print(err)
+      }else{
+        for data in records!{
+            self.diaryID.append(data.recordID.recordName)
+          self.totalCalories += data.value(forKey: "foodCalories") as! Double
+          self.totalCarbohidrates += data.value(forKey: "foodCarbohydrate") as! Double
+          self.totalProtein += data.value(forKey: "foodProtein") as! Double
+          self.totalFat += data.value(forKey: "foodFat") as! Double
+        }
+        DispatchQueue.main.async {
+          self.currentCaloriesLabel.text = "\(Int(self.totalCalories))"
+            
+            if UserDefaults.standard.bool(forKey: "isReportCreated"){
+                self.updateReport()
+                print("update!")
+            }else{
+                self.createReportRecord()
+            }
+        }
+      }
+    }
+  }
+  
+    func updateReport(){
+        print(UserDefaults.standard.string(forKey: "todayReportRecordID"))
+        let recordName = UserDefaults.standard.string(forKey: "todayReportRecordID")
+        let reportRecord = CKRecord.init(recordType: "Report", recordID: CKRecord.ID.init(recordName: recordName ?? "test"))
+        print(self.totalCarbohidrates)
+        reportRecord.setValue(self.userInfo?.userID, forKey: "userID")
+        reportRecord.setValue(self.userInfo?.caloriesGoal, forKey: "caloriesGoal")
+        reportRecord.setValue(self.userInfo?.carbohydrateGoal, forKey: "carbohydrateGoal")
+        reportRecord.setValue(self.userInfo?.fatGoal, forKey: "fatGoal")
+        reportRecord.setValue(self.userInfo?.proteinGoal, forKey: "proteinGoal")
+        reportRecord.setValue(self.totalCalories, forKey: "userCalories")
+        reportRecord.setValue(self.totalCarbohidrates, forKey: "userCarbohydrate")
+        reportRecord.setValue(self.totalFat, forKey: "userFat")
+        reportRecord.setValue(self.totalProtein, forKey: "userProtein")
+        reportRecord.setValue(self.diaryID, forKey: "diaryID")
+        reportRecord.setValue("", forKey: "notes")
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, d MMM yyyy"
+        reportRecord.setValue(Date(), forKey: "date")
+        
+        self.database.delete(withRecordID: CKRecord.ID(recordName: recordName!)) { (record, err) in
+            if err != nil{
+                print(err)
+            }
+        }
+        
+        self.database.save(reportRecord) { (record, err) in
+            if err != nil{
+                print("ini err: \(err)")
+            }
+            else{
+                print("report updated!")
+            }
+        }
+    }
+    
+  func createReportRecord(){
+    let reportRecord = CKRecord(recordType: "Report")
+    
+    reportRecord.setValue(self.userInfo?.userID, forKey: "userID")
+    reportRecord.setValue(self.userInfo?.caloriesGoal, forKey: "caloriesGoal")
+    reportRecord.setValue(self.userInfo?.carbohydrateGoal, forKey: "carbohydrateGoal")
+    reportRecord.setValue(self.userInfo?.fatGoal, forKey: "fatGoal")
+    reportRecord.setValue(self.userInfo?.proteinGoal, forKey: "proteinGoal")
+    reportRecord.setValue(self.totalCalories, forKey: "userCalories")
+    reportRecord.setValue(self.totalCarbohidrates, forKey: "userCarbohydrate")
+    reportRecord.setValue(self.totalFat, forKey: "userFat")
+    reportRecord.setValue(self.totalProtein, forKey: "userProtein")
+    reportRecord.setValue(self.diaryID, forKey: "diaryID")
+    reportRecord.setValue("", forKey: "notes")
+    let formatter = DateFormatter()
+    formatter.dateFormat = "EEEE, d MMM yyyy"
+    reportRecord.setValue(Date(), forKey: "date")
+    print(diaryID)
+    self.database.save(reportRecord) { (record, err) in
+        if err != nil{
+            print(err)
+        }
+        else{
+            UserDefaults.standard.set(true, forKey: "isReportCreated")
+            UserDefaults.standard.set(record?.recordID.recordName, forKey: "todayReportRecordID")
+            UserDefaults.standard.set(Date(), forKey: "reportDate")
+            print("report created!")
+        }
+    }
+  }
 }
 

@@ -58,6 +58,10 @@ class DiaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      if let id = UserDefaults.standard.value(forKey: "currentUserID") as? String{
+        userID = id
+      }
         
         if let id = UserDefaults.standard.value(forKey: "currentUserID") as? String {
             userID = id
