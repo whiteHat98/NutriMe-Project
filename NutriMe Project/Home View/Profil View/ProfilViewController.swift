@@ -51,7 +51,7 @@ class ProfilViewController: UIViewController {
             nextVC.userInfo = self.userInfo
         }
         else if segue.identifier == "segueToPantanganMakanan" {
-            let nextVC = segue.destination as! PantanganMakananViewController
+            let nextVC = segue.destination as! PantanganMakananViewController  
             nextVC.userInfo = self.userInfo
         }
     }

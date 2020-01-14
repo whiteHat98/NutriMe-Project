@@ -186,6 +186,7 @@ class RemindersViewController: UIViewController {
             sarapanMin = components.minute!
             bfastTime = "\(setTimeString(time: sarapanHour)) : \(setTimeString(time: sarapanMin))"
             sarapanCell.timeText.text = bfastTime
+            self.appDelegate?.removePendingNotifivationWithIdentifier(identifier: "breakfastReminder")
             self.appDelegate?.scheduleNotificationAtTime(notificationType: "Sarapan", body: "Ingat sarapan", hour: sarapanHour, minute: sarapanMin, identifier: "breakfastReminder")
         }
         else if selectedIndex == 1 {
@@ -193,6 +194,7 @@ class RemindersViewController: UIViewController {
             siangMin = components.minute!
             lunchTime = "\(setTimeString(time: siangHour)) : \(setTimeString(time: siangMin))"
             siangCell.timeText.text = lunchTime
+            self.appDelegate?.removePendingNotifivationWithIdentifier(identifier: "lunchReminder")
             self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Siang", body: "Ingat sarapan", hour: siangHour, minute: siangMin, identifier: "lunchReminder")
         }
         else if selectedIndex == 2 {
@@ -200,6 +202,7 @@ class RemindersViewController: UIViewController {
             malamMin = components.minute!
             dinnerTime = "\(setTimeString(time: malamHour)) : \(setTimeString(time: malamMin))"
             malamCell.timeText.text = dinnerTime
+            self.appDelegate?.removePendingNotifivationWithIdentifier(identifier: "dinnerReminder")
             self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Malam", body: "Ingat makan malam", hour: siangHour, minute: siangMin, identifier: "dinnerReminder")
         }
         
@@ -280,7 +283,7 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
         cell.reminderSwitcher.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
         
         cell.timeText.inputView = timePicker
-        
+        cell.selectionStyle = .none
         return cell
     }
     
