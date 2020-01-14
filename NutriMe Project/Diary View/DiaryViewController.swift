@@ -63,9 +63,9 @@ class DiaryViewController: UIViewController {
         userID = id
       }
         
-        if let id = UserDefaults.standard.value(forKey: "currentUserID") as? String {
-            userID = id
-        }
+//        if let id = UserDefaults.standard.value(forKey: "currentUserID") as? String {
+//            userID = id
+//        }
         
         for (food,calorie) in foodList{
             let eat = FoodInDiary(category: .pagi, food: Food(name: food, calorie: calorie), date: Date(), portion: 1)
