@@ -10,14 +10,14 @@ import UIKit
 import CloudKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var caloriesNeededLabel: UILabel!
     @IBOutlet weak var caloriesGoalLabel: UILabel!
     @IBOutlet weak var activityCaloriesLabel: UILabel!
     @IBOutlet weak var currentCaloriesLabel: UILabel!
     @IBOutlet weak var dashboardTableView: UITableView!
     @IBOutlet weak var btnActivityLevel: UIButton!
-  
+    
     let nutriens:[(String,String)]=[("Lemak","Daging"),("Protein","Telur"),("Karbohidrat","Jagung")]
     
     var totalCalories : Double = 0
@@ -27,17 +27,17 @@ class ViewController: UIViewController {
     var diaryID : [String] = []
   
     @IBAction func profilButton(_ sender: Any) {
-        performSegue(withIdentifier: "toProfil", sender: self)
+        performSegue(withIdentifier: "toProfile", sender: self)
     }
-  
-  //activity level in diary (0-2) gak blh lebih / kurang
-  var defaultActivityLevel = 0
-  var selectedActivities : Activity?
-  @IBAction func setActivityButton(_ sender: Any) {
-    performSegue(withIdentifier: "toActivityPage", sender: self)
-  }
-  
-  @IBAction func addFoodButton(_ sender: Any) {
+    
+    //activity level in diary (0-2) gak blh lebih / kurang
+    var defaultActivityLevel = 0
+    var selectedActivities : Activity?
+    @IBAction func setActivityButton(_ sender: Any) {
+        performSegue(withIdentifier: "toActivityPage", sender: self)
+    }
+    
+    @IBAction func addFoodButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Diary", bundle: nil)
         let nextVC = storyboard.instantiateViewController(identifier: "SearchView") as! SearchViewController
         self.tabBarController?.show(nextVC, sender: self)
@@ -64,11 +64,15 @@ class ViewController: UIViewController {
 
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if segue.identifier == "toActivityPage"{
-        let nextVC = segue.destination as! ActivityViewController
-        nextVC.activityLevel = self.defaultActivityLevel
-        nextVC.delegate = self
-      }
+        if segue.identifier == "toActivityPage"{
+            let nextVC = segue.destination as! ActivityViewController
+            nextVC.activityLevel = self.defaultActivityLevel
+            nextVC.delegate = self
+        }
+        else if segue.identifier == "toProfile"{
+            let nextVC = segue.destination as! ProfilViewController
+            nextVC.userInfo = self.userInfo
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,7 +99,7 @@ class ViewController: UIViewController {
                 let proteinGoal = data?.value(forKey: "proteinGoal") as? Float
                 let mineralGoal = data?.value(forKey: "proteinGoal") as? Float
                 
-//                self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height , weight: weight , currCalories: 0, caloriesNeed: caloriesGoal!, activities: nil, foodRestriction: nil, reminder: nil, caloriesGoal: caloriesGoal!, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
+                //                self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height , weight: weight , currCalories: 0, caloriesNeed: caloriesGoal!, activities: nil, foodRestriction: nil, reminder: nil, caloriesGoal: caloriesGoal!, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
                 self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height, weight: weight, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, caloriesGoal: caloriesGoal, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
                 
                 print(self.userInfo?.name)
@@ -194,29 +198,29 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension ViewController : UpdateData{
-  func updateActivity(activity: Activity) {
-    self.selectedActivities = activity
-    self.defaultActivityLevel = activity.id
-    DispatchQueue.main.async {
-      if activity.id == 1{
-        self.btnActivityLevel.titleLabel?.text = "Activity Level-Med"
-
-      }else{
-        self.btnActivityLevel.titleLabel?.numberOfLines = 0
-        //self.btnActivityLevel.titleLabel?.adjustsFontSizeToFitWidth = true
-        self.btnActivityLevel.titleLabel?.text = "Activity Level-\(activity.level.rawValue)"
-      }
+    func updateActivity(activity: Activity) {
+        self.selectedActivities = activity
+        self.defaultActivityLevel = activity.id
+        DispatchQueue.main.async {
+            if activity.id == 1{
+                self.btnActivityLevel.titleLabel?.text = "Activity Level-Med"
+                
+            }else{
+                self.btnActivityLevel.titleLabel?.numberOfLines = 0
+                //self.btnActivityLevel.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.btnActivityLevel.titleLabel?.text = "Activity Level-\(activity.level.rawValue)"
+            }
+        }
     }
-  }
 }
 
 extension ViewController : DetailAction{
-  func detailActionClicked() {
-    let storyboard = UIStoryboard(name: "Report", bundle: nil)
-    let vc = storyboard.instantiateViewController(withIdentifier: "third")
-    self.present(vc, animated: true, completion: nil)
-    print("Masuk gak?")
-  }
+    func detailActionClicked() {
+        let storyboard = UIStoryboard(name: "Report", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "third")
+        self.present(vc, animated: true, completion: nil)
+        print("Masuk gak?")
+    }
 }
 
 extension ViewController{

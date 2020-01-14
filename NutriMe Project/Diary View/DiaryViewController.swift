@@ -33,6 +33,10 @@ class DiaryViewController: UIViewController {
     var diaryPagi: [Diary] = []
     var diarySiang: [Diary] = []
     var diaryMalam: [Diary] = []
+    var selectedDiary: Diary?
+    var totalKaloriPagi: Float = 0
+    var totalKaloriSiang: Float = 0
+    var totalKaloriMalam: Float = 0
     
     var monthForQuery = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var selectedDay:Int = Int()
@@ -59,22 +63,14 @@ class DiaryViewController: UIViewController {
         userID = id
       }
         
+        if let id = UserDefaults.standard.value(forKey: "currentUserID") as? String {
+            userID = id
+        }
+        
         for (food,calorie) in foodList{
             let eat = FoodInDiary(category: .pagi, food: Food(name: food, calorie: calorie), date: Date(), portion: 1)
             foodEaten.append(eat)
         }
-        
-        
-        
-//        if foodEaten.count>0{
-//
-//            diaryPagi = Diary(category: .pagi, foods: foodEaten)
-//            diarySiang = Diary(category: .siang, foods: foodEaten)
-//            let foods:[FoodInDiary]=[]
-//            diaryMalam = Diary(category: .malam, foods: foods)
-//
-//            setDiary(arrayDiary: [diaryPagi,diarySiang,diaryMalam])
-//        }
         
     }
     
@@ -169,9 +165,13 @@ class DiaryViewController: UIViewController {
                 self.diaryPagi.removeAll()
                 self.diarySiang.removeAll()
                 self.diaryMalam.removeAll()
+                self.totalKaloriPagi = 0
+                self.totalKaloriSiang = 0
+                self.totalKaloriMalam = 0
                 
                 for data in record! {
                     
+                    let id = data.recordID
                     let category = data.value(forKey: "category") as! String
                     let date = data.value(forKey: "date") as! String
                     let foodCalories = data.value(forKey: "foodCalories") as! Float
@@ -181,18 +181,22 @@ class DiaryViewController: UIViewController {
                     let foodName = data.value(forKey: "foodName") as! String
                     let portion = data.value(forKey: "portion") as! Float
                     
-                    self.userDiary = Diary(category: category, date: date, foodName: foodName, foodCalories: foodCalories, foodCarbohydrate: foodCarbohydrate, foodFat: foodFat, foodProtein: foodProtein, portion: portion)
+                    
+                    self.userDiary = Diary(id: id, category: category, date: date, foodName: foodName, foodCalories: foodCalories, foodCarbohydrate: foodCarbohydrate, foodFat: foodFat, foodProtein: foodProtein, portion: portion)
                     
                     print(category)
                     
                     if category == "Sarapan" {
                         self.diaryPagi.append(self.userDiary!)
+                        self.totalKaloriPagi += self.userDiary!.foodCalories
                     }
                     else if category == "Makan Siang" {
                         self.diarySiang.append(self.userDiary!)
+                        self.totalKaloriSiang += self.userDiary!.foodCalories
                     }
                     else {
                         self.diaryMalam.append(self.userDiary!)
+                        self.totalKaloriMalam += self.userDiary!.foodCalories
                     }
                     self.dataDiary.append(self.userDiary!)
                 }
@@ -205,9 +209,6 @@ class DiaryViewController: UIViewController {
                     self.diaryTable.reloadData()
                 }
                 
-            }
-            else{
-                print(error)
             }
         }
         
@@ -224,6 +225,10 @@ class DiaryViewController: UIViewController {
             let vc = segue.destination as! SearchViewController
             vc.selectedSection = self.selectedSection
 //            vc.delegate = self
+        }
+        else if segue.identifier == "segueToDetailFood" {
+            let vc = segue.destination as! detailFoodViewController
+            vc.diaryDetail = self.selectedDiary
         }
     }
     
@@ -266,64 +271,75 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
         return 3
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Sarapan"
-        case 1:
-            return "Makan Siang"
-        case 2:
-            return "Makan Malam"
-        default:
-            return ""
-        }
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return 2 + dataDiary[section].foods.count
         switch section {
         case 0:
             if diaryPagi.count != 0 {
-                return 1 + diaryPagi.count
+                return 2 + diaryPagi.count
             }
             else{
-                return 2
+                return 3
             }
         case 1:
             if diarySiang.count != 0 {
-                return 1 + diarySiang.count
+                return 2 + diarySiang.count
             }
             else{
-                return 2
+                return 3
             }
         case 2:
             if diaryMalam.count != 0 {
-                return 1 + diaryMalam.count
+                return 2 + diaryMalam.count
             }
             else{
-                return 2
+                return 3
             }
         default:
-            return 2
+            return 3
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.section)
+//        print(indexPath.section)
+        if indexPath.row != 0 && indexPath.row != tableView.numberOfRows(inSection: indexPath.section) {
+            if indexPath.section == 0 && diaryPagi.count != 0{
+                selectedDiary = diaryPagi[indexPath.row - 1]
+                performSegue(withIdentifier: "segueToDetailFood", sender: self)
+            }
+            else if indexPath.section == 1 && diarySiang.count != 0{
+                selectedDiary = diarySiang[indexPath.row - 1]
+                performSegue(withIdentifier: "segueToDetailFood", sender: self)
+            }
+            else if indexPath.section == 2 && diaryMalam.count != 0{
+                selectedDiary = diaryMalam[indexPath.row - 1]
+                performSegue(withIdentifier: "segueToDetailFood", sender: self)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            if indexPath.row != tableView.numberOfRows(inSection: 0) - 1 {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
+                cell.textLabel?.text = "Sarapan"
+                cell.detailTextLabel?.text = "\(totalKaloriPagi) Kkal"
+                return cell
+            }
+            else if indexPath.row != tableView.numberOfRows(inSection: 0) - 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "foodCell", for: indexPath) as! FoodListTableViewCell
                 
                 if diaryPagi.count != 0 {
-                  cell.lblFoodName.text = diaryPagi[indexPath.row].foodName
-                    cell.lblFoodCalorie.text = "\(diaryPagi[indexPath.row].foodCalories)"
+                    cell.lblFoodName.text = diaryPagi[indexPath.row - 1].foodName
+                    cell.lblFoodCalorie.text = "\(diaryPagi[indexPath.row - 1].foodCalories)"
+                    cell.accessoryType = .disclosureIndicator
+                    cell.selectionStyle = .default
                 }
                 else{
                     cell.lblFoodName.text = "Belum ada makanan"
                     cell.lblFoodCalorie.text = ""
+                    cell.accessoryType = .none
+                    cell.selectionStyle = .none
                 }
                 return cell
             }
@@ -336,16 +352,26 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
             }
         }
         else if indexPath.section == 1 {
-            if indexPath.row != tableView.numberOfRows(inSection: 1) - 1 {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
+                cell.textLabel?.text = "Makan Siang"
+                cell.detailTextLabel?.text = "\(totalKaloriSiang) Kkal"
+                return cell
+            }
+            else if indexPath.row != tableView.numberOfRows(inSection: 1) - 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "foodCell", for: indexPath) as! FoodListTableViewCell
                 
                 if diarySiang.count != 0 {
-                    cell.lblFoodName.text = diarySiang[indexPath.row].foodName
-                    cell.lblFoodCalorie.text = "\(diarySiang[indexPath.row].foodCalories)"
+                    cell.lblFoodName.text = diarySiang[indexPath.row - 1].foodName
+                    cell.lblFoodCalorie.text = "\(diarySiang[indexPath.row - 1].foodCalories)"
+                    cell.accessoryType = .disclosureIndicator
+                    cell.selectionStyle = .default
                 }
                 else{
                     cell.lblFoodName.text = "Belum ada makanan"
                     cell.lblFoodCalorie.text = ""
+                    cell.accessoryType = .none
+                    cell.selectionStyle = .none
                 }
                 return cell
             }
@@ -357,16 +383,26 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
             }
         }
         else {
-            if indexPath.row != tableView.numberOfRows(inSection: 2) - 1{
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
+                cell.textLabel?.text = "Makan Malam"
+                cell.detailTextLabel?.text = "\(totalKaloriMalam) Kkal"
+                return cell
+            }
+            else if indexPath.row != tableView.numberOfRows(inSection: 2) - 1{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "foodCell", for: indexPath) as! FoodListTableViewCell
                 
                 if diaryMalam.count != 0 {
-                    cell.lblFoodName.text = diaryMalam[indexPath.row].foodName
-                    cell.lblFoodCalorie.text = "\(diaryMalam[indexPath.row].foodCalories)"
+                    cell.lblFoodName.text = diaryMalam[indexPath.row - 1].foodName
+                    cell.lblFoodCalorie.text = "\(diaryMalam[indexPath.row - 1].foodCalories)"
+                    cell.accessoryType = .disclosureIndicator
+                    cell.selectionStyle = .default
                 }
                 else{
                     cell.lblFoodName.text = "Belum ada makanan"
                     cell.lblFoodCalorie.text = ""
+                    cell.accessoryType = .none
+                    cell.selectionStyle = .none
                 }
                 return cell
             }
@@ -466,6 +502,13 @@ extension DiaryViewController: UICollectionViewDelegate, UICollectionViewDataSou
         scrollTo(item: indexPath.row, section: 0)
         queryUserFood()
         print(indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !startWithCurrentDate {
+            scrollTo(item: selectedDay-1, section: 0)
+            startWithCurrentDate = true
+        }
     }
     
     

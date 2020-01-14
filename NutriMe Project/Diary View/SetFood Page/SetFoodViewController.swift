@@ -56,6 +56,7 @@ class SetFoodViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.delegate?.dismissPage(dismiss: true)
                     self.dismiss(animated: true)
+//                    self.navigationController?.popToRootViewController(animated: true)
                 }
                 
             }

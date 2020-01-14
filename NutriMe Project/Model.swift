@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 struct Food {
     var name: String
@@ -34,6 +35,7 @@ struct DiaryList{
 }
 
 struct Diary {
+    var id: CKRecord.ID
     var category: String
     var foods: [FoodInDiary]?
     var date: String
@@ -51,6 +53,12 @@ struct Diary {
 //        }
 //        return cal
 //    }
+}
+
+struct Reminder {
+    var hour: Int
+    var minute: Int
+    var type: String
 }
 
 struct FoodInDiary {

@@ -51,6 +51,14 @@
 		FE86408023B73C6A009F92C8 /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE86407F23B73C6A009F92C8 /* Nutrition.swift */; };
 		FE86408223B73CE0009F92C8 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE86408123B73CE0009F92C8 /* Report.swift */; };
 		FE86408423B73D59009F92C8 /* Restriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE86408323B73D59009F92C8 /* Restriction.swift */; };
+		FEB8C54723C8550000EB5D48 /* detailFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54623C8550000EB5D48 /* detailFoodViewController.swift */; };
+		FEB8C54923C8584200EB5D48 /* detailFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54823C8584200EB5D48 /* detailFoodTableViewCell.swift */; };
+		FEB8C54B23C87A0C00EB5D48 /* editProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54A23C87A0C00EB5D48 /* editProfileViewController.swift */; };
+		FEB8C54D23C87A4700EB5D48 /* EditProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54C23C87A4700EB5D48 /* EditProfileTableViewCell.swift */; };
+		FEB8C55023C9A24A00EB5D48 /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C54F23C9A24A00EB5D48 /* RemindersViewController.swift */; };
+		FEB8C55223C9A26200EB5D48 /* RemindersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C55123C9A26200EB5D48 /* RemindersTableViewCell.swift */; };
+		FEB8C55523CC676500EB5D48 /* PantanganMakananViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C55423CC676500EB5D48 /* PantanganMakananViewController.swift */; };
+		FEB8C55723CC677C00EB5D48 /* PantanganMakananTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB8C55623CC677C00EB5D48 /* PantanganMakananTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +111,14 @@
 		FE86407F23B73C6A009F92C8 /* Nutrition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nutrition.swift; sourceTree = "<group>"; };
 		FE86408123B73CE0009F92C8 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		FE86408323B73D59009F92C8 /* Restriction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restriction.swift; sourceTree = "<group>"; };
+		FEB8C54623C8550000EB5D48 /* detailFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailFoodViewController.swift; sourceTree = "<group>"; };
+		FEB8C54823C8584200EB5D48 /* detailFoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailFoodTableViewCell.swift; sourceTree = "<group>"; };
+		FEB8C54A23C87A0C00EB5D48 /* editProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editProfileViewController.swift; sourceTree = "<group>"; };
+		FEB8C54C23C87A4700EB5D48 /* EditProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewCell.swift; sourceTree = "<group>"; };
+		FEB8C54F23C9A24A00EB5D48 /* RemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewController.swift; sourceTree = "<group>"; };
+		FEB8C55123C9A26200EB5D48 /* RemindersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersTableViewCell.swift; sourceTree = "<group>"; };
+		FEB8C55423CC676500EB5D48 /* PantanganMakananViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PantanganMakananViewController.swift; sourceTree = "<group>"; };
+		FEB8C55623CC677C00EB5D48 /* PantanganMakananTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PantanganMakananTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +162,6 @@
 				9778A4D7237E936500E93BA1 /* Main.storyboard */,
 				FE86407423B724B5009F92C8 /* Model */,
 				978B9F1E23A9FD5500B75E34 /* Register */,
-				9778A4FE2382B24700E93BA1 /* Profil View */,
 				9778A4FA2382B1DE00E93BA1 /* Home View */,
 				9778A4FF2382B33800E93BA1 /* Diary View */,
 				978B9F1923A9FC3E00B75E34 /* Report View */,
@@ -166,7 +181,10 @@
 				9778A4FC2382B20B00E93BA1 /* mineralCell */,
 				9778A4FB2382B1F100E93BA1 /* giziCell */,
 				9778A4D5237E936500E93BA1 /* ViewController.swift */,
+				9778A4FE2382B24700E93BA1 /* Profil View */,
 				9786625C23C6FBC900741B1B /* Activity */,
+				FEB8C54E23C9A22B00EB5D48 /* Reminders View */,
+				FEB8C55323CC673C00EB5D48 /* Pantangan Makanan View */,
 			);
 			path = "Home View";
 			sourceTree = "<group>";
@@ -202,6 +220,8 @@
 			isa = PBXGroup;
 			children = (
 				9778A4F8237EA05B00E93BA1 /* ProfilViewController.swift */,
+				FEB8C54A23C87A0C00EB5D48 /* editProfileViewController.swift */,
+				FEB8C54C23C87A4700EB5D48 /* EditProfileTableViewCell.swift */,
 			);
 			path = "Profil View";
 			sourceTree = "<group>";
@@ -213,6 +233,7 @@
 				9778A5092382B64800E93BA1 /* FoodListTableViewCell.swift */,
 				979607D023917B16001A07B9 /* AddFoodTableViewCell.swift */,
 				9778A5002382B36800E93BA1 /* DiaryViewController.swift */,
+				FEB8C54523C854DB00EB5D48 /* Detail Food Page */,
 				FE4015A623C72F7B003779B6 /* Calendar */,
 				FE40159F23C48BF2003779B6 /* New Food Page */,
 				979607D8239257CD001A07B9 /* Search Page */,
@@ -315,6 +336,33 @@
 				FE86408323B73D59009F92C8 /* Restriction.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		FEB8C54523C854DB00EB5D48 /* Detail Food Page */ = {
+			isa = PBXGroup;
+			children = (
+				FEB8C54623C8550000EB5D48 /* detailFoodViewController.swift */,
+				FEB8C54823C8584200EB5D48 /* detailFoodTableViewCell.swift */,
+			);
+			path = "Detail Food Page";
+			sourceTree = "<group>";
+		};
+		FEB8C54E23C9A22B00EB5D48 /* Reminders View */ = {
+			isa = PBXGroup;
+			children = (
+				FEB8C54F23C9A24A00EB5D48 /* RemindersViewController.swift */,
+				FEB8C55123C9A26200EB5D48 /* RemindersTableViewCell.swift */,
+			);
+			path = "Reminders View";
+			sourceTree = "<group>";
+		};
+		FEB8C55323CC673C00EB5D48 /* Pantangan Makanan View */ = {
+			isa = PBXGroup;
+			children = (
+				FEB8C55423CC676500EB5D48 /* PantanganMakananViewController.swift */,
+				FEB8C55623CC677C00EB5D48 /* PantanganMakananTableViewCell.swift */,
+			);
+			path = "Pantangan Makanan View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,16 +491,20 @@
 				978B9F1D23A9FC7C00B75E34 /* ReportViewController.swift in Sources */,
 				FE86407A23B73AC5009F92C8 /* Diary.swift in Sources */,
 				971C42C22397D0D100E249A8 /* PickerViewController.swift in Sources */,
+				FEB8C54923C8584200EB5D48 /* detailFoodTableViewCell.swift in Sources */,
 				9786625E23C6FBE800741B1B /* ActivityTableViewCell.swift in Sources */,
+				FEB8C54723C8550000EB5D48 /* detailFoodViewController.swift in Sources */,
 				9778A5012382B36800E93BA1 /* DiaryViewController.swift in Sources */,
 				FE86407C23B73B75009F92C8 /* Activity.swift in Sources */,
 				FE4015A823C72F98003779B6 /* CalendarVars.swift in Sources */,
 				FE86407E23B73BFA009F92C8 /* Food.swift in Sources */,
 				979607D7239257C4001A07B9 /* FoodTableViewCell.swift in Sources */,
+				FEB8C55023C9A24A00EB5D48 /* RemindersViewController.swift in Sources */,
 				9778A4F6237E9B1100E93BA1 /* mineralTableViewCell.swift in Sources */,
 				FE86408423B73D59009F92C8 /* Restriction.swift in Sources */,
 				9778A50B2382B64800E93BA1 /* FoodListTableViewCell.swift in Sources */,
 				9778A4D6237E936500E93BA1 /* ViewController.swift in Sources */,
+				FEB8C55223C9A26200EB5D48 /* RemindersTableViewCell.swift in Sources */,
 				979607D323924DB2001A07B9 /* SearchViewController.swift in Sources */,
 				971C42EF239DEB4200E249A8 /* helper.swift in Sources */,
 				9786625B23C6FADA00741B1B /* ActivityViewController.swift in Sources */,
@@ -463,13 +515,17 @@
 				FE86407823B739FF009F92C8 /* Reminder.swift in Sources */,
 				971C42ED239A4A3C00E249A8 /* Model.swift in Sources */,
 				977CEF7C2394080F00B24AE6 /* SetFoodTableViewCell.swift in Sources */,
+				FEB8C55723CC677C00EB5D48 /* PantanganMakananTableViewCell.swift in Sources */,
 				FE4015A323C48F4E003779B6 /* newFoodTableViewCell.swift in Sources */,
 				9778A4D2237E936500E93BA1 /* AppDelegate.swift in Sources */,
 				9778A4DC237E936500E93BA1 /* NutriMe_Project.xcdatamodeld in Sources */,
 				9778A4EE237E978E00E93BA1 /* rekomendasiTableViewCell.swift in Sources */,
 				FE86408223B73CE0009F92C8 /* Report.swift in Sources */,
+				FEB8C55523CC676500EB5D48 /* PantanganMakananViewController.swift in Sources */,
+				FEB8C54D23C87A4700EB5D48 /* EditProfileTableViewCell.swift in Sources */,
 				9778A4F2237E99A200E93BA1 /* giziTableViewCell.swift in Sources */,
 				9778A4D4237E936500E93BA1 /* SceneDelegate.swift in Sources */,
+				FEB8C54B23C87A0C00EB5D48 /* editProfileViewController.swift in Sources */,
 				FE86407623B724DB009F92C8 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

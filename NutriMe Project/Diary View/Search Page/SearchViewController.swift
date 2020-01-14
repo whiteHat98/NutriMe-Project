@@ -249,11 +249,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             //    print(foodArr.count)
             //    var food = foodArr[indexPath.row]
             
-            if arrayUserFood[indexPath.row].makros != nil {
+            if arrayUserFood[indexPath.row - 1].makros != nil {
                 //    print(foodArr.count)
                 //    var food = foodArr[indexPath.row]
                 
-                let food = arrayUserFood[indexPath.row-1]
+                let food = arrayUserFood[indexPath.row - 1]
                 cell.lblFoodName.text = food.name
                 cell.lblCalories.text = "\(food.calories) Kkal"
                 cell.lblNutrition.text = "Carb: \(food.makros!.carbohydrate), Pro: \(food.makros!.protein), Fat: \(food.makros!.fat)"

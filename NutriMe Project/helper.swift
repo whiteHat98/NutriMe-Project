@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CloudKit
 
 //let headers = [
 //  "x-rapidapi-host": "nutritionix-api.p.rapidapi.com",
@@ -109,7 +110,7 @@ struct Fields: Decodable{
     var nf_total_carbohydrate: Float = 0.0
 }
 
-struct UserInfo{
+struct UserInfo {
     var userID: String
     var name: String
     var dob: Date
@@ -123,7 +124,7 @@ struct UserInfo{
     var currMineral: Float
     var activityCalories: Float
     var activities: String?
-    var foodRestriction: String?
+    var foodRestrictions: [String]?
     var reminder: String?
     var caloriesGoal: Float?
     var carbohydrateGoal: Float?
