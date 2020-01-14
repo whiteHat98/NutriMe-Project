@@ -94,7 +94,6 @@ class editProfileViewController: UIViewController {
     
     @IBAction func doneButtonClick(_ sender: Any) {
         caloriesNeed = harrisBenedictFormula()
-        
         updateRecord()
     }
     
@@ -112,6 +111,15 @@ class editProfileViewController: UIViewController {
                 self.database.save(record!) { (record, error) in
                     if error == nil {
                         DispatchQueue.main.async {
+                            self.userInfo?.name = self.nameTemp
+                            self.userInfo?.dob = stringToDate(self.dobTemp)
+                            self.userInfo?.weight = self.weightTemp.floatValue
+                            self.userInfo?.height = self.heightTemp.floatValue
+                            self.userInfo?.caloriesGoal = self.caloriesNeed
+//                            print(self.userInfo)
+//                            let prevVC = ProfilViewController()
+//                            prevVC.userInfo = self.userInfo
+//                            print(prevVC.userInfo)
                             self.navigationController?.popViewController(animated: true)
                         }
                         

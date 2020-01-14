@@ -177,6 +177,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                     identifiers.append(notification.identifier)
                 }
             }
+            print(identifiers)
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
         }
         
