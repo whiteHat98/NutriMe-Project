@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentCaloriesLabel: UILabel!
     @IBOutlet weak var dashboardTableView: UITableView!
     @IBOutlet weak var btnActivityLevel: UIButton!
+    var appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     let nutriens:[(String,String)]=[("Lemak","Daging"),("Protein","Telur"),("Karbohidrat","Jagung")]
     
@@ -60,6 +61,7 @@ class ViewController: UIViewController {
                 print(error)
             }
         }
+        
       //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
 
     }
@@ -78,6 +80,8 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
                 
+//        appDelegate?.showAllNotif()
+        
         //FETCH DATA
         let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
         

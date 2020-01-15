@@ -47,6 +47,7 @@ class RemindersViewController: UIViewController {
         hideKeyboardWhenTapped()
         
         tableView.tableFooterView = UIView()
+        tableView.isScrollEnabled = false
         
         timePicker = UIDatePicker()
         timePicker?.datePickerMode = .time
@@ -108,10 +109,10 @@ class RemindersViewController: UIViewController {
         }
         
         if let minute = UserDefaults.standard.value(forKey: "malamMinute") as? Int {
-            malamHour = minute
+            malamMin = minute
         }
         else{
-            malamHour = 0
+            malamMin = 0
         }
         
         if let breakfastReminderIsOn = UserDefaults.standard.value(forKey: "breakfastIsOn") as? Bool{
@@ -180,7 +181,6 @@ class RemindersViewController: UIViewController {
         let siangCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! RemindersTableViewCell
         let malamCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! RemindersTableViewCell
         
-        print(selectedIndex)
         if selectedIndex == 0 {
             sarapanHour = components.hour!
             sarapanMin = components.minute!
@@ -195,7 +195,7 @@ class RemindersViewController: UIViewController {
             lunchTime = "\(setTimeString(time: siangHour)) : \(setTimeString(time: siangMin))"
             siangCell.timeText.text = lunchTime
             self.appDelegate?.removePendingNotifivationWithIdentifier(identifier: "lunchReminder")
-            self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Siang", body: "Ingat sarapan", hour: siangHour, minute: siangMin, identifier: "lunchReminder")
+            self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Siang", body: "Ingat makan siang", hour: siangHour, minute: siangMin, identifier: "lunchReminder")
         }
         else if selectedIndex == 2 {
             malamHour = components.hour!
@@ -203,7 +203,7 @@ class RemindersViewController: UIViewController {
             dinnerTime = "\(setTimeString(time: malamHour)) : \(setTimeString(time: malamMin))"
             malamCell.timeText.text = dinnerTime
             self.appDelegate?.removePendingNotifivationWithIdentifier(identifier: "dinnerReminder")
-            self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Malam", body: "Ingat makan malam", hour: siangHour, minute: siangMin, identifier: "dinnerReminder")
+            self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Malam", body: "Ingat makan malam", hour: malamHour, minute: malamMin, identifier: "dinnerReminder")
         }
         
     }
@@ -279,6 +279,7 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         cell.timeText.tag = indexPath.row
+        cell.timeText.addTarget(self, action: #selector(textFieldTapped(textField:)), for: .touchDown)
         cell.reminderSwitcher.tag = indexPath.row
         cell.reminderSwitcher.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
         
@@ -324,12 +325,10 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadData()
     }
     
-}
-
-extension RemindersViewController: UITextFieldDelegate {
-    func textFieldDidChangeSelection(_ textField: UITextField) {
+    @objc func textFieldTapped(textField: UITextField) {
         let textFieldRow = textField.tag
         selectedIndex = textFieldRow
-        
+        print(selectedIndex)
     }
+    
 }

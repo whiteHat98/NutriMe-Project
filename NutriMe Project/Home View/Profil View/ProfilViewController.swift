@@ -90,7 +90,9 @@ class ProfilViewController: UIViewController {
                 self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height, weight: weight, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, foodRestrictions: restrictions, caloriesGoal: caloriesGoal, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
                 
                 self.userData = [self.userInfo!.name, "\(self.formatter.string(from: self.userInfo!.dob))", "\(self.userInfo!.weight)", "\(self.userInfo!.height)"]
-                self.profilTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.profilTableView.reloadData()
+                }
             }
         }
     }
