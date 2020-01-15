@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentCaloriesLabel: UILabel!
     @IBOutlet weak var dashboardTableView: UITableView!
     @IBOutlet weak var btnActivityLevel: UIButton!
+    var appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     let nutriens:[(String,String)]=[("Lemak","Daging"),("Protein","Telur"),("Karbohidrat","Jagung")]
     
@@ -60,6 +61,7 @@ class ViewController: UIViewController {
                 print(error)
             }
         }
+        
       //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
 
     }
@@ -78,6 +80,8 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
                 
+//        appDelegate?.showAllNotif()
+        
         //FETCH DATA
         let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
         
@@ -98,11 +102,14 @@ class ViewController: UIViewController {
                 let fatGoal = data?.value(forKey: "fatGoal") as? Float
                 let proteinGoal = data?.value(forKey: "proteinGoal") as? Float
                 let mineralGoal = data?.value(forKey: "proteinGoal") as? Float
+                let restrictions = data?.value(forKey: "restrictions") as? [String]
+                
+                
                 
                 //                self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height , weight: weight , currCalories: 0, caloriesNeed: caloriesGoal!, activities: nil, foodRestriction: nil, reminder: nil, caloriesGoal: caloriesGoal!, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
-                self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height, weight: weight, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, caloriesGoal: caloriesGoal, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
+                self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height, weight: weight, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, foodRestrictions: restrictions, caloriesGoal: caloriesGoal, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
                 
-                print(self.userInfo?.name)
+                print(self.userInfo)
             }
             DispatchQueue.main.async {
               self.caloriesGoalLabel.text = "\(Int(self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"

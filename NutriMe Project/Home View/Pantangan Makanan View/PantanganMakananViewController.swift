@@ -22,7 +22,7 @@ class PantanganMakananViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getRestrictions()
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
@@ -32,6 +32,41 @@ class PantanganMakananViewController: UIViewController {
         
         if isMovingFromParent{
             updateRecord()
+        }
+    }
+    
+    func getRestrictions() {
+        let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
+        
+        let record = CKRecord.ID(recordName: userID)
+        
+        database.fetch(withRecordID: record) { (data, err) in
+            if err != nil{
+                print("No Data")
+            }
+            else{
+                let name = data?.value(forKey: "name") as! String
+                let gender = data?.value(forKey: "gender") as! String
+                let dob = data?.value(forKey: "dob") as! String
+                let weight = data?.value(forKey: "weight") as! Float
+                let height = data?.value(forKey: "height") as! Float
+                let caloriesGoal = data?.value(forKey: "caloriesGoal") as? Float
+                let carbohydrateGoal = data?.value(forKey: "carbohydrateGoal") as? Float
+                let fatGoal = data?.value(forKey: "fatGoal") as? Float
+                let proteinGoal = data?.value(forKey: "proteinGoal") as? Float
+                let mineralGoal = data?.value(forKey: "proteinGoal") as? Float
+                let restrictions = data?.value(forKey: "restrictions") as? [String]
+                print(restrictions)
+                
+                //                self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height , weight: weight , currCalories: 0, caloriesNeed: caloriesGoal!, activities: nil, foodRestriction: nil, reminder: nil, caloriesGoal: caloriesGoal!, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
+                self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height, weight: weight, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, foodRestrictions: restrictions, caloriesGoal: caloriesGoal, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
+                
+                print(self.userInfo)
+                self.userRestrictions = self.userInfo!.foodRestrictions ?? []
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
     
@@ -45,7 +80,6 @@ class PantanganMakananViewController: UIViewController {
                 self.database.save(record!) { (record, error) in
                     if error == nil {
                         print("Record Updated")
-                        self.userInfo?.foodRestrictions = self.userRestrictions
                     }
                     else{
                         print("Record not updated")
@@ -89,15 +123,39 @@ extension PantanganMakananViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RestrictionCell", for: indexPath) as! PantanganMakananTableViewCell
         
-        cell.selectionStyle = .none
-        
         if indexPath.section == 0 {
             cell.textLbl.text = restrictions[indexPath.row]
+            
+            if userInfo?.foodRestrictions != nil {
+                for restriction in userInfo!.foodRestrictions! {
+                    if restriction == restrictions[indexPath.row] {
+                        cell.accessoryType = .checkmark
+                    }
+                    else{
+                        cell.selectionStyle = .none
+                    }
+                    
+                    
+                }
+            }
         }
         else{
-            print(indexPath.row)
             cell.textLbl.text = allergies[indexPath.row]
+            
+            if userInfo?.foodRestrictions != nil {
+                for restriction in userInfo!.foodRestrictions! {
+                    if restriction == allergies[indexPath.row] {
+                        cell.accessoryType = .checkmark
+                    }
+                    else{
+                        cell.selectionStyle = .none
+                    }
+                    
+                    
+                }
+            }
         }
+        
         
         return cell
     }

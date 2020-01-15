@@ -84,22 +84,23 @@ class ReportViewController: UIViewController {
                     if (checkDay(date: report.date)-1) == i {
                         let newChartValue = ChartValue(userCarbohydrates: report.userCarbohydrates, userFat: report.userFat, userProtein: report.userProtein)
                         chartValues.append(newChartValue)
-                        print(chartValues[i])
+                        //print(chartValues[i])
+                        print(i+1)
                         flag = false
                     }
                 }
                 if flag{
                     let newChartValue = ChartValue(userCarbohydrates: 0, userFat: 0, userProtein: 0)
                     chartValues.append(newChartValue)
-                    print(chartValues[i])
+                    //print(chartValues[i])
                 }
             }else{
                 let newChartValue = ChartValue(userCarbohydrates: 0, userFat: 0, userProtein: 0)
                 chartValues.append(newChartValue)
             }
         }
-        completion()
         print("ini chartValues \(chartValues.count)")
+        completion()
     }
     
   func setChartValue(){
