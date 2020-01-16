@@ -9,31 +9,36 @@
 import UIKit
 
 protocol DetailAction {
-  func detailActionClicked()
+    func detailActionClicked()
 }
 
 class giziTableViewCell: UITableViewCell {
-
-  
-  @IBOutlet weak var pvLemak: UIProgressView!
-  
-  @IBOutlet weak var pvProtein: UIProgressView!
-  @IBOutlet weak var pvKarbo: UIProgressView!
-  
-  var delegate: DetailAction?
-  @IBAction func detailAction(_ sender: Any) {
-    delegate?.detailActionClicked()
-    print("INININININI")
-  }
-  
-  override func awakeFromNib() {
+    
+    
+    @IBOutlet weak var pvLemak: UIProgressView!
+    
+    @IBOutlet weak var pvProtein: UIProgressView!
+    @IBOutlet weak var pvKarbo: UIProgressView!
+    
+    @IBOutlet weak var fatLabel: UILabel!
+    @IBOutlet weak var proteinLabel: UILabel!
+    @IBOutlet weak var carboLabel: UILabel!
+    
+    
+    var delegate: DetailAction?
+    @IBAction func detailAction(_ sender: Any) {
+        delegate?.detailActionClicked()
+        print("INININININI")
+    }
+    
+    override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     

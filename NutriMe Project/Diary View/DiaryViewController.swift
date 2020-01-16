@@ -37,6 +37,10 @@ class DiaryViewController: UIViewController {
     var totalKaloriPagi: Float = 0
     var totalKaloriSiang: Float = 0
     var totalKaloriMalam: Float = 0
+//    var totalKaloriHarian: Float = 0
+//    var totalKarboHarian: Float = 0
+//    var totalProteinHarian: Float = 0
+//    var totalLemakHarian: Float = 0
     
     var monthForQuery = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var selectedDay:Int = Int()
@@ -168,6 +172,10 @@ class DiaryViewController: UIViewController {
                 self.totalKaloriPagi = 0
                 self.totalKaloriSiang = 0
                 self.totalKaloriMalam = 0
+//                self.totalKaloriHarian = 0
+//                self.totalKarboHarian = 0
+//                self.totalLemakHarian = 0
+//                self.totalProteinHarian = 0
                 
                 for data in record! {
                     
@@ -199,8 +207,20 @@ class DiaryViewController: UIViewController {
                         self.totalKaloriMalam += self.userDiary!.foodCalories
                     }
                     self.dataDiary.append(self.userDiary!)
+                    
+//                    self.totalKarboHarian += self.userDiary!.foodCarbohydrate
+//                    self.totalLemakHarian += self.userDiary!.foodFat
+//                    self.totalProteinHarian += self.userDiary!.foodProtein
                 }
                 
+//                self.totalKaloriHarian = self.totalKaloriPagi + self.totalKaloriSiang + self.totalKaloriMalam
+//
+//                UserDefaults.standard.set(self.totalKaloriHarian, forKey: "kaloriHarian")
+//                UserDefaults.standard.set(self.totalKarboHarian, forKey: "karboHarian")
+//                UserDefaults.standard.set(self.totalLemakHarian, forKey: "lemakHarian")
+//                UserDefaults.standard.set(self.totalProteinHarian, forKey: "proteinHarian")
+//
+//
                 print(self.diaryPagi)
                 print(self.diarySiang)
                 print(self.diaryMalam)
