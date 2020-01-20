@@ -30,7 +30,6 @@ class DatabaseNutriMe{
         //FETCH DATA
         var userTemp: UserInfo?
         let record = CKRecord.ID(recordName: userID)
-        print("IN")
         database.fetch(withRecordID: record) { (data, err) in
             if err != nil{
                 print("No Data")
@@ -52,7 +51,6 @@ class DatabaseNutriMe{
                 
                 DispatchQueue.main.async {
                     completion(userTemp!)
-                    print("IN IN")
                 }
             }
         }
@@ -93,7 +91,6 @@ class DatabaseNutriMe{
                     self.totalCarbohidrates += data.value(forKey: "foodCarbohydrate") as! Double
                     self.totalProtein += data.value(forKey: "foodProtein") as! Double
                     self.totalFat += data.value(forKey: "foodFat") as! Double
-                    completion()
                 }
 //                DispatchQueue.main.async {
 //                    //self.currentCaloriesLabel.text = "\(Int(self.totalCalories))"
@@ -105,15 +102,15 @@ class DatabaseNutriMe{
 //                        print("update!")
 //                    }
         //}
+                completion()
             }
         }
     }
     
     func updateReport(){
-        print(UserDefaults.standard.string(forKey: "todayReportRecordID"))
+        guard let id = UserDefaults.standard.string(forKey: "todayReportRecordID") else { return }
         let recordName = UserDefaults.standard.string(forKey: "todayReportRecordID")
         let reportRecord = CKRecord.init(recordType: "Report", recordID: CKRecord.ID.init(recordName: recordName ?? "test"))
-        print(self.totalCarbohidrates)
         reportRecord.setValue(self.userInfo.userID, forKey: "userID")
         reportRecord.setValue(self.userInfo.caloriesGoal, forKey: "caloriesGoal")
         reportRecord.setValue(self.userInfo.carbohydrateGoal, forKey: "carbohydrateGoal")
@@ -162,7 +159,6 @@ class DatabaseNutriMe{
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, d MMM yyyy"
         reportRecord.setValue(Date(), forKey: "date")
-        print(diaryID)
         self.database.save(reportRecord) { (record, err) in
             if err != nil{
                 print(err)

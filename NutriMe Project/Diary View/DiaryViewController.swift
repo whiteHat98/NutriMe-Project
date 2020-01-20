@@ -90,6 +90,28 @@ class DiaryViewController: UIViewController {
         queryUserFood()
         diaryTable.delegate = self
         diaryTable.dataSource = self
+        
+        let db = DatabaseNutriMe()
+        guard let userID = UserDefaults.standard.value(forKey: "currentUserID") as? String else {return}
+        db.fetchDataUser(userID: userID, completion: { (userInfo) in
+            DispatchQueue.main.async {
+                
+                db.userInfo = userInfo
+               //self.getUserData()
+              db.getUserData {
+                 DispatchQueue.main.async {
+                     if !UserDefaults.standard.bool(forKey: "isReportCreated"){
+                         db.createReportRecord()
+                     }else{
+                         if UserDefaults.standard.bool(forKey: "needUpdate"){
+                             db.updateReport()
+                             UserDefaults.standard.set(false, forKey: "needUpdate")
+                         }
+                     }
+                 }
+             }
+         }
+        })
     }
     
     func scrollTo(item: Int, section: Int) {

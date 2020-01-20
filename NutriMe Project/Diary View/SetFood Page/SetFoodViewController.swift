@@ -54,6 +54,7 @@ class SetFoodViewController: UIViewController {
                 print(record!.recordID.recordName)
                 //Dismiss View
                 DispatchQueue.main.async {
+                    UserDefaults.standard.set(true, forKey: "needUpdate")
                     self.delegate?.dismissPage(dismiss: true)
                     self.dismiss(animated: true)
 //                    self.navigationController?.popToRootViewController(animated: true)

@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var dashboardTableView: UITableView!
     @IBOutlet weak var btnActivityLevel: UIButton!
     var appDelegate = UIApplication.shared.delegate as? AppDelegate
+   
     
     let nutriens:[(String,String)]=[("Lemak","Daging"),("Protein","Telur"),("Karbohidrat","Jagung")]
 //
@@ -62,39 +63,7 @@ class ViewController: UIViewController {
                 print(error)
             }
         }
-        
-        db = DatabaseNutriMe()
-        
-        let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
-        db?.fetchDataUser(userID: userID, completion: { (userInfo) in
-            DispatchQueue.main.async {
-                guard let db = self.db else{return}
-                db.userInfo = userInfo
-                self.caloriesGoalLabel.text = "\(Int(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
-                self.activityCaloriesLabel.text = "\(Int((userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - userInfo.caloriesGoal!)) cal"
-               //self.getUserData()
-               db.getUserData {
-                   DispatchQueue.main.async {
-                       self.currentCaloriesLabel.text = "\(Int(db.totalCalories))"
-                       if !UserDefaults.standard.bool(forKey: "isReportCreated"){
-                           db.createReportRecord()
-                       }else{
-                           db.updateReport()
-                       }
-                   }
-               }
-                self.setUpXib()
-                self.dashboardTableView.delegate = self
-                self.dashboardTableView.dataSource = self
-                self.dashboardTableView.tableFooterView = UIView()
-            }
-            
-        })
-  
-
-             
-             
-        
+       
         //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
         
     }
@@ -112,6 +81,38 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+               db = DatabaseNutriMe()
+               guard let db = self.db else{return}
+               guard let userID = UserDefaults.standard.value(forKey: "currentUserID") as? String else {return}
+               db.fetchDataUser(userID: userID, completion: { (userInfo) in
+                   DispatchQueue.main.async {
+                       
+                       db.userInfo = userInfo
+                       self.caloriesGoalLabel.text = "\(Int(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
+                       self.activityCaloriesLabel.text = "\(Int((userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - userInfo.caloriesGoal!)) cal"
+                      //self.getUserData()
+                     db.getUserData {
+                        DispatchQueue.main.async {
+                            self.currentCaloriesLabel.text = "\(Int(db.totalCalories)) cal"
+                            if !UserDefaults.standard.bool(forKey: "isReportCreated"){
+                                db.createReportRecord()
+                            }else{
+                                if UserDefaults.standard.bool(forKey: "needUpdate"){
+                                    db.updateReport()
+                                    UserDefaults.standard.set(false, forKey: "needUpdate")
+                                }
+                            }
+                        }
+                    }
+                     self.setUpXib()
+                     self.dashboardTableView.delegate = self
+                     self.dashboardTableView.dataSource = self
+                     self.dashboardTableView.tableFooterView = UIView()
+                }
+               })
+               
+
+            
         
         //        appDelegate?.showAllNotif()
         

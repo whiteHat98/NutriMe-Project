@@ -84,7 +84,7 @@ class RegisterViewController: UIViewController {
                 
                 let userID: String = record!.recordID.recordName
                 UserDefaults.standard.setValue(userID, forKey: "currentUserID")
-                
+                UserDefaults.standard.set(true, forKey: "needUpdate")
                 self.createUser()
                 
                 DispatchQueue.main.async {
