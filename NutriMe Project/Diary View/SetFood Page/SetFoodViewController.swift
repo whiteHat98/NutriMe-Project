@@ -65,8 +65,33 @@ class SetFoodViewController: UIViewController {
                 //Dismiss View
                 DispatchQueue.main.async {
                     UserDefaults.standard.set(true, forKey: "needUpdate")
-                    self.delegate?.dismissPage(dismiss: true)
-                    self.dismiss(animated: true)
+                    
+                    let db = DatabaseNutriMe()
+                    guard let userID = UserDefaults.standard.value(forKey: "currentUserID") as? String else {return}
+                    db.fetchDataUser(userID: userID, completion: { (userInfo) in
+                        DispatchQueue.main.async {
+                            
+                            db.userInfo = userInfo
+                           //self.getUserData()
+                          db.getUserData {
+                             DispatchQueue.main.async {
+                                 if !UserDefaults.standard.bool(forKey: "isReportCreated"){
+                                     db.createReportRecord()
+                                 }else{
+                                     if UserDefaults.standard.bool(forKey: "needUpdate"){
+                                         db.updateReport()
+                                         UserDefaults.standard.set(false, forKey: "needUpdate")
+                                        print("test work")
+                                        self.delegate?.dismissPage(dismiss: true)
+                                        self.dismiss(animated: true)
+                                     }
+                                 }
+                             }
+                         }
+                     }
+                    })
+                    
+                    
 //                    self.navigationController?.popToRootViewController(animated: true)
                 }
                 

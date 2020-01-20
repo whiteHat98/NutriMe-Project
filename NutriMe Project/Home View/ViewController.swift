@@ -83,7 +83,10 @@ class ViewController: UIViewController {
        
         //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
         
-        buttonProfile.isEnabled = false
+        self.setUpXib()
+        self.dashboardTableView.delegate = self
+        self.dashboardTableView.dataSource = self
+        self.dashboardTableView.tableFooterView = UIView()
         
         //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
     }
@@ -109,9 +112,12 @@ class ViewController: UIViewController {
                     self.db.userInfo = userInfo
                        self.caloriesGoalLabel.text = "\(Int(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
                        self.activityCaloriesLabel.text = "\(Int((userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - userInfo.caloriesGoal!)) cal"
+                        self.dashboardTableView.reloadData()
+
                       //self.getUserData()
                     self.db.getUserData {
                         DispatchQueue.main.async {
+                            self.dashboardTableView.reloadData()
                             self.currentCaloriesLabel.text = "\(Int(self.db.totalCalories)) cal"
                             if !UserDefaults.standard.bool(forKey: "isReportCreated"){
                                 self.db.createReportRecord()
@@ -130,10 +136,6 @@ class ViewController: UIViewController {
                             self.totalActiveEnergy = energy
                         }
                     }
-                     self.setUpXib()
-                     self.dashboardTableView.delegate = self
-                     self.dashboardTableView.dataSource = self
-                     self.dashboardTableView.tableFooterView = UIView()
                 }
                })
                

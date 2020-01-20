@@ -91,28 +91,6 @@ class DiaryViewController: UIViewController {
         queryUserFood()
         diaryTable.delegate = self
         diaryTable.dataSource = self
-        
-        let db = DatabaseNutriMe()
-        guard let userID = UserDefaults.standard.value(forKey: "currentUserID") as? String else {return}
-        db.fetchDataUser(userID: userID, completion: { (userInfo) in
-            DispatchQueue.main.async {
-                
-                db.userInfo = userInfo
-               //self.getUserData()
-              db.getUserData {
-                 DispatchQueue.main.async {
-                     if !UserDefaults.standard.bool(forKey: "isReportCreated"){
-                         db.createReportRecord()
-                     }else{
-                         if UserDefaults.standard.bool(forKey: "needUpdate"){
-                             db.updateReport()
-                             UserDefaults.standard.set(false, forKey: "needUpdate")
-                         }
-                     }
-                 }
-             }
-         }
-        })
     }
     
     func scrollTo(item: Int, section: Int) {
@@ -262,7 +240,7 @@ class DiaryViewController: UIViewController {
         if segue.identifier == "toSearchPage"{
             let vc = segue.destination as! SearchViewController
             vc.selectedSection = self.selectedSection
-            //            vc.delegate = self
+            vc.delegate = self
         }
         else if segue.identifier == "segueToDetailFood" {
             let vc = segue.destination as! detailFoodViewController
@@ -563,6 +541,21 @@ extension DiaryViewController: ButtonAddFood{
         self.selectedSection = section
         performSegue(withIdentifier: "toSearchPage", sender: self)
     }
+}
+
+extension DiaryViewController: SaveData{
+    func saveData(food: Food, eatCategory: EatCategory, portion: Float, date: Date) {
+        
+    }
+    
+    func dismissPage(dismiss: Bool) {
+        if dismiss{
+            self.diaryTable.reloadData()
+            print("WORKKRKRKRK")
+        }
+    }
+    
+    
 }
 
 //extension DiaryViewController: SaveData{

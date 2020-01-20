@@ -49,6 +49,10 @@ class SearchViewController: UIViewController {
         //      }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        self.delegate?.dismissPage(dismiss: true)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
@@ -282,9 +286,8 @@ extension SearchViewController: ButtonAddFood{
 
 extension SearchViewController: SaveData{
     func dismissPage(dismiss: Bool) {
-        if dismiss == true{
+        if dismiss{
             self.presentingViewController?.dismiss(animated: true, completion: nil)
-            print("keluarrrrr")
         }
     }
     
