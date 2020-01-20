@@ -117,6 +117,22 @@ class ViewController: UIViewController {
                       //self.getUserData()
                     self.db.getUserData {
                         DispatchQueue.main.async {
+                            var caloriesNeeded = (10 * (Double(userInfo.caloriesGoal!) - self.db.totalCalories)).rounded() / 10
+            
+                                if caloriesNeeded < 0 {
+                                    self.caloriesTitleLabel.text = "Over"
+                                    self.caloriesNeededLabel.textColor = .systemRed
+                                    caloriesNeeded = caloriesNeeded * -1
+                                }
+                                else{
+                                    self.caloriesTitleLabel.text = "Remaining"
+                                    self.caloriesNeededLabel.textColor = .label
+                                }
+            
+                                self.currentCaloriesLabel.text = "\((10 * self.totalCalories).rounded() / 10)"
+                                self.caloriesNeededLabel.text = "\(caloriesNeeded)"
+            
+                            
                             self.dashboardTableView.reloadData()
                             self.currentCaloriesLabel.text = "\(Int(self.db.totalCalories)) cal"
                             if !UserDefaults.standard.bool(forKey: "isReportCreated"){
