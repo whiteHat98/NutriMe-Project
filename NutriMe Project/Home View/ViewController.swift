@@ -8,6 +8,7 @@
 
 import UIKit
 import CloudKit
+import HealthKit
 
 class ViewController: UIViewController {
     
@@ -17,7 +18,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentCaloriesLabel: UILabel!
     @IBOutlet weak var dashboardTableView: UITableView!
     @IBOutlet weak var btnActivityLevel: UIButton!
+    @IBOutlet weak var caloriesTitleLabel: UILabel!
+    @IBOutlet weak var buttonProfile: UIButton!
+    
     var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    let healthKitStore = HKHealthStore()
     
     let nutriens:[(String,String)]=[("Lemak","Daging"),("Protein","Telur"),("Karbohidrat","Jagung")]
     
@@ -27,6 +32,9 @@ class ViewController: UIViewController {
     var totalFat : Double = 0
     var totalCaloriesGoal : Double = 0
     var diaryID : [String] = []
+    
+    var totalActiveEnergy:Double = 0
+    var totalStepCount:Double = 0
     
     @IBAction func profilButton(_ sender: Any) {
         performSegue(withIdentifier: "toProfile", sender: self)
@@ -53,7 +61,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        checkUserInfo{
+        
+        
+        checkUserInfo {
             let decoded = UserDefaults.standard.object(forKey: "userInfo") as! Data
             do{
                 let decodedData = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [], from: decoded) as! UserInfo
@@ -61,11 +71,14 @@ class ViewController: UIViewController {
             }catch{
                 print(error)
             }
+            
         }
         
-        //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
+        buttonProfile.isEnabled = false
         
+        //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toActivityPage"{
             let nextVC = segue.destination as! ActivityViewController
@@ -80,9 +93,6 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        //        appDelegate?.showAllNotif()
-
         
         //FETCH DATA
         let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
@@ -112,14 +122,24 @@ class ViewController: UIViewController {
                 self.userInfo = UserInfo(userID: userID, name: name, dob: stringToDate(dob), gender: gender, height: height, weight: weight, currCalories: 0, currCarbo: 0, currProtein: 0, currFat: 0, currMineral: 0, activityCalories: 0, foodRestrictions: restrictions, caloriesGoal: caloriesGoal, carbohydrateGoal: carbohydrateGoal, fatGoal: fatGoal, proteinGoal: proteinGoal, mineralGoal: mineralGoal)
                 
                 print(self.userInfo)
+                
+                self.getTodaysSteps { (step) in
+                    self.totalStepCount = step
+                }
+                
+                self.getTodaysActiveEnergy { (energy) in
+                    self.totalActiveEnergy = energy
+                }
             }
+            
             DispatchQueue.main.async {
                 self.totalCaloriesGoal = Double(self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))
                 
                 self.caloriesGoalLabel.text = "\((10 * self.totalCaloriesGoal).rounded() / 10) Calories"
                 self.activityCaloriesLabel.text = "\((10 * (self.totalCaloriesGoal - Double(self.userInfo!.caloriesGoal!))).rounded() / 10) Cal"
-//                self.caloriesGoalLabel.text = "\(Int(self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
-//                self.activityCaloriesLabel.text = "\(Int((self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - self.userInfo!.caloriesGoal!)) cal"
+                //                self.caloriesGoalLabel.text = "\(Int(self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
+                //                self.activityCaloriesLabel.text = "\(Int((self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - self.userInfo!.caloriesGoal!)) cal"
+                self.buttonProfile.isEnabled = true
                 self.getUserData()
             }
         }
@@ -290,16 +310,28 @@ extension ViewController{
                     self.totalFat += data.value(forKey: "foodFat") as! Double
                 }
                 DispatchQueue.main.async {
+                    var caloriesNeeded = (10 * (Double(self.totalCaloriesGoal) - self.totalCalories)).rounded() / 10
+                    
+                    if caloriesNeeded < 0 {
+                        self.caloriesTitleLabel.text = "Over"
+                        self.caloriesNeededLabel.textColor = .systemRed
+                        caloriesNeeded = caloriesNeeded * -1
+                    }
+                    else{
+                        self.caloriesTitleLabel.text = "Remaining"
+                        self.caloriesNeededLabel.textColor = .label
+                    }
+                    
                     self.currentCaloriesLabel.text = "\((10 * self.totalCalories).rounded() / 10)"
-                    self.caloriesNeededLabel.text = "\(( 10 * (Double(self.totalCaloriesGoal) - self.totalCalories)).rounded() / 10)"
+                    self.caloriesNeededLabel.text = "\(caloriesNeeded)"
                     
                     if UserDefaults.standard.bool(forKey: "isReportCreated"){
                         self.updateReport()
-//                        print("update!")
-//                        print(self.totalCalories)
-//                        print(self.totalCarbohidrates)
-//                        print(self.totalFat)
-//                        print(self.totalProtein)
+                        //                        print("update!")
+                        //                        print(self.totalCalories)
+                        //                        print(self.totalCarbohidrates)
+                        //                        print(self.totalFat)
+                        //                        print(self.totalProtein)
                         self.dashboardTableView.reloadData()
                     }else{
                         self.createReportRecord()
@@ -310,7 +342,7 @@ extension ViewController{
     }
     
     func updateReport(){
-        print(UserDefaults.standard.string(forKey: "todayReportRecordID"))
+        //        print(UserDefaults.standard.string(forKey: "todayReportRecordID"))
         let recordName = UserDefaults.standard.string(forKey: "todayReportRecordID")
         let reportRecord = CKRecord.init(recordType: "Report", recordID: CKRecord.ID.init(recordName: recordName ?? "test"))
         print(self.totalCarbohidrates)
@@ -374,6 +406,60 @@ extension ViewController{
                 print("report created!")
             }
         }
+    }
+    
+//    func initHealthKitStore() {
+//        //MARK: HEALTH KIT TESTING
+//        let activeEnergy = HKSampleType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned)!
+//        let activeEnergyQuery = HKSampleQuery(sampleType: activeEnergy, predicate: .none, limit: 0, sortDescriptors: nil) { (query, results, error) in
+//            if results!.count > 0 {
+//                for result in results! {
+//                    if healthKitFormatter.string(from: result.startDate) == healthKitFormatter.string(from: date) {
+//                        //                                print("INI RESULT ", results
+//                        //                                self.totalActiveEnergy += HKQuantity.doubleValue(HKQuantity.)
+//                        print(self.totalActiveEnergy)
+//                    }
+//                }
+//            }
+//        }
+//        self.healthKitStore.execute(activeEnergyQuery)
+//
+//    }
+    
+    func getTodaysSteps(completion: @escaping (Double) -> Void) {
+        let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+
+        let query = HKStatisticsQuery(quantityType: stepsQuantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, _ in
+            guard let result = result, let sum = result.sumQuantity() else {
+                completion(0.0)
+                return
+            }
+            completion(sum.doubleValue(for: HKUnit.count()))
+        }
+
+        healthKitStore.execute(query)
+    }
+    
+    func getTodaysActiveEnergy(completion: @escaping (Double) -> Void) {
+        let energyQuantityType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
+        
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        
+        let query = HKStatisticsQuery(quantityType: energyQuantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (_, result, _) in
+            guard let result = result, let sum = result.sumQuantity() else{
+                completion(0.0)
+                return
+            }
+            completion(sum.doubleValue(for: HKUnit.kilocalorie()))
+        }
+        
+        healthKitStore.execute(query)
     }
 }
 

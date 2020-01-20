@@ -43,6 +43,7 @@
 		FE4015A323C48F4E003779B6 /* newFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4015A223C48F4E003779B6 /* newFoodTableViewCell.swift */; };
 		FE4015A823C72F98003779B6 /* CalendarVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4015A723C72F98003779B6 /* CalendarVars.swift */; };
 		FE4015AA23C76B8B003779B6 /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4015A923C76B8B003779B6 /* CalendarCollectionViewCell.swift */; };
+		FE7A9AF023D1C24300A3DC6A /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7A9AEF23D1C24300A3DC6A /* HealthKit.framework */; };
 		FE86407623B724DB009F92C8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE86407523B724DB009F92C8 /* User.swift */; };
 		FE86407823B739FF009F92C8 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE86407723B739FF009F92C8 /* Reminder.swift */; };
 		FE86407A23B73AC5009F92C8 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE86407923B73AC5009F92C8 /* Diary.swift */; };
@@ -103,6 +104,7 @@
 		FE4015A223C48F4E003779B6 /* newFoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newFoodTableViewCell.swift; sourceTree = "<group>"; };
 		FE4015A723C72F98003779B6 /* CalendarVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVars.swift; sourceTree = "<group>"; };
 		FE4015A923C76B8B003779B6 /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
+		FE7A9AEF23D1C24300A3DC6A /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		FE86407523B724DB009F92C8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FE86407723B739FF009F92C8 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		FE86407923B73AC5009F92C8 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE7A9AF023D1C24300A3DC6A /* HealthKit.framework in Frameworks */,
 				978B9F2623AC697300B75E34 /* CloudKit.framework in Frameworks */,
 				B826AD63ACAEC80BA5561EAF /* Pods_NutriMe_Project.framework in Frameworks */,
 			);
@@ -281,6 +284,7 @@
 		978B9F2423AC697300B75E34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE7A9AEF23D1C24300A3DC6A /* HealthKit.framework */,
 				978B9F2523AC697300B75E34 /* CloudKit.framework */,
 				BAE73D6D7AB98754BE070ADB /* Pods_NutriMe_Project.framework */,
 			);

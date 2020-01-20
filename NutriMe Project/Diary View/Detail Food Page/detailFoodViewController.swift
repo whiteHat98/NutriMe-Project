@@ -19,6 +19,8 @@ class detailFoodViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.isScrollEnabled = false
+        tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
@@ -112,7 +114,7 @@ extension detailFoodViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        
+        cell.selectionStyle = .none
         return cell
     }
     

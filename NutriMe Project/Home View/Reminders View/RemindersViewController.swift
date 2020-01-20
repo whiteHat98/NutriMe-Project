@@ -234,8 +234,6 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.titleText.isEnabled = false
                 cell.timeText.isEnabled = false
                 cell.timeText.textColor = UIColor.systemGray2
-                
-                
             }
             else{
                 cell.reminderSwitcher.isOn = true
@@ -293,6 +291,7 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
         
         if switchRow == 0 {
             if sender.isOn {
+                self.appDelegate?.removePendingNotifivationWithIdentifier(identifier: "breakfastReminder")
                 self.appDelegate?.scheduleNotificationAtTime(notificationType: "Sarapan", body: "Ingat sarapan", hour: sarapanHour, minute: sarapanMin, identifier: "breakfastReminder")
                 breakfastIsOn = true
             }
@@ -303,7 +302,8 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if switchRow == 1 {
             if sender.isOn {
-                self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Siang", body: "Ingat sarapan", hour: siangHour, minute: siangMin, identifier: "lunchReminder")
+                self.appDelegate?.removePendingNotifivationWithIdentifier(identifier: "lunchReminder")
+                self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Siang", body: "Ingat makan siang", hour: siangHour, minute: siangMin, identifier: "lunchReminder")
                 lunchIsOn = true
             }
             else{
@@ -313,7 +313,8 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if switchRow == 2 {
             if sender.isOn {
-                self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Malam", body: "Ingat makan malam", hour: siangHour, minute: siangMin, identifier: "dinnerReminder")
+                self.appDelegate?.removePendingNotifivationWithIdentifier(identifier: "dinnerReminder")
+                self.appDelegate?.scheduleNotificationAtTime(notificationType: "Makan Malam", body: "Ingat makan malam", hour: malamHour, minute: malamMin, identifier: "dinnerReminder")
                 dinnerIsOn = true
             }
             else{
