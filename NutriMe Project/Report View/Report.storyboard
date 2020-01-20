@@ -127,6 +127,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ar4-Hf-eQQ">
+                                <rect key="frame" x="84" y="109" width="246" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Macronutriens"/>
+                                    <segment title="Calories"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeValue:" destination="Dys-E6-m6v" eventType="valueChanged" id="W6f-JH-1vO"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ah3-op-tf9"/>
@@ -140,6 +151,7 @@
                         <outlet property="lblGoalCarb" destination="Fcb-0W-L6L" id="7eK-z1-EE2"/>
                         <outlet property="lblGoalFat" destination="fU1-IF-h53" id="8bh-aL-tWo"/>
                         <outlet property="lblGoalProt" destination="ZcT-EI-apk" id="GYg-ox-Xx0"/>
+                        <outlet property="segmentedCtl" destination="ar4-Hf-eQQ" id="y8d-Iv-0qP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3p9-GN-P2w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

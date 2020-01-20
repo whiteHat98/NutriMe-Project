@@ -33,6 +33,7 @@ struct ChartValue{
     var userCarbohydrates : Double?
     var userFat : Double?
     var userProtein : Double?
+    var userCalories : Double?
 }
 
 class ReportViewController: UIViewController {
@@ -42,7 +43,11 @@ class ReportViewController: UIViewController {
     let database = CKContainer.default().publicCloudDatabase
   @IBOutlet weak var chartReportView: BarChartView!
     var thisWeekReports: [Report] = []
-  
+    @IBOutlet weak var segmentedCtl: UISegmentedControl!
+    @IBAction func changeValue(_ sender: Any) {
+        self.setChartValue()
+    }
+    
     @IBOutlet weak var lblAvgCarb: UILabel!
     @IBOutlet weak var lblAvgFat: UILabel!
     @IBOutlet weak var lblAvgProt: UILabel!
@@ -50,9 +55,10 @@ class ReportViewController: UIViewController {
     @IBOutlet weak var lblGoalFat: UILabel!
     @IBOutlet weak var lblGoalProt: UILabel!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
@@ -64,7 +70,6 @@ class ReportViewController: UIViewController {
                     self.setChartValue()
                 }
             }
-            //print("Hello World")
         }
     }
   
@@ -102,7 +107,7 @@ class ReportViewController: UIViewController {
             if !thisWeekReports.isEmpty{
                 for report in thisWeekReports{
                     if (checkDay(date: report.date)-1) == i {
-                        let newChartValue = ChartValue(userCarbohydrates: report.userCarbohydrates, userFat: report.userFat, userProtein: report.userProtein)
+                        let newChartValue = ChartValue(userCarbohydrates: report.userCarbohydrates, userFat: report.userFat, userProtein: report.userProtein, userCalories: report.userCalories)
                         chartValues.append(newChartValue)
                         //print(chartValues[i])
                         print("user Carbo: \(report.userCarbohydrates)")
@@ -143,34 +148,6 @@ class ReportViewController: UIViewController {
 //
 //    chartReportView.data = chartData
     
-    
-    let values = (0..<7).map { (i) -> BarChartDataEntry in
-        var val: Double = chartValues[i].userCarbohydrates ?? 0
-      return BarChartDataEntry(x: Double(i), y: val)
-    }
-
-    let values2 = (0..<7).map { (i) -> BarChartDataEntry in
-        var val: Double = chartValues[i].userProtein ?? 0
-      return BarChartDataEntry(x: Double(i), y: val)
-    }
-
-    let values3 = (0..<7).map { (i) -> BarChartDataEntry in
-        var val: Double = chartValues[i].userFat ?? 0
-      return BarChartDataEntry(x: Double(i), y: val)
-    }
-
-    let set1 = BarChartDataSet(entries: values, label: "test")
-    set1.setColor(.red)
-    let set2 = BarChartDataSet(entries: values2, label: "test2")
-    set2.setColor(.yellow)
-    let set3 = BarChartDataSet(entries: values3, label: "test3")
-    set3.setColor(.blue)
-
-    let data = BarChartData(dataSets: [set1, set2, set3])
-
-    data.barWidth = 0.3
-    data.groupBars(fromX: 0, groupSpace: 0.1, barSpace: 0)
-
     self.chartReportView.rightAxis.enabled = false
 
     self.chartReportView.highlighter = nil
@@ -199,12 +176,53 @@ class ReportViewController: UIViewController {
     
     //yAxis
     let yAxis = self.chartReportView.leftAxis
-    yAxis.spaceTop = 0.35
+    yAxis.spaceTop = 0.1
     yAxis.axisMinimum = 0
     yAxis.drawGridLinesEnabled = true
     yAxis.gridLineWidth = 0.1
     
+    var data = BarChartData()
+    if segmentedCtl.selectedSegmentIndex == 0{
+        
+        let values = (0..<7).map { (i) -> BarChartDataEntry in
+            var val: Double = chartValues[i].userCarbohydrates ?? 0
+          return BarChartDataEntry(x: Double(i), y: val)
+        }
 
+        let values2 = (0..<7).map { (i) -> BarChartDataEntry in
+            var val: Double = chartValues[i].userProtein ?? 0
+          return BarChartDataEntry(x: Double(i), y: val)
+        }
+
+        let values3 = (0..<7).map { (i) -> BarChartDataEntry in
+            var val: Double = chartValues[i].userFat ?? 0
+          return BarChartDataEntry(x: Double(i), y: val)
+        }
+
+        let set1 = BarChartDataSet(entries: values, label: "test")
+        set1.setColor(.red)
+        let set2 = BarChartDataSet(entries: values2, label: "test2")
+        set2.setColor(.yellow)
+        let set3 = BarChartDataSet(entries: values3, label: "test3")
+        set3.setColor(.blue)
+
+        data = BarChartData(dataSets: [set1, set2, set3])
+
+        data.barWidth = 0.3
+        data.groupBars(fromX: 0, groupSpace: 0.1, barSpace: 0)
+    }else{
+        let values = (0..<7).map { (i) -> BarChartDataEntry in
+            var val: Double = chartValues[i].userCalories ?? 0
+          return BarChartDataEntry(x: Double(i), y: val)
+        }
+        let set = BarChartDataSet(entries: values)
+        data = BarChartData(dataSet: set)
+        data.barWidth = 0.5
+        
+        yAxis.drawGridLinesEnabled = false
+        xAxis.gridLineWidth = 1
+    }
+    
     self.chartReportView.data = data
     self.chartReportView.drawBordersEnabled = false
     self.chartReportView.isUserInteractionEnabled = false
