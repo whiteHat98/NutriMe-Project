@@ -102,7 +102,7 @@ class SearchViewController: UIViewController {
                     self.foodTableView.reloadData()
                 }
                 
-                print(self.arrayUserFood)
+                //print(self.arrayUserFood)
                // print(self.arrayFoodMakro)
                
             }
@@ -168,7 +168,7 @@ extension SearchViewController: UISearchBarDelegate{
                 print(error)
                 completionHandler(nil,error)
             case .success(let data):
-                print(data)
+                //print(data)
                 completionHandler(data, nil)
             }
         }

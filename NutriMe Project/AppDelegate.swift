@@ -9,16 +9,19 @@
 import UIKit
 import CoreData
 import UserNotifications
+import HealthKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     
     let notificationCenter = UNUserNotificationCenter.current()
+    let healthKitStore: HKHealthStore = HKHealthStore()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //NOTIFICATION AUTHORIZATION
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         
         UNUserNotificationCenter.current().requestAuthorization(options: options) {
@@ -29,6 +32,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
+        
+        //HEALTH KIT AUTHORIZATION
+        let healthKitTypesToRead = Set([
+            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned)!,
+            HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!
+        ])
+        
+        healthKitStore.requestAuthorization(toShare: healthKitTypesToRead, read: healthKitTypesToRead) { (didAllow, error) in
+            if didAllow {
+                print("Health Kit Authorized")
+            }
+        }
         
         return true
     }

@@ -64,5 +64,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>NutriMe would like to access Health App to get health Information</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>NutriMe would like to access Health App to get Energy and Nutrition Information</string>
 </dict>
 </plist>

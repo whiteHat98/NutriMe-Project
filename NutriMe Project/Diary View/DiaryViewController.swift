@@ -28,6 +28,7 @@ class DiaryViewController: UIViewController {
     var category:[EatCategory] = [.pagi, .siang, .malam]
     var dataDiary:[Diary] = []
     var selectedSection: EatCategory?
+    var refreshControl = UIRefreshControl()
     
     var userDiary: Diary?
     var diaryPagi: [Diary] = []
@@ -58,14 +59,14 @@ class DiaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-      if let id = UserDefaults.standard.value(forKey: "currentUserID") as? String{
-        userID = id
-      }
         
-//        if let id = UserDefaults.standard.value(forKey: "currentUserID") as? String {
-//            userID = id
-//        }
+        refreshControl.attributedTitle = NSAttributedString(string: "pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
+        diaryTable.addSubview(refreshControl)
+        
+        if let id = UserDefaults.standard.value(forKey: "currentUserID") as? String{
+            userID = id
+        }
         
         for (food,calorie) in foodList{
             let eat = FoodInDiary(category: .pagi, food: Food(name: food, calorie: calorie), date: Date(), portion: 1)
@@ -170,7 +171,7 @@ class DiaryViewController: UIViewController {
             getSelectedDate = "\(weekDays[weekDay-1]), \(selectedDay) \(monthForQuery[calendarMonth]) \(selectedYear)"
         }
         
-//        formatter.dateFormat = "EEEE, d MMM yyyy"
+        //        formatter.dateFormat = "EEEE, d MMM yyyy"
         let selectedDate: String = "\(getSelectedDate)"
         print(selectedDate)
         
@@ -180,7 +181,7 @@ class DiaryViewController: UIViewController {
         
         let diaryQuery = CKQuery(recordType: "Diary", predicate: NSCompoundPredicate(andPredicateWithSubpredicates: predicates))
         
-//        let diaryQuery = CKQuery(recordType: "Diary", predicate: NSPredicate(format: "userID == %@", userID))
+        //        let diaryQuery = CKQuery(recordType: "Diary", predicate: NSPredicate(format: "userID == %@", userID))
         
         database.perform(diaryQuery, inZoneWith: nil) { (record, error) in
             if error == nil {
@@ -190,6 +191,10 @@ class DiaryViewController: UIViewController {
                 self.totalKaloriPagi = 0
                 self.totalKaloriSiang = 0
                 self.totalKaloriMalam = 0
+                //                self.totalKaloriHarian = 0
+                //                self.totalKarboHarian = 0
+                //                self.totalLemakHarian = 0
+                //                self.totalProteinHarian = 0
                 
                 for data in record! {
                     
@@ -221,14 +226,25 @@ class DiaryViewController: UIViewController {
                         self.totalKaloriMalam += self.userDiary!.foodCalories
                     }
                     self.dataDiary.append(self.userDiary!)
+                    
+                    //                    self.totalKarboHarian += self.userDiary!.foodCarbohydrate
+                    //                    self.totalLemakHarian += self.userDiary!.foodFat
+                    //                    self.totalProteinHarian += self.userDiary!.foodProtein
                 }
                 
-                print(self.diaryPagi)
-                print(self.diarySiang)
-                print(self.diaryMalam)
+                //                self.totalKaloriHarian = self.totalKaloriPagi + self.totalKaloriSiang + self.totalKaloriMalam
+                //
+                //                UserDefaults.standard.set(self.totalKaloriHarian, forKey: "kaloriHarian")
+                //                UserDefaults.standard.set(self.totalKarboHarian, forKey: "karboHarian")
+                //                UserDefaults.standard.set(self.totalLemakHarian, forKey: "lemakHarian")
+                //                UserDefaults.standard.set(self.totalProteinHarian, forKey: "proteinHarian")
+                //
+                //
+
                 
                 DispatchQueue.main.async {
                     self.diaryTable.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
                 
             }
@@ -246,7 +262,7 @@ class DiaryViewController: UIViewController {
         if segue.identifier == "toSearchPage"{
             let vc = segue.destination as! SearchViewController
             vc.selectedSection = self.selectedSection
-//            vc.delegate = self
+            //            vc.delegate = self
         }
         else if segue.identifier == "segueToDetailFood" {
             let vc = segue.destination as! detailFoodViewController
@@ -281,6 +297,9 @@ class DiaryViewController: UIViewController {
         
     }
     
+    @objc func refresh(sender:AnyObject) {
+       queryUserFood()
+    }
     
 }
 
@@ -288,13 +307,13 @@ class DiaryViewController: UIViewController {
 extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        print(dataDiary.count)
-//        return dataDiary.count
+        //        print(dataDiary.count)
+        //        return dataDiary.count
         return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 2 + dataDiary[section].foods.count
+        //        return 2 + dataDiary[section].foods.count
         switch section {
         case 0:
             if diaryPagi.count != 0 {
@@ -323,7 +342,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print(indexPath.section)
+        //        print(indexPath.section)
         if indexPath.row != 0 && indexPath.row != tableView.numberOfRows(inSection: indexPath.section) {
             if indexPath.section == 0 && diaryPagi.count != 0{
                 selectedDiary = diaryPagi[indexPath.row - 1]
@@ -345,7 +364,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
                 cell.textLabel?.text = "Sarapan"
-                cell.detailTextLabel?.text = "\(totalKaloriPagi) Kkal"
+                cell.detailTextLabel?.text = "\(totalKaloriPagi) Cal"
                 return cell
             }
             else if indexPath.row != tableView.numberOfRows(inSection: 0) - 1 {
@@ -377,7 +396,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
                 cell.textLabel?.text = "Makan Siang"
-                cell.detailTextLabel?.text = "\(totalKaloriSiang) Kkal"
+                cell.detailTextLabel?.text = "\(totalKaloriSiang) Cal"
                 return cell
             }
             else if indexPath.row != tableView.numberOfRows(inSection: 1) - 1 {
@@ -408,7 +427,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
                 cell.textLabel?.text = "Makan Malam"
-                cell.detailTextLabel?.text = "\(totalKaloriMalam) Kkal"
+                cell.detailTextLabel?.text = "\(totalKaloriMalam) Cal"
                 return cell
             }
             else if indexPath.row != tableView.numberOfRows(inSection: 2) - 1{
@@ -435,30 +454,30 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
                 return cell
             }
         }
-//        let data = dataDiary[indexPath.section]
-//        if indexPath.row == 0{
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
-//
-//            cell.textLabel!.text = data.category.rawValue
-//            cell.detailTextLabel?.text = "\(data.sumCalories())"
-//
-//            return cell
-//        }
-//        else if indexPath.row == (1 + dataDiary[indexPath.section].foods.count){
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "addCell", for: indexPath) as! AddFoodTableViewCell
-//            cell.section = data.category
-//            cell.delegate = self
-//
-//            return cell
-//        }
-//        else{
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "foodCell", for: indexPath) as! FoodListTableViewCell
-//            let food = dataDiary[indexPath.section].foods[indexPath.row-1]
-//            cell.lblFoodName.text = food.food.name
-//            cell.lblFoodCalorie.text = "\(food.food.calorie)"
-//
-//            return cell
-//        }
+        //        let data = dataDiary[indexPath.section]
+        //        if indexPath.row == 0{
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
+        //
+        //            cell.textLabel!.text = data.category.rawValue
+        //            cell.detailTextLabel?.text = "\(data.sumCalories())"
+        //
+        //            return cell
+        //        }
+        //        else if indexPath.row == (1 + dataDiary[indexPath.section].foods.count){
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "addCell", for: indexPath) as! AddFoodTableViewCell
+        //            cell.section = data.category
+        //            cell.delegate = self
+        //
+        //            return cell
+        //        }
+        //        else{
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "foodCell", for: indexPath) as! FoodListTableViewCell
+        //            let food = dataDiary[indexPath.section].foods[indexPath.row-1]
+        //            cell.lblFoodName.text = food.food.name
+        //            cell.lblFoodCalorie.text = "\(food.food.calorie)"
+        //
+        //            return cell
+        //        }
     }
 }
 
@@ -523,7 +542,6 @@ extension DiaryViewController: UICollectionViewDelegate, UICollectionViewDataSou
         selectedDateLabel.text = "\(selectedDay) \(selectedMonth) \(selectedYear)"
         scrollTo(item: indexPath.row, section: 0)
         queryUserFood()
-        print(indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -561,7 +579,7 @@ extension DiaryViewController: ButtonAddFood{
 //                return
 //            }
 //        }
-        
+
 //        let record = CKRecord(recordType: "Diary")
 //
 //        record.setValue("CURRENT USER ID", forKey: "userID")

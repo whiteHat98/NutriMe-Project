@@ -16,14 +16,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwN-Zp-khl">
-                                <rect key="frame" x="123" y="123" width="168" height="76"/>
+                                <rect key="frame" x="61" y="123" width="300" height="76"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="55"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIN-cG-Spf">
-                                <rect key="frame" x="169" y="95" width="76" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Remaining" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIN-cG-Spf">
+                                <rect key="frame" x="169" y="95" width="80" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -156,8 +156,10 @@
                     <connections>
                         <outlet property="activityCaloriesLabel" destination="10H-yE-Pdu" id="cas-ww-mi7"/>
                         <outlet property="btnActivityLevel" destination="SL2-ol-geA" id="wd8-ra-KNP"/>
+                        <outlet property="buttonProfile" destination="KSt-au-b7f" id="YRX-FW-Hc1"/>
                         <outlet property="caloriesGoalLabel" destination="fwr-9p-mSE" id="VQp-nU-nWb"/>
                         <outlet property="caloriesNeededLabel" destination="NwN-Zp-khl" id="ec5-1q-Omj"/>
+                        <outlet property="caloriesTitleLabel" destination="RIN-cG-Spf" id="I6W-kj-W0n"/>
                         <outlet property="currentCaloriesLabel" destination="wh6-g6-vdX" id="8Ay-DY-hlt"/>
                         <outlet property="dashboardTableView" destination="oP3-rS-EUB" id="hxz-K9-HUg"/>
                         <segue destination="Mrm-TO-fVb" kind="show" identifier="toProfile" id="sgW-G2-d99"/>

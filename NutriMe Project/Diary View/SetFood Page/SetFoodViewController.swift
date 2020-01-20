@@ -38,13 +38,23 @@ class SetFoodViewController: UIViewController {
         
         formatter.dateFormat = "EEEE, d MMM yyyy"
         
+        let totalCalories = self.totalPorsi * (selectedFood?.calories ?? 0)
+        let totalCarbohydrate = self.totalPorsi * (selectedFood?.makros?.carbohydrate ?? 0)
+        let totalProtein = self.totalPorsi * (selectedFood?.makros?.protein ?? 0)
+        let totalFat = self.totalPorsi * (selectedFood?.makros?.fat ?? 0)
+        
+//        print(totalCalories)
+//        print(totalFat)
+//        print(totalProtein)
+//        print(totalCarbohydrate)
+        
         diaryRecord.setValue(userID, forKey: "userID")
         diaryRecord.setValue(selectedFood?.ID, forKey: "foodID")
         diaryRecord.setValue(selectedFood?.name, forKey: "foodName")
-        diaryRecord.setValue(selectedFood?.calories, forKey: "foodCalories")
-        diaryRecord.setValue(selectedFood?.makros?.carbohydrate, forKey: "foodCarbohydrate")
-        diaryRecord.setValue(selectedFood?.makros?.fat, forKey: "foodFat")
-        diaryRecord.setValue(selectedFood?.makros?.protein, forKey: "foodProtein")
+        diaryRecord.setValue(totalCalories, forKey: "foodCalories")
+        diaryRecord.setValue(totalCarbohydrate, forKey: "foodCarbohydrate")
+        diaryRecord.setValue(totalFat, forKey: "foodFat")
+        diaryRecord.setValue(totalProtein, forKey: "foodProtein")
         diaryRecord.setValue(totalPorsi, forKey: "portion")
         diaryRecord.setValue(formatter.string(from: date), forKey: "date")
         diaryRecord.setValue(selectedCategory, forKey: "category")

@@ -246,7 +246,7 @@ class ReportViewController: UIViewController {
                         let newRecord = Report(recordName: rec.recordID.recordName, caloriesGoal: rec.value(forKey: "caloriesGoal") as! Double, carbohydrateGoal: rec.value(forKey: "carbohydrateGoal") as! Double, proteinGoal: rec.value(forKey: "proteinGoal") as! Double, fatGoal: rec.value(forKey: "fatGoal") as! Double, userCalories: rec.value(forKey: "userCalories") as! Double, userCarbohydrates: rec.value(forKey: "userCarbohydrates") as! Double, userFat: rec.value(forKey: "userFat") as! Double, userProtein: rec.value(forKey: "userProtein") as! Double, date: (rec.value(forKey: "date") as? Date)!, diaryID: rec.value(forKey: "diaryID") as? [String], userID: rec.value(forKey: "userID") as! String)
                         self.thisWeekReports.append(newRecord)
                         //print(self.checkDay(date: newRecord.date))
-                        print("enter a new world \(self.thisWeekReports)")
+                        //print("enter a new world \(self.thisWeekReports)")
                     }
                 }
             }
