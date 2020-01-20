@@ -10,6 +10,7 @@
 		971C42C22397D0D100E249A8 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971C42C12397D0D100E249A8 /* PickerViewController.swift */; };
 		971C42ED239A4A3C00E249A8 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971C42EC239A4A3C00E249A8 /* Model.swift */; };
 		971C42EF239DEB4200E249A8 /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971C42EE239DEB4200E249A8 /* helper.swift */; };
+		974E3DB423D17601007A7A6E /* DatabaseNutriMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E3DB323D17601007A7A6E /* DatabaseNutriMe.swift */; };
 		9778A4D2237E936500E93BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D1237E936500E93BA1 /* AppDelegate.swift */; };
 		9778A4D4237E936500E93BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D3237E936500E93BA1 /* SceneDelegate.swift */; };
 		9778A4D6237E936500E93BA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D5237E936500E93BA1 /* ViewController.swift */; };
@@ -66,6 +67,7 @@
 		971C42C12397D0D100E249A8 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		971C42EC239A4A3C00E249A8 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		971C42EE239DEB4200E249A8 /* helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helper.swift; sourceTree = "<group>"; };
+		974E3DB323D17601007A7A6E /* DatabaseNutriMe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseNutriMe.swift; sourceTree = "<group>"; };
 		9778A4CE237E936500E93BA1 /* NutriMe Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NutriMe Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9778A4D1237E936500E93BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9778A4D3237E936500E93BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		974E3DB223D175C6007A7A6E /* DatabaseQuery */ = {
+			isa = PBXGroup;
+			children = (
+				974E3DB323D17601007A7A6E /* DatabaseNutriMe.swift */,
+			);
+			path = DatabaseQuery;
+			sourceTree = "<group>";
+		};
 		9778A4C5237E936500E93BA1 = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +165,7 @@
 		9778A4D0237E936500E93BA1 /* NutriMe Project */ = {
 			isa = PBXGroup;
 			children = (
+				974E3DB223D175C6007A7A6E /* DatabaseQuery */,
 				978B9F2323AC696800B75E34 /* NutriMe Project.entitlements */,
 				971C42EE239DEB4200E249A8 /* helper.swift */,
 				9778A4D1237E936500E93BA1 /* AppDelegate.swift */,
@@ -524,6 +535,7 @@
 				FEB8C55523CC676500EB5D48 /* PantanganMakananViewController.swift in Sources */,
 				FEB8C54D23C87A4700EB5D48 /* EditProfileTableViewCell.swift in Sources */,
 				9778A4F2237E99A200E93BA1 /* giziTableViewCell.swift in Sources */,
+				974E3DB423D17601007A7A6E /* DatabaseNutriMe.swift in Sources */,
 				9778A4D4237E936500E93BA1 /* SceneDelegate.swift in Sources */,
 				FEB8C54B23C87A0C00EB5D48 /* editProfileViewController.swift in Sources */,
 				FE86407623B724DB009F92C8 /* User.swift in Sources */,

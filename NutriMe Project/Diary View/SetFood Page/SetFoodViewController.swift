@@ -82,6 +82,7 @@ class SetFoodViewController: UIViewController {
             vc.selectedCategory = self.selectedSection
         }
     }
+    
 }
 
 extension SetFoodViewController: UITableViewDelegate, UITableViewDataSource{

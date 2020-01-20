@@ -16,10 +16,10 @@ struct Report{
     var carbohydrateGoal : Double
     var proteinGoal: Double
     var fatGoal : Double
-    var userCalories : Double?
-    var userCarbohydrates : Double?
-    var userFat : Double?
-    var userProtein : Double?
+    var userCalories : Double = 0
+    var userCarbohydrates : Double = 0
+    var userFat : Double = 0
+    var userProtein : Double = 0
     var date : Date
     var diaryID : [String]?
     var userID : String
@@ -43,6 +43,13 @@ class ReportViewController: UIViewController {
   @IBOutlet weak var chartReportView: BarChartView!
     var thisWeekReports: [Report] = []
   
+    @IBOutlet weak var lblAvgCarb: UILabel!
+    @IBOutlet weak var lblAvgFat: UILabel!
+    @IBOutlet weak var lblAvgProt: UILabel!
+    @IBOutlet weak var lblGoalCarb: UILabel!
+    @IBOutlet weak var lblGoalFat: UILabel!
+    @IBOutlet weak var lblGoalProt: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,6 +60,7 @@ class ReportViewController: UIViewController {
         getDataFromReportDB {
             self.setValues {
                 DispatchQueue.main.async {
+                    self.setMacroValue()
                     self.setChartValue()
                 }
             }
@@ -74,6 +82,18 @@ class ReportViewController: UIViewController {
 //      }
 //      return reports
 //    }
+    func setMacroValue(){
+        if let report = self.thisWeekReports.last{
+            self.lblAvgCarb.text = String(format: "%.2f", report.userCarbohydrates)
+            self.lblAvgProt.text = String(format: "%.2f", report.userProtein)
+            self.lblAvgFat.text = String(format: "%.2f", report.userFat)
+            self.lblGoalCarb.text = String(format: "%.2f", report.carbohydrateGoal)
+            self.lblGoalProt.text = String(format: "%.2f", report.proteinGoal)
+            self.lblGoalFat.text = String(format: "%.2f", report.fatGoal)
+            
+        }
+    }
+    
     func setValues(completion: @escaping() -> Void){
         chartValues.removeAll()
         var flag = true
@@ -85,7 +105,7 @@ class ReportViewController: UIViewController {
                         let newChartValue = ChartValue(userCarbohydrates: report.userCarbohydrates, userFat: report.userFat, userProtein: report.userProtein)
                         chartValues.append(newChartValue)
                         //print(chartValues[i])
-                        print(i+1)
+                        print("user Carbo: \(report.userCarbohydrates)")
                         flag = false
                     }
                 }
@@ -205,7 +225,7 @@ class ReportViewController: UIViewController {
             for rec in recs{
                 if let rdate = rec.value(forKey: "date") as? Date{
                     if self.isDayInThisWeek(date: rdate){
-                        let newRecord = Report(recordName: rec.recordID.recordName, caloriesGoal: rec.value(forKey: "caloriesGoal") as! Double, carbohydrateGoal: rec.value(forKey: "carbohydrateGoal") as! Double, proteinGoal: rec.value(forKey: "proteinGoal") as! Double, fatGoal: rec.value(forKey: "fatGoal") as! Double, userCalories: rec.value(forKey: "userCalories") as? Double, userCarbohydrates: rec.value(forKey: "userCarbohydrates") as? Double, userFat: rec.value(forKey: "userFat") as? Double, userProtein: rec.value(forKey: "userProtein") as? Double, date: (rec.value(forKey: "date") as? Date)!, diaryID: rec.value(forKey: "diaryID") as? [String], userID: rec.value(forKey: "userID") as! String)
+                        let newRecord = Report(recordName: rec.recordID.recordName, caloriesGoal: rec.value(forKey: "caloriesGoal") as! Double, carbohydrateGoal: rec.value(forKey: "carbohydrateGoal") as! Double, proteinGoal: rec.value(forKey: "proteinGoal") as! Double, fatGoal: rec.value(forKey: "fatGoal") as! Double, userCalories: rec.value(forKey: "userCalories") as! Double, userCarbohydrates: rec.value(forKey: "userCarbohydrates") as! Double, userFat: rec.value(forKey: "userFat") as! Double, userProtein: rec.value(forKey: "userProtein") as! Double, date: (rec.value(forKey: "date") as? Date)!, diaryID: rec.value(forKey: "diaryID") as? [String], userID: rec.value(forKey: "userID") as! String)
                         self.thisWeekReports.append(newRecord)
                         //print(self.checkDay(date: newRecord.date))
                         print("enter a new world \(self.thisWeekReports)")
