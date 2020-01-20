@@ -57,7 +57,10 @@ class DatabaseNutriMe{
     }
     
     func getUserData(completion : @escaping() -> Void){
-        
+        self.totalFat = 0
+        self.totalProtein = 0
+        self.totalCalories = 0
+        self.totalCarbohidrates = 0
         if let dataDate = UserDefaults.standard.object(forKey: "reportDate") as? Date{
             if !Calendar.current.isDateInToday(dataDate) && UserDefaults.standard.bool(forKey: "isReportCreated"){
                 UserDefaults.standard.set(false, forKey: "isReportCreated")
