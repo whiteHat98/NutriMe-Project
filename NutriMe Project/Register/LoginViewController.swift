@@ -10,7 +10,7 @@ import UIKit
 import CloudKit
 
 class LoginViewController: UIViewController {
-
+    
     
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -24,6 +24,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.txtPassword.isSecureTextEntry = true
+        self.hideKeyboardWhenTapped()
         setTabNavBar()
         // Do any additional setup after loading the view.
     }
@@ -94,16 +96,23 @@ class LoginViewController: UIViewController {
                     }
                 }else{
                     //sudah pernah daftar
-                        
-                        guard let record = records?[0] else{return}
-                        UserDefaults.standard.setValue(record.recordID.recordName, forKey: "currentUserID")
-                        UserDefaults.standard.set(true, forKey: "userInfoExist")
+                    
+                    guard let record = records?[0] else{return}
                     DispatchQueue.main.async {
-                        let dashboard : UITabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "dashboard") as! UITabBarController
-                        self.navigationController?.isNavigationBarHidden = true
-                        self.show(dashboard, sender: self)
+                        if self.txtPassword.text == record.value(forKey: "password") as! String{
+                            UserDefaults.standard.setValue(record.recordID.recordName, forKey: "currentUserID")
+                            UserDefaults.standard.set(true, forKey: "userInfoExist")
+                            let dashboard : UITabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "dashboard") as! UITabBarController
+                            self.navigationController?.isNavigationBarHidden = true
+                            self.show(dashboard, sender: self)
+                        }else{
+                            let alert = UIAlertController(title: "Wrong password", message: "Please input the right password!", preferredStyle: .alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            
+                            self.present(alert, animated: true, completion: nil)
+                        }
                     }
-                    print("Masukk!")
                 }
             }
         }
