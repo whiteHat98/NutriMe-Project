@@ -31,6 +31,9 @@ class RegisterViewController: UIViewController {
         //self.dismiss(animated: true, completion: nil)
     }
     
+    var email: String?
+    var password: String?
+    
     let gender = ["Male","Female"]
     var user: UserInfo?
     var selectedGender: Int?
@@ -69,6 +72,8 @@ class RegisterViewController: UIViewController {
         record.setValue(123, forKey: "proteinGoal")
         record.setValue("no value", forKey: "userReminderID")
         record.setValue("no value", forKey: "userRestrictionID")
+        record.setValue(self.email ?? "", forKey: "email")
+        record.setValue(self.password ?? "", forKey: "password")
         
         if selectedGender == 0 {
             record.setValue("Male", forKey: "gender")
@@ -100,7 +105,7 @@ class RegisterViewController: UIViewController {
                 
             }
             else{
-                print("Record Not Saved")
+                print("Record Not Saved \(error)")
             }
         }
     }
@@ -141,7 +146,7 @@ class RegisterViewController: UIViewController {
     func setTabNavBar(){
         //        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.backgroundColor = .clear
-        self.navigationItem.hidesBackButton = true
+        //self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
     }
     

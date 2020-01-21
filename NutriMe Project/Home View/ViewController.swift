@@ -69,7 +69,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        
         checkUserInfo {
             let decoded = UserDefaults.standard.object(forKey: "userInfo") as! Data
             do{
@@ -105,6 +104,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        checkUserInfo {}
                guard let userID = UserDefaults.standard.value(forKey: "currentUserID") as? String else {return}
                db.fetchDataUser(userID: userID, completion: { (userInfo) in
                    DispatchQueue.main.async {
@@ -117,7 +117,7 @@ class ViewController: UIViewController {
                       //self.getUserData()
                     self.db.getUserData {
                         DispatchQueue.main.async {
-                            var caloriesNeeded = (10 * (Double(userInfo.caloriesGoal!) - self.db.totalCalories)).rounded() / 10
+                            var caloriesNeeded = (10 * (Double(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - self.db.totalCalories)).rounded() / 10
             
                                 if caloriesNeeded < 0 {
                                     self.caloriesTitleLabel.text = "Over"
@@ -262,7 +262,10 @@ class ViewController: UIViewController {
     
     func checkUserInfo(completionHandler: @escaping()-> Void){
         if !UserDefaults.standard.bool(forKey: "userInfoExist"){
-            let registerVC : RegisterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "registerVC") as! RegisterViewController
+            
+            
+            let registerVB : UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "loginVc") as! UINavigationController
+            let registerVC = registerVB.viewControllers[0] as! LoginViewController
             
             if let navBar = self.navigationController{
                 //navBar.present(registerVC, animated: true, completion: nil)

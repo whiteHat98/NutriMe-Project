@@ -19,6 +19,13 @@ struct User{
 
 class ProfilViewController: UIViewController {
     
+    @IBOutlet weak var logOutBtn: UIButton!
+    @IBAction func logOutAction(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "userInfoExist")
+        self.navigationController?.popToRootViewController(animated: false)
+    }
+    
+
     @IBOutlet weak var imgUser: UIImageView!
     
     @IBOutlet weak var profilTableView: UITableView!

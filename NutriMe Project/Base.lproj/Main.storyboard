@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y7L-8E-qJy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y7L-8E-qJy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -152,7 +152,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Dashboard" id="k8U-Fz-HDi"/>
+                    <navigationItem key="navigationItem" title="Dashboard" largeTitleDisplayMode="never" id="k8U-Fz-HDi"/>
                     <connections>
                         <outlet property="activityCaloriesLabel" destination="10H-yE-Pdu" id="cas-ww-mi7"/>
                         <outlet property="btnActivityLevel" destination="SL2-ol-geA" id="wd8-ra-KNP"/>
@@ -305,7 +305,7 @@
                                 <state key="normal" backgroundImage="person.circle" catalog="system"/>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vc8-AJ-cen">
-                                <rect key="frame" x="0.0" y="313" width="414" height="500"/>
+                                <rect key="frame" x="0.0" y="313" width="414" height="419"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -336,6 +336,14 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qkw-F5-tsh">
+                                <rect key="frame" x="20" y="756" width="374" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="logOutAction:" destination="Mrm-TO-fVb" eventType="touchUpInside" id="yOt-BL-gKz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="K31-zC-t7n"/>
@@ -348,6 +356,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="logOutBtn" destination="Qkw-F5-tsh" id="Xta-9q-uWO"/>
                         <outlet property="profilTableView" destination="Vc8-AJ-cen" id="wml-WV-M7V"/>
                         <segue destination="ocH-zO-Yof" kind="show" identifier="segueToReminders" id="for-k1-sBi"/>
                         <segue destination="Myc-QY-T03" kind="show" identifier="segueToPantanganMakanan" id="ode-I2-Z8m"/>
@@ -437,8 +446,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GT5-b2-fXO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" selectedImage="house.fill" catalog="system" id="bU6-LA-Yjp"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QzU-vs-2w9">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="QzU-vs-2w9">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -450,10 +459,53 @@
             </objects>
             <point key="canvasLocation" x="1886.9565217391305" y="118.52678571428571"/>
         </scene>
+        <!--NutriMe-->
+        <scene sceneID="Xes-Uq-BYl">
+            <objects>
+                <viewController id="bap-wM-Fb3" customClass="LoginViewController" customModule="NutriMe_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fDh-io-8Vj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lyN-GX-vVa">
+                                <rect key="frame" x="20" y="265" width="374" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q62-dQ-gyH">
+                                <rect key="frame" x="20" y="318" width="374" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yof-gm-iKC">
+                                <rect key="frame" x="20" y="404" width="374" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginBtn:" destination="bap-wM-Fb3" eventType="touchUpInside" id="ccJ-Ia-XRu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ERD-XS-UwM"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="NutriMe" id="lN3-7N-rSk"/>
+                    <connections>
+                        <outlet property="txtEmail" destination="lyN-GX-vVa" id="YZJ-xM-xUJ"/>
+                        <outlet property="txtPassword" destination="Q62-dQ-gyH" id="SXs-WD-UV8"/>
+                        <segue destination="REK-CN-3SC" kind="show" identifier="toRegister" id="mDI-lx-eS8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7eo-Rr-2i5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1808.6956521739132" y="-608.03571428571422"/>
+        </scene>
         <!--Personal Information-->
         <scene sceneID="GPS-Wy-cQM">
             <objects>
-                <viewController storyboardIdentifier="registerVC" id="REK-CN-3SC" customClass="RegisterViewController" customModule="NutriMe_Project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="REK-CN-3SC" customClass="RegisterViewController" customModule="NutriMe_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hTG-zT-HF4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -600,7 +652,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="KVz-qI-k9f"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Personal Information" id="RpR-RK-eLy">
+                    <navigationItem key="navigationItem" title="Personal Information" largeTitleDisplayMode="never" id="RpR-RK-eLy">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="s6v-IJ-QL9">
                             <connections>
                                 <action selector="doneButtonClick:" destination="REK-CN-3SC" id="qrz-Bc-ek9"/>
@@ -624,7 +676,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eld-5f-c8m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1886.9565217391305" y="-608.03571428571422"/>
+            <point key="canvasLocation" x="2583" y="-608"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="LSn-SR-Jkg">
@@ -758,15 +810,15 @@
         <!--Navigation Controller-->
         <scene sceneID="Agb-Wl-T7l">
             <objects>
-                <navigationController id="Rsq-ZH-CcB" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="loginVc" id="Rsq-ZH-CcB" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Gcx-uU-YaI">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Gcx-uU-YaI">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="REK-CN-3SC" kind="relationship" relationship="rootViewController" id="1Yd-Ul-Ncg"/>
+                        <segue destination="bap-wM-Fb3" kind="relationship" relationship="rootViewController" id="1Wx-Ed-OYQ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Juq-Kx-MUI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

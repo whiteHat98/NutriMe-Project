@@ -11,6 +11,7 @@
 		971C42ED239A4A3C00E249A8 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971C42EC239A4A3C00E249A8 /* Model.swift */; };
 		971C42EF239DEB4200E249A8 /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971C42EE239DEB4200E249A8 /* helper.swift */; };
 		974E3DB423D17601007A7A6E /* DatabaseNutriMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E3DB323D17601007A7A6E /* DatabaseNutriMe.swift */; };
+		974E3DB623D6EA56007A7A6E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E3DB523D6EA56007A7A6E /* LoginViewController.swift */; };
 		9778A4D2237E936500E93BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D1237E936500E93BA1 /* AppDelegate.swift */; };
 		9778A4D4237E936500E93BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D3237E936500E93BA1 /* SceneDelegate.swift */; };
 		9778A4D6237E936500E93BA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D5237E936500E93BA1 /* ViewController.swift */; };
@@ -69,6 +70,7 @@
 		971C42EC239A4A3C00E249A8 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		971C42EE239DEB4200E249A8 /* helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helper.swift; sourceTree = "<group>"; };
 		974E3DB323D17601007A7A6E /* DatabaseNutriMe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseNutriMe.swift; sourceTree = "<group>"; };
+		974E3DB523D6EA56007A7A6E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9778A4CE237E936500E93BA1 /* NutriMe Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NutriMe Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9778A4D1237E936500E93BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9778A4D3237E936500E93BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				978B9F1F23A9FD9200B75E34 /* RegisterViewController.swift */,
+				974E3DB523D6EA56007A7A6E /* LoginViewController.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				977CEF7C2394080F00B24AE6 /* SetFoodTableViewCell.swift in Sources */,
 				FEB8C55723CC677C00EB5D48 /* PantanganMakananTableViewCell.swift in Sources */,
 				FE4015A323C48F4E003779B6 /* newFoodTableViewCell.swift in Sources */,
+				974E3DB623D6EA56007A7A6E /* LoginViewController.swift in Sources */,
 				9778A4D2237E936500E93BA1 /* AppDelegate.swift in Sources */,
 				9778A4DC237E936500E93BA1 /* NutriMe_Project.xcdatamodeld in Sources */,
 				9778A4EE237E978E00E93BA1 /* rekomendasiTableViewCell.swift in Sources */,
