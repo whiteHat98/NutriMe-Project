@@ -43,9 +43,11 @@ class ActivityViewController: UIViewController {
         let lowActivity = Activity(id: 0, level: .low, desc: "driving, berjalan, office work, reading", caloriesMultiply: 1.2)
         let medActivity = Activity(id: 1, level: .medium, desc: "gardening, biking, fast walking", caloriesMultiply: 1.55)
         let highActivity = Activity(id: 2, level: .high, desc: "aerobics, badminton, jogging", caloriesMultiply: 1.725)
+        let liveActivity = Activity(id: 3, level: .live, desc: "Connected with Health App, based on your dairy activity", caloriesMultiply: 1)
         activities.append(lowActivity)
         activities.append(medActivity)
         activities.append(highActivity)
+        activities.append(liveActivity)
     }
 }
 

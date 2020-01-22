@@ -79,4 +79,5 @@ enum ActivityLevel: String{
   case low = "Low"
   case medium = "Medium"
   case high = "High"
+    case live = "Live"
 }
