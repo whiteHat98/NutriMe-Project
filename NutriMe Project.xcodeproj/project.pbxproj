@@ -12,6 +12,7 @@
 		971C42EF239DEB4200E249A8 /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971C42EE239DEB4200E249A8 /* helper.swift */; };
 		974E3DB423D17601007A7A6E /* DatabaseNutriMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E3DB323D17601007A7A6E /* DatabaseNutriMe.swift */; };
 		974E3DB623D6EA56007A7A6E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E3DB523D6EA56007A7A6E /* LoginViewController.swift */; };
+		974E3DB923D7FC00007A7A6E /* RecomendationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E3DB823D7FC00007A7A6E /* RecomendationViewController.swift */; };
 		9778A4D2237E936500E93BA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D1237E936500E93BA1 /* AppDelegate.swift */; };
 		9778A4D4237E936500E93BA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D3237E936500E93BA1 /* SceneDelegate.swift */; };
 		9778A4D6237E936500E93BA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778A4D5237E936500E93BA1 /* ViewController.swift */; };
@@ -71,6 +72,7 @@
 		971C42EE239DEB4200E249A8 /* helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helper.swift; sourceTree = "<group>"; };
 		974E3DB323D17601007A7A6E /* DatabaseNutriMe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseNutriMe.swift; sourceTree = "<group>"; };
 		974E3DB523D6EA56007A7A6E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		974E3DB823D7FC00007A7A6E /* RecomendationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendationViewController.swift; sourceTree = "<group>"; };
 		9778A4CE237E936500E93BA1 /* NutriMe Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NutriMe Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9778A4D1237E936500E93BA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9778A4D3237E936500E93BA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +151,14 @@
 			path = DatabaseQuery;
 			sourceTree = "<group>";
 		};
+		974E3DB723D7FBD7007A7A6E /* RecomendationView */ = {
+			isa = PBXGroup;
+			children = (
+				974E3DB823D7FC00007A7A6E /* RecomendationViewController.swift */,
+			);
+			path = RecomendationView;
+			sourceTree = "<group>";
+		};
 		9778A4C5237E936500E93BA1 = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +203,7 @@
 		9778A4FA2382B1DE00E93BA1 /* Home View */ = {
 			isa = PBXGroup;
 			children = (
+				974E3DB723D7FBD7007A7A6E /* RecomendationView */,
 				9778A4FD2382B22200E93BA1 /* rekomendasiCell */,
 				9778A4FC2382B20B00E93BA1 /* mineralCell */,
 				9778A4FB2382B1F100E93BA1 /* giziCell */,
@@ -543,6 +554,7 @@
 				FEB8C55523CC676500EB5D48 /* PantanganMakananViewController.swift in Sources */,
 				FEB8C54D23C87A4700EB5D48 /* EditProfileTableViewCell.swift in Sources */,
 				9778A4F2237E99A200E93BA1 /* giziTableViewCell.swift in Sources */,
+				974E3DB923D7FC00007A7A6E /* RecomendationViewController.swift in Sources */,
 				974E3DB423D17601007A7A6E /* DatabaseNutriMe.swift in Sources */,
 				9778A4D4237E936500E93BA1 /* SceneDelegate.swift in Sources */,
 				FEB8C54B23C87A0C00EB5D48 /* editProfileViewController.swift in Sources */,

@@ -88,15 +88,33 @@ class ReportViewController: UIViewController {
 //      return reports
 //    }
     func setMacroValue(){
-        if let report = self.thisWeekReports.last{
-            self.lblAvgCarb.text = String(format: "%.2f", report.userCarbohydrates)
-            self.lblAvgProt.text = String(format: "%.2f", report.userProtein)
-            self.lblAvgFat.text = String(format: "%.2f", report.userFat)
-            self.lblGoalCarb.text = String(format: "%.2f", report.carbohydrateGoal)
-            self.lblGoalProt.text = String(format: "%.2f", report.proteinGoal)
-            self.lblGoalFat.text = String(format: "%.2f", report.fatGoal)
+        
+        var carb: Double = 0
+        var prot: Double = 0
+        var fat: Double = 0
+        var carbGoal: Double = 0
+        var protGoal: Double = 0
+        var fatGoal: Double = 0
+        
+        for report in self.thisWeekReports{
+            carb += report.userCarbohydrates
+            prot += report.userProtein
+            fat += report.userFat
+            carbGoal += report.carbohydrateGoal
+            protGoal += report.proteinGoal
+            fatGoal += report.fatGoal
             
         }
+        let numDays = Double(checkDay(date: Date()))
+        let num = Double(thisWeekReports.count)
+        self.lblAvgCarb.text = String(format: "%.2f", carb / numDays)
+        self.lblAvgProt.text = String(format: "%.2f", prot / numDays)
+        self.lblAvgFat.text = String(format: "%.2f", fat / numDays)
+        self.lblGoalCarb.text = String(format: "%.2f", carbGoal / num)
+        self.lblGoalProt.text = String(format: "%.2f", protGoal / num)
+        self.lblGoalFat.text = String(format: "%.2f", fatGoal / num)
+            
+        
     }
     
     func setValues(completion: @escaping() -> Void){

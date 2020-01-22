@@ -158,11 +158,11 @@
             </objects>
             <point key="canvasLocation" x="905.79710144927549" y="-282.58928571428572"/>
         </scene>
-        <!--Item-->
+        <!--Report-->
         <scene sceneID="l6K-Ny-TC0">
             <objects>
                 <navigationController storyboardIdentifier="third" automaticallyAdjustsScrollViewInsets="NO" id="wfV-hc-zhr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="book.fill" catalog="system" id="dxb-x8-jk9"/>
+                    <tabBarItem key="tabBarItem" title="Report" image="waveform.path.ecg" catalog="system" id="dxb-x8-jk9"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="all-lo-S2Q">
@@ -180,6 +180,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="book.fill" catalog="system" width="64" height="50"/>
+        <image name="waveform.path.ecg" catalog="system" width="64" height="62"/>
     </resources>
 </document>

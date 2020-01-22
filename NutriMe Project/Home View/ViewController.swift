@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     var appDelegate = UIApplication.shared.delegate as? AppDelegate
     let healthKitStore = HKHealthStore()
     
-    let nutriens:[(String,String)]=[("Lemak","Daging"),("Protein","Telur"),("Karbohidrat","Jagung")]
+    let nutriens:[(String,String)]=[("Karbohidrat","Jagung"),("Protein","Telur"),("Lemak","Daging")]
 //
 //    var totalCalories : Double = 0
 //    var totalCarbohidrates : Double = 0
@@ -65,6 +65,8 @@ class ViewController: UIViewController {
     
     var userInfo : UserInfo?
     
+    var selectedMacro: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -99,6 +101,11 @@ class ViewController: UIViewController {
         else if segue.identifier == "toProfile"{
             let nextVC = segue.destination as! ProfilViewController
             nextVC.userInfo = self.userInfo
+        }
+        else if segue.identifier == "toRecomendation" {
+            let nextVC = segue.destination as! RecomendationViewController
+            print(self.selectedMacro)
+            nextVC.macroCategory = self.selectedMacro
         }
     }
     
@@ -289,6 +296,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         return 3
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0{
+            if indexPath.row == 0{
+                selectedMacro = "carb"
+            }else if indexPath.row == 1{
+                selectedMacro = "prot"
+            }else if indexPath.row == 2{
+                selectedMacro = "fat"
+            }
+            performSegue(withIdentifier: "toRecomendation", sender: self)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
@@ -328,7 +348,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         
         if indexPath.section == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellRekomendasi", for: indexPath) as? rekomendasiTableViewCell
-            print(nutriens[indexPath.row])
+            //print(nutriens[indexPath.row])
             cell?.lblNamaMakanan.text = nutriens[indexPath.row].1
             cell?.lblNamaMakro.text = nutriens[indexPath.row].0
             return cell!
