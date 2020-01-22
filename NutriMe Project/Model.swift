@@ -55,6 +55,13 @@ struct Diary {
 //    }
 }
 
+struct Recommendation {
+    var name: String
+    var category: String
+    var desc: String
+    var restriction: String?
+}
+
 struct Reminder {
     var hour: Int
     var minute: Int
