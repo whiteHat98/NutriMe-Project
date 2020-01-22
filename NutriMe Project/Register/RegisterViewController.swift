@@ -38,6 +38,9 @@ class RegisterViewController: UIViewController {
     var user: UserInfo?
     var selectedGender: Int?
     var caloriesNeed: Float?
+    var carbohydrateNeed: Float?
+    var fatNeed: Float?
+    var proteinNeed: Float?
     var userAge : Int?
     var delegate: GetObject?
     
@@ -57,7 +60,7 @@ class RegisterViewController: UIViewController {
         
         doneButton.isEnabled = false
         indicator.isHidden = false
-        let caloriesNeeded = harrisBenedictFormula()
+        caloriesNeed = brocaFormula()
         
         let record = CKRecord(recordType: "User")
         
@@ -65,11 +68,11 @@ class RegisterViewController: UIViewController {
         record.setValue(dobText, forKey: "dob")
         record.setValue(heightText.floatValue, forKey: "height")
         record.setValue(weightText.floatValue, forKey: "weight")
-        record.setValue(caloriesNeeded, forKey: "caloriesGoal")
-        record.setValue(123, forKey: "carbohydrateGoal")
-        record.setValue(123, forKey: "fatGoal")
-        record.setValue(123, forKey: "mineralGoal")
-        record.setValue(123, forKey: "proteinGoal")
+        record.setValue(caloriesNeed, forKey: "caloriesGoal")
+        record.setValue(carbohydrateNeed, forKey: "carbohydrateGoal")
+        record.setValue(fatNeed, forKey: "fatGoal")
+        record.setValue(proteinNeed, forKey: "proteinGoal")
+        record.setValue(8, forKey: "mineralGoal")
         record.setValue("no value", forKey: "userReminderID")
         record.setValue("no value", forKey: "userRestrictionID")
         record.setValue(self.email ?? "", forKey: "email")
@@ -158,7 +161,7 @@ class RegisterViewController: UIViewController {
     }
     
     func createUser(){
-        print(caloriesNeed!)
+        print(caloriesNeed)
         let userID: String = UserDefaults.standard.value(forKey: "currentUserID") as! String
         var gender = String()
         if selectedGender == 0 {
@@ -208,6 +211,74 @@ class RegisterViewController: UIViewController {
         }
         
         return caloriesNeed!
+    }
+    
+    func brocaFormula() -> Float {
+        var caloriesNeeded: Float = 0
+
+        getAge()
+        
+        //Perhitungan Berat Ideal
+        var BBI:Float = (heightText.floatValue - 100)
+        
+        if selectedGender == 0 {
+            //Laki" kurang dari 160 cm tidak dikurang 10%
+            if heightText.floatValue >= 160 {
+                BBI = BBI - (BBI * 0.1)
+            }
+            
+            let statusGizi: Float = (weightText.floatValue/BBI) * 100
+            let basalCalories: Float = BBI * 30
+            
+            //Koreksi kebutuhan kalori
+            if statusGizi < 90 { //Kekurusan
+                caloriesNeeded = basalCalories + (basalCalories * 0.2)
+            }
+            else if statusGizi > 110 && statusGizi <= 120 { //kelebihan
+                caloriesNeeded = basalCalories - (basalCalories * 0.1)
+            }
+            else if statusGizi > 120 { // kegemukan
+                caloriesNeeded = basalCalories - (basalCalories * 0.2)
+            }
+            
+        }else if selectedGender == 1 {
+            //wanita kurang dari 150 cm tidak dikurang 10%
+            if heightText.floatValue >= 150 {
+                BBI = BBI - (BBI * 0.15)
+            }
+            
+            let statusGizi: Float = (weightText.floatValue/BBI) * 100
+            let basalCalories: Float = BBI * 25
+            
+            //Koreksi kebutuhan kalori
+            if statusGizi < 90 { //Kekurusan
+                caloriesNeeded = basalCalories + (basalCalories * 0.2)
+            }
+            else if statusGizi > 110 && statusGizi <= 120 { //kelebihan
+                caloriesNeeded = basalCalories - (basalCalories * 0.1)
+            }
+            else if statusGizi > 120 { // kegemukan
+                caloriesNeeded = basalCalories - (basalCalories * 0.2)
+            }
+            else{
+                caloriesNeeded = basalCalories
+            }
+        }
+        
+        getMakroGoal(caloriesNeed: caloriesNeeded)
+        
+        return caloriesNeeded
+    }
+    
+    func getMakroGoal(caloriesNeed: Float) {
+        // 60% Karbohidrat (4 kalori / gram)
+        carbohydrateNeed = (0.6 * caloriesNeed) / 4
+        
+        // 15% Protein (4 kalori / gram
+        proteinNeed = (0.15 * caloriesNeed) / 4
+        
+        // 35% Lemak (9 kalori / gram)
+        fatNeed = (0.35 * caloriesNeed) / 9
     }
     
     func setKeyboard(){
