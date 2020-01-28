@@ -49,12 +49,23 @@ class SearchViewController: UIViewController {
         //      }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         self.delegate?.dismissPage(dismiss: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+//        if !CheckInternet.Connection(){
+//            let alert = UIAlertController(title: "Internet Connection", message: "Internet connection required please check your internet connection!", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//        
         let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
         
         let userFoodQuery = CKQuery(recordType: "Food", predicate: NSPredicate(format: "userID == %@", userID))

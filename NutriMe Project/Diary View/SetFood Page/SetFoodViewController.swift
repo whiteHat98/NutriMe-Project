@@ -73,7 +73,7 @@ class SetFoodViewController: UIViewController {
                             
                             db.userInfo = userInfo
                            //self.getUserData()
-                          db.getUserData {
+                            db.getUserData {_,_ in 
                              DispatchQueue.main.async {
                                  if !UserDefaults.standard.bool(forKey: "isReportCreated"){
                                      db.createReportRecord()

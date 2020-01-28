@@ -8,6 +8,7 @@
 
 import Foundation
 import CloudKit
+import UIKit
 
 class DatabaseNutriMe{
     
@@ -56,7 +57,7 @@ class DatabaseNutriMe{
         }
     }
     
-    func getUserData(completion : @escaping() -> Void){
+    func getUserData(completion : @escaping(_ String: [CKRecord]?, _ error: Error?) -> Void){
         self.totalFat = 0
         self.totalProtein = 0
         self.totalCalories = 0
@@ -85,6 +86,7 @@ class DatabaseNutriMe{
         database.perform(diaryQuery, inZoneWith: nil) { (records, err) in
             if err != nil{
                 print(err)
+                completion(nil, err)
             }else{
                 for data in records!{
                     if var diaryID = self.diaryID as? [String]{
@@ -105,7 +107,7 @@ class DatabaseNutriMe{
 //                        print("update!")
 //                    }
         //}
-                completion()
+                completion(records!, nil)
             }
         }
     }

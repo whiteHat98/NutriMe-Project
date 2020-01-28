@@ -23,11 +23,19 @@ class LoginViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        self.txtPassword.isSecureTextEntry = true
-        self.hideKeyboardWhenTapped()
-        setTabNavBar()
-        // Do any additional setup after loading the view.
+        super.viewDidLoad() 
+            self.txtPassword.isSecureTextEntry = true
+            self.hideKeyboardWhenTapped()
+            setTabNavBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        if !CheckInternet.Connection(){
+//            let alert = UIAlertController(title: "Internet Connection", message: "Internet connection required please check your internet connection!", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//
+//            self.present(alert, animated: true, completion: nil)
+//        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
