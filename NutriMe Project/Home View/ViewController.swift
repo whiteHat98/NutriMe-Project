@@ -24,7 +24,8 @@ class ViewController: UIViewController {
     var appDelegate = UIApplication.shared.delegate as? AppDelegate
     let healthKitStore = HKHealthStore()
     
-    let nutriens:[(String,String)]=[("Karbohidrat","Jagung"),("Protein","Telur"),("Lemak","Daging")]
+    //let nutriens:[(String,String)]=[("Karbohidrat","Jagung"),("Protein","Telur"),("Lemak","Daging")]
+    let nutriens:[String]=["Fat","Protein","Carbohydrate"]
     //
     //    var totalCalories : Double = 0
     //    var totalCarbohidrates : Double = 0
@@ -89,7 +90,7 @@ class ViewController: UIViewController {
         self.dashboardTableView.dataSource = self
         self.dashboardTableView.tableFooterView = UIView()
         
-        //self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
+//        self.btnActivityLevel.titleLabel?.text = "Activity Level (\(selectedActivities?.level.rawValue))"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,8 +109,9 @@ class ViewController: UIViewController {
         }
         else if segue.identifier == "toRecomendation" {
             let nextVC = segue.destination as! RecomendationViewController
-            print(self.selectedMacro)
             nextVC.macroCategory = self.selectedMacro
+            nextVC.userInfo = self.userInfo
+            
         }
     }
     
@@ -121,7 +123,8 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 self.userInfo = userInfo
                 self.db.userInfo = userInfo
-                self.caloriesGoalLabel.text = "\(Int(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
+                //self.caloriesGoalLabel.text = "\(Int(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
+                self.caloriesGoalLabel.text = "\(10 * Double(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)).rounded() / 10) calories"
                 self.activityCaloriesLabel.text = "\(Int((userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - userInfo.caloriesGoal!)) cal"
                 self.dashboardTableView.reloadData()
                 
@@ -132,7 +135,6 @@ class ViewController: UIViewController {
                         if !CheckInternet.Connection(){
                             let alert = UIAlertController(title: "Internet Connection", message: "Internet connection required please check your internet connection!", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                            
                             self.present(alert, animated: true, completion: nil)
                         }
                     }else{
@@ -151,8 +153,8 @@ class ViewController: UIViewController {
                             
                             self.currentCaloriesLabel.text = "\((10 * self.totalCalories).rounded() / 10)"
                             self.caloriesNeededLabel.text = "\(caloriesNeeded)"
-                            
-                            
+
+
                             self.dashboardTableView.reloadData()
                             self.currentCaloriesLabel.text = "\(Int(self.db.totalCalories)) cal"
                             if !UserDefaults.standard.bool(forKey: "isReportCreated"){
@@ -163,18 +165,89 @@ class ViewController: UIViewController {
                                     UserDefaults.standard.set(false, forKey: "needUpdate")
                                 }
                             }
+                            if UserDefaults.standard.value(forKey: "userActivityLevel") != nil {
+                                self.defaultActivityLevel = UserDefaults.standard.value(forKey: "userActivityLevel") as! Int
+                            }
+                            
+                            if self.defaultActivityLevel != 3 {
+                                self.activityCaloriesLabel.text = "\(10 * Double((userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - userInfo.caloriesGoal!).rounded() / 10) cal"
+//
+//                                if self.defaultActivityLevel == 0 {
+//                                    self.btnActivityLevel.titleLabel?.text = "Activity Level-Low"
+//                                }
+//                                else if self.defaultActivityLevel == 1{
+//                                    self.btnActivityLevel.titleLabel?.text = "Activity Level-Med"
+//
+//                                }
+//                                else if self.defaultActivityLevel == 2{
+//                                    self.btnActivityLevel.titleLabel?.text = "Activity Level-High"
+//                                }
+                            }
+                            else{
+                                self.getTodaysSteps { (step) in
+                                    self.totalStepCount = step
+                                    self.getTodaysActiveEnergy { (energy) in
+                                        self.totalActiveEnergy = energy
+                                        let totalEnergy = (self.totalStepCount * 0.04) + self.totalActiveEnergy
+                                        DispatchQueue.main.async {
+                                            self.activityCaloriesLabel.text = "\(10 * Double(totalEnergy).rounded() / 10)"
+                                            self.btnActivityLevel.titleLabel?.text = "Activity Level-Live"
+                                        }
+                                    }
+                                }   
+                            }
+
                         }
-                        self.getTodaysSteps { (step) in
-                            self.totalStepCount = step
+                        DispatchQueue.main.async{
+                            self.dashboardTableView.reloadData()
                         }
-                        
-                        self.getTodaysActiveEnergy { (energy) in
-                            self.totalActiveEnergy = energy
+                        //self.getUserData()
+                        self.db.getUserData {_,_ in
+                            DispatchQueue.main.async {
+                                var caloriesNeeded = (10 * (Double(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - self.db.totalCalories)).rounded() / 10
+                                
+                                if caloriesNeeded < 0 {
+                                    self.caloriesTitleLabel.text = "Over"
+                                    self.caloriesNeededLabel.textColor = .systemRed
+                                    caloriesNeeded = caloriesNeeded * -1
+                                }
+
+                                self.getTodaysActiveEnergy { (energy) in
+                                    self.totalActiveEnergy = energy
+                                }
+                            }
                         }
                     }
                 })
             }
         })
+            
+
+
+                
+
+                        
+                        //  else{
+                        //     self.caloriesTitleLabel.text = "Remaining"
+                        //     self.caloriesNeededLabel.textColor = .label
+                        // }
+                        
+                        // self.currentCaloriesLabel.text = "\((10 * self.totalCalories).rounded() / 10)"
+                        // self.caloriesNeededLabel.text = "\(caloriesNeeded)"
+                        
+                        
+                        // self.dashboardTableView.reloadData()
+                        // self.currentCaloriesLabel.text = "\(Int(self.db.totalCalories)) cal"
+                        // if !UserDefaults.standard.bool(forKey: "isReportCreated"){
+                        //     self.db.createReportRecord()
+                        // }else{
+                        //     if UserDefaults.standard.bool(forKey: "needUpdate"){
+                        //         self.db.updateReport()
+                        //         UserDefaults.standard.set(false, forKey: "needUpdate")
+                        //     }
+                        // }
+
+
         
         
         
@@ -312,11 +385,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0{
             if indexPath.row == 0{
-                selectedMacro = "carb"
-            }else if indexPath.row == 1{
-                selectedMacro = "prot"
-            }else if indexPath.row == 2{
                 selectedMacro = "fat"
+            }else if indexPath.row == 1{
+                selectedMacro = "protein"
+            }else if indexPath.row == 2{
+                selectedMacro = "carb"
             }
             performSegue(withIdentifier: "toRecomendation", sender: self)
         }
@@ -362,8 +435,33 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         if indexPath.section == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellRekomendasi", for: indexPath) as? rekomendasiTableViewCell
             //print(nutriens[indexPath.row])
-            cell?.lblNamaMakanan.text = nutriens[indexPath.row].1
-            cell?.lblNamaMakro.text = nutriens[indexPath.row].0
+            
+            cell?.lblNamaMakro.text = nutriens[indexPath.row]
+            
+            if indexPath.row == 0 {
+                if UserDefaults.standard.value(forKey: "fatRecommendation") != nil {
+                    cell?.lblNamaMakanan.text = UserDefaults.standard.value(forKey: "fatRecommendation") as! String
+                }
+                else{
+                    cell?.lblNamaMakanan.text = "Click to Choose"
+                }
+            }
+            else if indexPath.row == 1 {
+                if UserDefaults.standard.value(forKey: "proteinRecommendation") != nil {
+                    cell?.lblNamaMakanan.text = UserDefaults.standard.value(forKey: "proteinRecommendation") as! String
+                }
+                else{
+                    cell?.lblNamaMakanan.text = "Click to Choose"
+                }
+            }
+            else if indexPath.row == 2 {
+                if UserDefaults.standard.value(forKey: "carbRecommendation") != nil {
+                    cell?.lblNamaMakanan.text = UserDefaults.standard.value(forKey: "carbRecommendation") as! String
+                }
+                else{
+                    cell?.lblNamaMakanan.text = "Click to Choose"
+                }
+            }
             return cell!
         }else if indexPath.section == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellMakro", for: indexPath) as? giziTableViewCell
@@ -396,16 +494,24 @@ extension ViewController : UpdateData{
     func updateActivity(activity: Activity) {
         self.selectedActivities = activity
         self.defaultActivityLevel = activity.id
+        
+        UserDefaults.standard.set(activity.id, forKey: "userActivityLevel")
+        
         DispatchQueue.main.async {
             if activity.id == 1{
                 self.btnActivityLevel.titleLabel?.text = "Activity Level-Med"
-                
+            }else if activity.id == 3{
+                self.btnActivityLevel.titleLabel?.text = "Activity Level-Live"
             }else{
                 self.btnActivityLevel.titleLabel?.numberOfLines = 0
                 //self.btnActivityLevel.titleLabel?.adjustsFontSizeToFitWidth = true
                 self.btnActivityLevel.titleLabel?.text = "Activity Level-\(activity.level.rawValue)"
             }
         }
+    }
+    
+    func updateRecommendation() {
+        
     }
 }
 

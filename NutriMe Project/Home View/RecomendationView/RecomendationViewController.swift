@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 class RecomendationViewController: UIViewController {
 
@@ -19,6 +20,12 @@ class RecomendationViewController: UIViewController {
     var listCarb : [String] = []
     var listProt : [String] = []
     var listFat : [String] = []
+    
+    var userInfo: UserInfo?
+    var foodRecommendation:[Recommendation] = []
+    
+    let database = CKContainer.default().publicCloudDatabase
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,21 +62,93 @@ class RecomendationViewController: UIViewController {
         numberRow = listForTable.count
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        getRecommendation()
+    }
+    
+    func getRecommendation() {
+        foodRecommendation.removeAll()
+        
+        let predicate = NSPredicate(format: "category == %@", self.macroCategory)
+        
+        let recommendationQuery = CKQuery(recordType: "Recommendation", predicate: predicate)
+        
+        database.perform(recommendationQuery, inZoneWith: nil) { (record, error) in
+            if error == nil {
+                for data in record! {
+                    let category = data.value(forKey: "category") as! String
+                    let name = data.value(forKey: "name") as! String
+                    let desc = data.value(forKey: "desc") as! String
+                    let restriction = data.value(forKey: "restrictions") as? String
+                    
+                    let recommendation = Recommendation(name: name, category: category, desc: desc, restriction: restriction)
+                    
+                    var restricted = false
+                    if self.userInfo?.foodRestrictions != nil {
+                        for restriction in self.userInfo!.foodRestrictions! {
+                            if recommendation.restriction == restriction {
+                                restricted = true
+                                break
+                            }
+                        }
+                        
+                        if restricted == false {
+                            self.foodRecommendation.append(recommendation)
+                        }
+                    }
+                }
+                
+                print(self.foodRecommendation)
+                DispatchQueue.main.async {
+                    self.recomendationTable.reloadData()
+                }
+            }
+            else{
+                print(error)
+            }
+        }
+    }
 }
 
 extension RecomendationViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberRow
+        if foodRecommendation.count > 0 {
+            return foodRecommendation.count
+        }
+        else{
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellRecomendation", for: indexPath)
         
-        cell.textLabel?.text = listForTable[indexPath.row]
+        if foodRecommendation.count > 0 {
+            cell.textLabel?.text = foodRecommendation[indexPath.row].name
+            cell.detailTextLabel?.text = foodRecommendation[indexPath.row].desc
+        }
+        else{
+            cell.textLabel?.text = "No Recommendation"
+            cell.detailTextLabel?.text = ""
+        }
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if self.macroCategory == "fat" {
+            UserDefaults.standard.set(foodRecommendation[indexPath.row].name, forKey: "fatRecommendation")
+        }
+        else if self.macroCategory == "protein" {
+            UserDefaults.standard.set(foodRecommendation[indexPath.row].name, forKey: "proteinRecommendation")
+        }
+        else if self.macroCategory == "carb" {
+            UserDefaults.standard.set(foodRecommendation[indexPath.row].name, forKey: "carbRecommendation")
+        }
+        
+        self.navigationController?.popToRootViewController(animated: true)
+    }
     
 }

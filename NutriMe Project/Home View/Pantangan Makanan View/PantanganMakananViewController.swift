@@ -13,8 +13,8 @@ class PantanganMakananViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    let allergies = ["Kacang", "Gandum", "Kedelai", "Telur", "Susu Sapi", "Ikan", "Udang"]
-    let restrictions = ["Vegetarian", "Gluten Free"]
+    let allergies = ["Peanut", "Wheat", "Soy", "Egg", "Cow's Milk", "Fish", "Shrimp"]
+    let restrictions = ["Vegetarian", "Gluten Free", "Halal"]
     var userRestrictions: [String] = []
     
     var userInfo : UserInfo?
@@ -113,10 +113,10 @@ extension PantanganMakananViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Pantangan Makanan"
+            return "Restrictions"
         }
         else {
-            return "Alergi Makanan"
+            return "Allergies"
         }
     }
     

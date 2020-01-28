@@ -89,6 +89,7 @@ class DiaryViewController: UIViewController {
         CalendarCollectionView.reloadData()
         
         queryUserFood()
+        diaryTable.tableFooterView = UIView()
         diaryTable.delegate = self
         diaryTable.dataSource = self
     }
@@ -341,7 +342,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
-                cell.textLabel?.text = "Sarapan"
+                cell.textLabel?.text = "Breakfast"
                 cell.detailTextLabel?.text = "\(totalKaloriPagi) Cal"
                 return cell
             }
@@ -355,7 +356,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.selectionStyle = .default
                 }
                 else{
-                    cell.lblFoodName.text = "Belum ada makanan"
+                    cell.lblFoodName.text = "No Food Inserted"
                     cell.lblFoodCalorie.text = ""
                     cell.accessoryType = .none
                     cell.selectionStyle = .none
@@ -373,7 +374,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
         else if indexPath.section == 1 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
-                cell.textLabel?.text = "Makan Siang"
+                cell.textLabel?.text = "Lunch"
                 cell.detailTextLabel?.text = "\(totalKaloriSiang) Cal"
                 return cell
             }
@@ -387,7 +388,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.selectionStyle = .default
                 }
                 else{
-                    cell.lblFoodName.text = "Belum ada makanan"
+                    cell.lblFoodName.text = "No Food Inserted"
                     cell.lblFoodCalorie.text = ""
                     cell.accessoryType = .none
                     cell.selectionStyle = .none
@@ -404,7 +405,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
         else {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath)
-                cell.textLabel?.text = "Makan Malam"
+                cell.textLabel?.text = "Dinner"
                 cell.detailTextLabel?.text = "\(totalKaloriMalam) Cal"
                 return cell
             }
@@ -418,7 +419,7 @@ extension DiaryViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.selectionStyle = .default
                 }
                 else{
-                    cell.lblFoodName.text = "Belum ada makanan"
+                    cell.lblFoodName.text = "No Food Inserted"
                     cell.lblFoodCalorie.text = ""
                     cell.accessoryType = .none
                     cell.selectionStyle = .none
