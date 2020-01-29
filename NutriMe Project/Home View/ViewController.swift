@@ -58,6 +58,7 @@ class ViewController: UIViewController {
     @IBAction func addFoodButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Diary", bundle: nil)
         let nextVC = storyboard.instantiateViewController(identifier: "SearchView") as! SearchViewController
+       // nextVC.selectedSection = .pagi
         self.tabBarController?.show(nextVC, sender: self)
         //self.show(nextVC, sender: self)
     }

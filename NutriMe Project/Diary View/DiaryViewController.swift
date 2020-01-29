@@ -187,11 +187,11 @@ class DiaryViewController: UIViewController {
                     
                     print(category)
                     
-                    if category == "Sarapan" {
+                    if category == "Breakfast" {
                         self.diaryPagi.append(self.userDiary!)
                         self.totalKaloriPagi += self.userDiary!.foodCalories
                     }
-                    else if category == "Makan Siang" {
+                    else if category == "Lunch" {
                         self.diarySiang.append(self.userDiary!)
                         self.totalKaloriSiang += self.userDiary!.foodCalories
                     }
