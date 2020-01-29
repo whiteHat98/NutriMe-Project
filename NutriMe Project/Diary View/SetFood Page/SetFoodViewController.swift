@@ -144,8 +144,8 @@ extension SetFoodViewController: UITableViewDelegate, UITableViewDataSource{
             cell.lblName.text = selectedFood?.name
             cell.lblDetail.text = ""
         }else if indexPath.row == 1{
-            cell.lblName.text = "\(totalPorsi) Porsi"
-            cell.lblDetail.text = "\(selectedFood!.calories * totalPorsi) Kkl"
+            cell.lblName.text = "\(totalPorsi) Portion"
+            cell.lblDetail.text = "\(selectedFood!.calories * totalPorsi) Cal"
             cell.accessoryType = .disclosureIndicator
         }else if indexPath.row == 2{
             cell.lblName.text = selectedSection.map { $0.rawValue }

@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     let healthKitStore = HKHealthStore()
     
     //let nutriens:[(String,String)]=[("Karbohidrat","Jagung"),("Protein","Telur"),("Lemak","Daging")]
-    let nutriens:[String]=["Fat","Protein","Carbohydrate"]
+    let nutriens:[String]=["Carbohydrate","Fat","Protein"]
     //
     //    var totalCalories : Double = 0
     //    var totalCarbohidrates : Double = 0
@@ -139,6 +139,7 @@ class ViewController: UIViewController {
                         }
                     }else{
                         DispatchQueue.main.async {
+                            
                             var caloriesNeeded = (10 * (Double(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - self.db.totalCalories)).rounded() / 10
                             
                             if caloriesNeeded < 0 {
@@ -165,12 +166,17 @@ class ViewController: UIViewController {
                                     UserDefaults.standard.set(false, forKey: "needUpdate")
                                 }
                             }
+                            
+                        }
+                        
                             if UserDefaults.standard.value(forKey: "userActivityLevel") != nil {
                                 self.defaultActivityLevel = UserDefaults.standard.value(forKey: "userActivityLevel") as! Int
                             }
                             
                             if self.defaultActivityLevel != 3 {
-                                self.activityCaloriesLabel.text = "\(10 * Double((userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - userInfo.caloriesGoal!).rounded() / 10) cal"
+                                DispatchQueue.main.async{
+                                    self.activityCaloriesLabel.text = "\(10 * Double((userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - userInfo.caloriesGoal!).rounded() / 10) cal"
+                                }
 //
 //                                if self.defaultActivityLevel == 0 {
 //                                    self.btnActivityLevel.titleLabel?.text = "Activity Level-Low"
@@ -197,10 +203,10 @@ class ViewController: UIViewController {
                                 }   
                             }
 
-                        }
-                        DispatchQueue.main.async{
-                            self.dashboardTableView.reloadData()
-                        }
+                    
+//                        DispatchQueue.main.async{
+//                            self.dashboardTableView.reloadData()
+//                        }
                         //self.getUserData()
                         self.db.getUserData {_,_ in
                             DispatchQueue.main.async {
@@ -385,11 +391,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0{
             if indexPath.row == 0{
-                selectedMacro = "fat"
-            }else if indexPath.row == 1{
-                selectedMacro = "protein"
-            }else if indexPath.row == 2{
                 selectedMacro = "carb"
+            }else if indexPath.row == 1{
+                selectedMacro = "fat"
+            }else if indexPath.row == 2{
+                selectedMacro = "protein"
             }
             performSegue(withIdentifier: "toRecomendation", sender: self)
         }
@@ -398,9 +404,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Rekomendasi Makanan"
+            return "Food Recommendation"
         case 1:
-            return "Nutrisi Makro"
+            return "Macronutriens"
         case 2:
             return "Mineral"
         default:
@@ -439,6 +445,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
             cell?.lblNamaMakro.text = nutriens[indexPath.row]
             
             if indexPath.row == 0 {
+                if UserDefaults.standard.value(forKey: "carbRecommendation") != nil {
+                    cell?.lblNamaMakanan.text = UserDefaults.standard.value(forKey: "carbRecommendation") as! String
+                }
+                else{
+                    cell?.lblNamaMakanan.text = "Click to Choose"
+                }
+            }
+            else if indexPath.row == 1 {
                 if UserDefaults.standard.value(forKey: "fatRecommendation") != nil {
                     cell?.lblNamaMakanan.text = UserDefaults.standard.value(forKey: "fatRecommendation") as! String
                 }
@@ -446,17 +460,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
                     cell?.lblNamaMakanan.text = "Click to Choose"
                 }
             }
-            else if indexPath.row == 1 {
+            else if indexPath.row == 2 {
                 if UserDefaults.standard.value(forKey: "proteinRecommendation") != nil {
                     cell?.lblNamaMakanan.text = UserDefaults.standard.value(forKey: "proteinRecommendation") as! String
-                }
-                else{
-                    cell?.lblNamaMakanan.text = "Click to Choose"
-                }
-            }
-            else if indexPath.row == 2 {
-                if UserDefaults.standard.value(forKey: "carbRecommendation") != nil {
-                    cell?.lblNamaMakanan.text = UserDefaults.standard.value(forKey: "carbRecommendation") as! String
                 }
                 else{
                     cell?.lblNamaMakanan.text = "Click to Choose"

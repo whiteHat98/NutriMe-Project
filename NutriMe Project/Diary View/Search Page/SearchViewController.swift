@@ -218,7 +218,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             return 45
           }
         }
-        return 92
+        return 150
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -244,7 +244,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             let food = searchResult[indexPath.row]
             
             cell.lblFoodName.text = food.fields.item_name
-            cell.lblCalories.text = "\(food.fields.nf_calories) Kkal"
+            cell.lblCalories.text = "\(food.fields.nf_calories) Cal"
             cell.lblNutrition.text = "Carb: \(food.fields.nf_total_carbohydrate), Pro: \(food.fields.nf_protein), Fat: \(food.fields.nf_total_fat)"
             cell.foodHits = food
             cell.isUserFood = false

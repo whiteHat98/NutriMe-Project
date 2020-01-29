@@ -232,23 +232,23 @@ extension editProfileViewController: UITableViewDelegate, UITableViewDataSource 
             }
             
             if indexPath.row == 0 {
-                cell.txtLabel.text = "Nama"
+                cell.txtLabel.text = "Name"
                 cell.txtField.text = "\(userInfo!.name)"
                 cell.txtField.keyboardType = .default
             }
             else if indexPath.row == 1 {
-                cell.txtLabel.text = "Tanggal Lahir"
+                cell.txtLabel.text = "Date of birth"
                 cell.txtField.text = "\(formatter.string(from: userInfo!.dob))"
                 cell.txtField.text = "\(dobTemp)"
                 cell.txtField.inputView = datePicker
             }
             else if indexPath.row == 2 {
-                cell.txtLabel.text = "Berat Badan"
+                cell.txtLabel.text = "Weight"
                 cell.txtField.text = "\(userInfo!.weight)"
                 cell.txtField.keyboardType = .numberPad
             }
             else if indexPath.row == 3 {
-                cell.txtLabel.text = "Tinggi Badan"
+                cell.txtLabel.text = "Height"
                 cell.txtField.text = "\(userInfo!.height)"
                 cell.txtField.keyboardType = .numberPad
             }

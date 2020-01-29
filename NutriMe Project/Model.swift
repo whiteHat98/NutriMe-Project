@@ -88,3 +88,10 @@ enum ActivityLevel: String{
   case high = "High"
     case live = "Live"
 }
+
+enum EatCategory: String{
+    case pagi = "Breakfast"
+    case siang = "Lunch"
+    case malam = "Dinner"
+    
+}
