@@ -57,7 +57,7 @@ class DatabaseNutriMe{
         }
     }
     
-    func getUserData(completion : @escaping(_ String: [CKRecord]?, _ error: Error?) -> Void){
+    func getUserData(completion : @escaping() -> Void){
         self.totalFat = 0
         self.totalProtein = 0
         self.totalCalories = 0
@@ -86,7 +86,7 @@ class DatabaseNutriMe{
         database.perform(diaryQuery, inZoneWith: nil) { (records, err) in
             if err != nil{
                 print(err)
-                completion(nil, err)
+        
             }else{
                 for data in records!{
                     if var diaryID = self.diaryID as? [String]{
@@ -97,17 +97,7 @@ class DatabaseNutriMe{
                     self.totalProtein += data.value(forKey: "foodProtein") as! Double
                     self.totalFat += data.value(forKey: "foodFat") as! Double
                 }
-//                DispatchQueue.main.async {
-//                    //self.currentCaloriesLabel.text = "\(Int(self.totalCalories))"
-//
-//                    if !UserDefaults.standard.bool(forKey: "isReportCreated"){
-//                        self.createReportRecord()
-//                    }else{
-//                        self.updateReport()
-//                        print("update!")
-//                    }
-        //}
-                completion(records!, nil)
+                completion()
             }
         }
     }
