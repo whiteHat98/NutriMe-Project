@@ -118,6 +118,8 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         checkUserInfo {}
+        self.buttonProfile.isEnabled = false
+
         guard let userID = UserDefaults.standard.value(forKey: "currentUserID") as? String else {return}
         db.fetchDataUser(userID: userID, completion: { (userInfo) in
             DispatchQueue.main.async {
@@ -127,7 +129,8 @@ class ViewController: UIViewController {
                 self.caloriesGoalLabel.text = "\(10 * Double(userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)).rounded() / 10) calories"
                 self.activityCaloriesLabel.text = "\(Int((userInfo.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - userInfo.caloriesGoal!)) cal"
                 self.dashboardTableView.reloadData()
-                
+                self.buttonProfile.isEnabled = true
+
                 //self.getUserData()
                 self.db.getUserData(completion: { (_, err) in
                     
@@ -154,7 +157,6 @@ class ViewController: UIViewController {
                             
                             self.currentCaloriesLabel.text = "\((10 * self.totalCalories).rounded() / 10)"
                             self.caloriesNeededLabel.text = "\(caloriesNeeded)"
-
 
                             self.dashboardTableView.reloadData()
                             self.currentCaloriesLabel.text = "\(Int(self.db.totalCalories)) cal"
@@ -348,7 +350,7 @@ class ViewController: UIViewController {
         //                self.activityCaloriesLabel.text = "\((10 * (self.totalCaloriesGoal - Double(self.userInfo!.caloriesGoal!))).rounded() / 10) Cal"
         //                //                self.caloriesGoalLabel.text = "\(Int(self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2))) calories"
         //                //                self.activityCaloriesLabel.text = "\(Int((self.userInfo!.caloriesGoal! * (self.selectedActivities?.caloriesMultiply ?? 1.2)) - self.userInfo!.caloriesGoal!)) cal"
-        //                self.buttonProfile.isEnabled = true
+                 
         //                //self.getUserData()
         //            }
         //        }
