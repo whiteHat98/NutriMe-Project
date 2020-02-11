@@ -10,8 +10,6 @@ import UIKit
 import CloudKit
 
 
-
-
 class DiaryViewController: UIViewController {
     
     @IBOutlet weak var monthLabel: UILabel!
@@ -550,7 +548,7 @@ extension DiaryViewController: SaveData{
     
     func dismissPage(dismiss: Bool) {
         if dismiss{
-            self.diaryTable.reloadData()
+            self.queryUserFood()
             print("WORKKRKRKRK")
         }
     }
