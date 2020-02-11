@@ -135,7 +135,7 @@ class SearchViewController: UIViewController {
             let navBar = segue.destination as! UINavigationController
             let vc = navBar.topViewController as! SetFoodViewController
             vc.selectedFood = self.selectedFood
-            vc.selectedSection = self.selectedSection
+            vc.selectedSection = self.selectedSection ?? EatCategory.pagi
             vc.delegate = self
         }
     }

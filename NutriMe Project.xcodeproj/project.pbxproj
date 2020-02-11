@@ -206,11 +206,11 @@
 		9778A4FA2382B1DE00E93BA1 /* Home View */ = {
 			isa = PBXGroup;
 			children = (
+				9778A4D5237E936500E93BA1 /* ViewController.swift */,
 				974E3DB723D7FBD7007A7A6E /* RecomendationView */,
 				9778A4FD2382B22200E93BA1 /* rekomendasiCell */,
 				9778A4FC2382B20B00E93BA1 /* mineralCell */,
 				9778A4FB2382B1F100E93BA1 /* giziCell */,
-				9778A4D5237E936500E93BA1 /* ViewController.swift */,
 				9778A4FE2382B24700E93BA1 /* Profil View */,
 				9786625C23C6FBC900741B1B /* Activity */,
 				FEB8C54E23C9A22B00EB5D48 /* Reminders View */,

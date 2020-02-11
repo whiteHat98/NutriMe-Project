@@ -134,9 +134,9 @@ extension newFoodViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Data Makanan"
+            return "Food Data"
         case 1:
-            return "Nutrisi"
+            return "Nutrition"
         default:
             return ""
         }
@@ -152,15 +152,15 @@ extension newFoodViewController : UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                cell.labelText.text = "Nama"
+                cell.labelText.text = "Food Name"
                 cell.textField.placeholder = "Apel"
             }
             else if indexPath.row == 1 {
-                cell.labelText.text = "Porsi per Penyajian"
+                cell.labelText.text = "Portion per Serving"
                 cell.textField.placeholder = "100 g"
             }
             else if indexPath.row == 2 {
-                cell.labelText.text = "Jumlah Kalori"
+                cell.labelText.text = "Total Calories"
                 cell.textField.placeholder = "200 g"
             }
             cell.textField.tag = indexPath.row
@@ -168,15 +168,15 @@ extension newFoodViewController : UITableViewDelegate, UITableViewDataSource {
             
         case 1:
             if indexPath.row == 0 {
-                cell.labelText.text = "Jumlah Lemak"
+                cell.labelText.text = "Total Fat"
                 cell.textField.placeholder = "15 g"
             }
             else if indexPath.row == 1 {
-                cell.labelText.text = "Jumlah Protein"
+                cell.labelText.text = "Total Protein"
                 cell.textField.placeholder = "10 g"
             }
             else if indexPath.row == 2 {
-                cell.labelText.text = "Jumlah Karbohidrat"
+                cell.labelText.text = "Total Carbohydrates"
                 cell.textField.placeholder = "5 g"
             }
             cell.textField.tag = indexPath.row + 3

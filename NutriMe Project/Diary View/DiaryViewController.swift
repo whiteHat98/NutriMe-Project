@@ -112,8 +112,10 @@ class DiaryViewController: UIViewController {
                 leapYearCounter = 1
                 daysInMonth[1] = 28
             }
+            selectedMonthNumber = calendarMonth
         default:
             calendarMonth += 1
+            selectedMonthNumber = calendarMonth
         }
     }
     
@@ -134,8 +136,10 @@ class DiaryViewController: UIViewController {
             else{
                 daysInMonth[1] = 29
             }
+            selectedMonthNumber = calendarMonth
         default:
             calendarMonth -= 1
+            selectedMonthNumber = calendarMonth
         }
     }
     

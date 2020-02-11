@@ -95,13 +95,13 @@ extension detailFoodViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.valueText.text = "\(diaryDetail!.foodCalories) Kkal"
                 }
                 else if indexPath.row == 3 {
-                    cell.titleText.text = "Porsi"
+                    cell.titleText.text = "Portion"
                     cell.valueText.text = "\(diaryDetail!.portion)"
                 }
             }
             else{
                 if indexPath.row == 0 {
-                    cell.titleText.text = "Lemak"
+                    cell.titleText.text = "Fat"
                     cell.valueText.text = "\(diaryDetail!.foodFat)"
                 }
                 if indexPath.row == 1 {
@@ -109,7 +109,7 @@ extension detailFoodViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.valueText.text = "\(diaryDetail!.foodProtein)"
                 }
                 if indexPath.row == 2 {
-                    cell.titleText.text = "Karbohidrat"
+                    cell.titleText.text = "Carbohydrates"
                     cell.valueText.text = "\(diaryDetail!.foodCarbohydrate)"
                 }
             }
@@ -117,6 +117,4 @@ extension detailFoodViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         return cell
     }
-    
-    
 }

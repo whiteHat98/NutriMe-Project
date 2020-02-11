@@ -60,6 +60,8 @@ struct Recommendation {
     var category: String
     var desc: String
     var restriction: String?
+    var userID : String?
+    var totalInDiary : Int?
 }
 
 struct Reminder {

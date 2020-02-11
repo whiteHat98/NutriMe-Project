@@ -227,7 +227,7 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
-            cell.titleText.text = "Sarapan"
+            cell.titleText.text = "Breakfast"
             cell.timeText.text = bfastTime
             if !breakfastIsOn {
                 cell.reminderSwitcher.isOn = false
@@ -243,7 +243,7 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
                 
             }
         case 1:
-            cell.titleText.text = "Makan Siang"
+            cell.titleText.text = "Lunch"
             cell.timeText.text = lunchTime
             if !lunchIsOn {
                 cell.reminderSwitcher.isOn = false
@@ -259,7 +259,7 @@ extension RemindersViewController: UITableViewDelegate, UITableViewDataSource {
                 
             }
         case 2:
-            cell.titleText.text = "Makan Malam"
+            cell.titleText.text = "Dinner"
             cell.timeText.text = dinnerTime
             if !dinnerIsOn {
                 cell.reminderSwitcher.isOn = false

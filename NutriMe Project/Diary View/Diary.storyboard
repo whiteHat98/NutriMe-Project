@@ -29,22 +29,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wik-0w-2qj">
-                                                    <rect key="frame" x="20" y="12" width="33.5" height="20.5"/>
+                                                    <rect key="frame" x="20" y="12" width="35.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="T3R-0H-N9Q">
-                                                    <rect key="frame" x="350" y="12" width="44" height="20.5"/>
+                                                    <rect key="frame" x="347.5" y="12" width="46.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </tableViewCellContentView>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="foodCell" id="WRe-jA-bSS" customClass="FoodListTableViewCell" customModule="NutriMe_Project" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="414" height="44"/>
@@ -54,14 +55,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2RX-2E-jJa">
-                                                    <rect key="frame" x="30" y="12" width="172" height="21"/>
+                                                    <rect key="frame" x="30" y="12" width="237" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IKl-Qv-NUe">
-                                                    <rect key="frame" x="275" y="11" width="100" height="21"/>
+                                                    <rect key="frame" x="276" y="11" width="100" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -321,7 +322,7 @@
             </objects>
             <point key="canvasLocation" x="2744.9275362318845" y="-31.473214285714285"/>
         </scene>
-        <!--Set Makanan-->
+        <!--Set Food-->
         <scene sceneID="A1v-Tk-4Fx">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="Uk7-sO-m04" customClass="SetFoodViewController" customModule="NutriMe_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -374,7 +375,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="xX0-u6-iJo"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Set Makanan" id="fgg-Wn-bLl">
+                    <navigationItem key="navigationItem" title="Set Food" id="fgg-Wn-bLl">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="nFU-Tw-hyl">
                             <connections>
                                 <action selector="cancelBtn:" destination="Uk7-sO-m04" id="lY4-GS-HwO"/>
@@ -388,7 +389,9 @@
                     </navigationItem>
                     <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="cancelButton" destination="nFU-Tw-hyl" id="iql-vF-Ine"/>
                         <outlet property="detailTable" destination="Hl4-4R-kaF" id="rrV-FM-Ph5"/>
+                        <outlet property="saveButton" destination="YWh-g0-bUM" id="Qrs-pH-XuH"/>
                         <segue destination="NTJ-dT-iPO" kind="presentation" identifier="toPicker" modalPresentationStyle="overFullScreen" id="S4b-uI-ULa"/>
                     </connections>
                 </viewController>
@@ -484,7 +487,7 @@
             </objects>
             <point key="canvasLocation" x="3674" y="-754"/>
         </scene>
-        <!--Tambah Makanan Baru-->
+        <!--Add New Food-->
         <scene sceneID="0bT-IR-BC2">
             <objects>
                 <viewController id="fMV-Cc-Uqc" customClass="newFoodViewController" customModule="NutriMe_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -542,7 +545,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tf6-6f-gUc"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Tambah Makanan Baru" id="eVZ-ir-Nx9">
+                    <navigationItem key="navigationItem" title="Add New Food" id="eVZ-ir-Nx9">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="TXk-b5-xBD">
                             <connections>
                                 <action selector="cancelButtonClick:" destination="fMV-Cc-Uqc" id="aiq-YY-Svg"/>

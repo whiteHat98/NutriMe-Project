@@ -64,6 +64,7 @@ class DatabaseNutriMe{
         self.totalCarbohidrates = 0
         if let dataDate = UserDefaults.standard.object(forKey: "reportDate") as? Date{
             if !Calendar.current.isDateInToday(dataDate) && UserDefaults.standard.bool(forKey: "isReportCreated"){
+                UserDefaults.standard.set(0, forKey: "numOfGlass")
                 UserDefaults.standard.set(false, forKey: "isReportCreated")
                 print("Masuk!")
             }
@@ -167,4 +168,50 @@ class DatabaseNutriMe{
         }
     }
     
+    func updateRecommendation(recommendation: Recommendation){
+        guard let userID = recommendation.userID else{return}
+        let predicate = NSPredicate(format: "userID == %@", userID)
+        let query = CKQuery(recordType: "Recommendation", predicate: predicate)
+        var notExist = true
+        self.database.perform(query, inZoneWith: nil) { (records, err) in
+            if err != nil{
+                print(err?.localizedDescription)
+            }else{
+                // check records
+                for record in records!{
+                    if record.value(forKey: "name") as! String == recommendation.name{
+                        //update record
+                        notExist = false
+                        record.setValue(record.value(forKey: "totalInDiary") as! Int + 1, forKey: "totalInDiary")
+                        
+                        self.database.save(record) { (_, err) in
+                            if err != nil{
+                                print(err?.localizedDescription)
+                            }else{
+                                return
+                            }
+                        }
+                    }
+                }
+                
+                //create new record is doesn't exist
+                if notExist{
+                    let recRecord = CKRecord(recordType: "Recommendation")
+                    
+                    recRecord.setValuesForKeys(["userID" : userID,
+                                                "category": recommendation.category,
+                                                "desc": recommendation.desc,
+                                                "name": recommendation.name,
+                                                "restrictions": recommendation.restriction ?? "",
+                                                "totalInDiary": recommendation.totalInDiary])
+                    
+                    self.database.save(recRecord) { (_, err) in
+                        if err != nil{
+                            print(err)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

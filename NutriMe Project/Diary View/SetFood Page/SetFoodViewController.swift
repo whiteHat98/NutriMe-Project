@@ -15,6 +15,8 @@ protocol SaveData {
 }
 
 class SetFoodViewController: UIViewController {
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     var selectedSection: EatCategory?
     var selectedFood: UserFood?
@@ -25,6 +27,7 @@ class SetFoodViewController: UIViewController {
     var pickerCode: Int?
     var delegate : SaveData?
     
+    let dbNutriMe = DatabaseNutriMe()
     let database = CKContainer.default().publicCloudDatabase
     let userID:String = UserDefaults.standard.value(forKey: "currentUserID") as! String
     
@@ -32,6 +35,8 @@ class SetFoodViewController: UIViewController {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     @IBAction func saveBtn(_ sender: Any) {
+        saveButton.isEnabled = false
+        cancelButton.isEnabled = false
         
         let diaryRecord = CKRecord(recordType: "Diary")
         let selectedCategory = selectedSection.map{$0.rawValue}
@@ -82,21 +87,46 @@ class SetFoodViewController: UIViewController {
                                          db.updateReport()
                                          UserDefaults.standard.set(false, forKey: "needUpdate")
                                         print("test work")
-                                        self.delegate?.dismissPage(dismiss: true)
-                                        self.dismiss(animated: true)
                                      }
                                  }
+                                let recom = Recommendation(name: self.selectedFood!.name, category: self.foodCategory(selectedFood: self.selectedFood!), desc: self.getDesc(category: self.foodCategory(selectedFood: self.selectedFood!), macro: self.selectedFood!.makros!), restriction: "", userID: userID, totalInDiary: 1)
+                                self.dbNutriMe.updateRecommendation(recommendation: recom)
+                                
+                                self.delegate?.dismissPage(dismiss: true)
+                                self.dismiss(animated: true)
                              }
                          }
                      }
                     })
-                    
-                    
-//                    self.navigationController?.popToRootViewController(animated: true)
                 }
-                
             }
         }
+        
+    }
+    
+    func foodCategory(selectedFood : UserFood) -> String{
+        let macros = selectedFood.makros
+        if let macro = macros {
+            if macro.carbohydrate > macro.fat && macro.carbohydrate > macro.protein{
+                return "carb"
+            }else if macro.fat > macro.carbohydrate && macro.fat > macro.protein{
+                return "fat"
+            }else if macro.protein > macro.fat && macro.protein > macro.carbohydrate{
+                return "protein"
+            }
+        }
+        return "no category"
+    }
+    
+    func getDesc(category: String, macro: FoodMakro) -> String{
+        if category == "carb"{
+            return "Contains \(String(format: "%.2f", macro.carbohydrate)) gr Carbs"
+        }else if category == "fat"{
+            return "Contains \(String(format: "%.2f", macro.fat)) gr Fat"
+        }else if category == "protein"{
+            return "Contains \(String(format: "%.2f", macro.protein)) gr Protein"
+        }
+        return "no decs"
     }
     
     @IBOutlet weak var detailTable: UITableView!
@@ -115,7 +145,7 @@ class SetFoodViewController: UIViewController {
             let vc = segue.destination as! PickerViewController
             vc.delegate = self
             vc.pickerCode = self.pickerCode
-            vc.selectedCategory = self.selectedSection
+            vc.selectedCategory = self.selectedSection ?? EatCategory.pagi
         }
     }
     
@@ -177,6 +207,4 @@ extension SetFoodViewController: DataTransfer{
         self.selectedSection = category
         self.detailTable.reloadData()
     }
-    
-    
 }
