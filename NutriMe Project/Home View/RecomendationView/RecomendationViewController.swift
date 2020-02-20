@@ -88,7 +88,7 @@ class RecomendationViewController: UIViewController {
                     var restricted = false
                     if self.userInfo?.foodRestrictions != nil {
                         for restriction in self.userInfo!.foodRestrictions! {
-                            if recommendation.restriction == restriction {
+                            if recommendation.restriction == restriction && restriction != nil{
                                 restricted = true
                                 break
                             }

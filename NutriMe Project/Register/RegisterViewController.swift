@@ -77,6 +77,7 @@ class RegisterViewController: UIViewController {
         record.setValue("no value", forKey: "userRestrictionID")
         record.setValue(self.email ?? "", forKey: "email")
         record.setValue(self.password ?? "", forKey: "password")
+        record.setValue([], forKey: "restrictions")
         
         if selectedGender == 0 {
             record.setValue("Male", forKey: "gender")
@@ -93,7 +94,7 @@ class RegisterViewController: UIViewController {
                 let userID: String = record!.recordID.recordName
                 UserDefaults.standard.setValue(userID, forKey: "currentUserID")
                 UserDefaults.standard.set(true, forKey: "needUpdate")
-                self.createUser()
+               // self.createUser()
                 
                 DispatchQueue.main.async {
                     UserDefaults.standard.set(true, forKey: "userInfoExist")
@@ -217,6 +218,9 @@ class RegisterViewController: UIViewController {
         var caloriesNeeded: Float = 0
 
         getAge()
+        print(weightText)
+        print(heightText)
+        print(selectedGender)
         
         //Perhitungan Berat Ideal
         var BBI:Float = (heightText.floatValue - 100)
@@ -239,6 +243,9 @@ class RegisterViewController: UIViewController {
             }
             else if statusGizi > 120 { // kegemukan
                 caloriesNeeded = basalCalories - (basalCalories * 0.2)
+            }
+            else{
+                caloriesNeeded = basalCalories
             }
             
         }else if selectedGender == 1 {
@@ -266,7 +273,7 @@ class RegisterViewController: UIViewController {
         }
         
         getMakroGoal(caloriesNeed: caloriesNeeded)
-        
+        print(caloriesNeeded)
         return caloriesNeeded
     }
     

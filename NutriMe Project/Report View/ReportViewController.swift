@@ -41,7 +41,7 @@ class ReportViewController: UIViewController {
     let days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
     var chartValues : [ChartValue] = []
     let database = CKContainer.default().publicCloudDatabase
-  @IBOutlet weak var chartReportView: BarChartView!
+    @IBOutlet weak var chartReportView: BarChartView!
     var thisWeekReports: [Report] = []
     @IBOutlet weak var segmentedCtl: UISegmentedControl!
     @IBAction func changeValue(_ sender: Any) {
@@ -64,6 +64,7 @@ class ReportViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         getDataFromReportDB {
+            print(self.thisWeekReports)
             self.setValues {
                 DispatchQueue.main.async {
                     self.setMacroValue()
@@ -208,12 +209,12 @@ class ReportViewController: UIViewController {
         }
 
         let values2 = (0..<7).map { (i) -> BarChartDataEntry in
-            var val: Double = chartValues[i].userProtein ?? 0
+            var val: Double = chartValues[i].userFat ?? 0
           return BarChartDataEntry(x: Double(i), y: val)
         }
 
         let values3 = (0..<7).map { (i) -> BarChartDataEntry in
-            var val: Double = chartValues[i].userFat ?? 0
+            var val: Double = chartValues[i].userProtein ?? 0
           return BarChartDataEntry(x: Double(i), y: val)
         }
 

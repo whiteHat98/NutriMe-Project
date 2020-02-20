@@ -137,9 +137,11 @@ class ViewController: UIViewController {
 
 
         guard let userID = UserDefaults.standard.value(forKey: "currentUserID") as? String else {return}
+        print(userID)
         db.fetchDataUser(userID: userID, completion: { (userInfo) in
             DispatchQueue.main.async {
                 self.userInfo = userInfo
+                print(userInfo)
                 self.db.userInfo = userInfo
 
                 self.caloriesGoalLabel.text = "\(10 * Double(userInfo.caloriesGoal! * ((self.selectedActivities?.caloriesMultiply)!)).rounded() / 10) calories"
@@ -175,7 +177,7 @@ class ViewController: UIViewController {
 
                             self.dashboardTableView.reloadData()
                             self.currentCaloriesLabel.text = "\(Int(self.db.totalCalories)) cal"
-                            print(self.db.totalCalories)
+                            print(self.caloriesNeededLabel.text)
                             if !UserDefaults.standard.bool(forKey: "isReportCreated"){
                                 self.db.createReportRecord()
                             }else{

@@ -139,6 +139,9 @@ class editProfileViewController: UIViewController {
             else if statusGizi > 120 { // kegemukan
                 caloriesNeeded = basalCalories - (basalCalories * 0.2)
             }
+            else{
+                caloriesNeeded = basalCalories
+            }
         }
         
         getMakroGoal(caloriesNeed: caloriesNeeded)

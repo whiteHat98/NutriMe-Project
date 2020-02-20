@@ -48,11 +48,6 @@ class SetFoodViewController: UIViewController {
         let totalProtein = self.totalPorsi * (selectedFood?.makros?.protein ?? 0)
         let totalFat = self.totalPorsi * (selectedFood?.makros?.fat ?? 0)
         
-//        print(totalCalories)
-//        print(totalFat)
-//        print(totalProtein)
-//        print(totalCarbohydrate)
-        
         diaryRecord.setValue(userID, forKey: "userID")
         diaryRecord.setValue(selectedFood?.ID, forKey: "foodID")
         diaryRecord.setValue(selectedFood?.name, forKey: "foodName")
