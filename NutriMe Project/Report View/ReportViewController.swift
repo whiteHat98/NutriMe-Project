@@ -63,15 +63,40 @@ class ReportViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getDataFromReportDB {
-            print(self.thisWeekReports)
-            self.setValues {
-                DispatchQueue.main.async {
-                    self.setMacroValue()
-                    self.setChartValue()
-                }
-            }
-        }
+        
+        let db = DatabaseNutriMe()
+        guard let userID = UserDefaults.standard.value(forKey: "currentUserID") as? String else {return}
+        db.fetchDataUser(userID: userID, completion: { (userInfo) in
+            DispatchQueue.main.async {
+                db.userInfo = userInfo
+               //self.getUserData()
+                db.getUserData {
+                 DispatchQueue.main.async {
+                     if !UserDefaults.standard.bool(forKey: "isReportCreated"){
+                         db.createReportRecord()
+                     }else{
+                        if UserDefaults.standard.bool(forKey: "needUpdate"){
+                            db.updateReport()
+                            UserDefaults.standard.set(false, forKey: "needUpdate")
+                        }
+                     }
+                    
+                    self.getDataFromReportDB {
+                        print(self.thisWeekReports)
+                        self.setValues {
+                            DispatchQueue.main.async {
+                                self.setMacroValue()
+                                self.setChartValue()
+                            }
+                        }
+                    }
+                    
+                 }
+             }
+         }
+        })
+        
+        
     }
   
     var randomV: Double{
@@ -259,7 +284,7 @@ class ReportViewController: UIViewController {
         }else{
             guard let recs = records else{return}
             self.thisWeekReports.removeAll()
-            for rec in recs{
+            for rec in recs{ 
                 if let rdate = rec.value(forKey: "date") as? Date{
                     if self.isDayInThisWeek(date: rdate){
                         let newRecord = Report(recordName: rec.recordID.recordName, caloriesGoal: rec.value(forKey: "caloriesGoal") as! Double, carbohydrateGoal: rec.value(forKey: "carbohydrateGoal") as! Double, proteinGoal: rec.value(forKey: "proteinGoal") as! Double, fatGoal: rec.value(forKey: "fatGoal") as! Double, userCalories: rec.value(forKey: "userCalories") as! Double, userCarbohydrates: rec.value(forKey: "userCarbohydrates") as! Double, userFat: rec.value(forKey: "userFat") as! Double, userProtein: rec.value(forKey: "userProtein") as! Double, date: (rec.value(forKey: "date") as? Date)!, diaryID: rec.value(forKey: "diaryID") as? [String], userID: rec.value(forKey: "userID") as! String)
@@ -276,7 +301,7 @@ class ReportViewController: UIViewController {
     
     func checkDay(date: Date)->Int{
         let component = Calendar.current.dateComponents([.weekday], from: date)
-        print(component.weekday)
+        //print("ini komponen of weekday \(component.weekday)")
         return component.weekday!
     }
 }

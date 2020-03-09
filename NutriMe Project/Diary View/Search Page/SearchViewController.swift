@@ -18,6 +18,7 @@ class SearchViewController: UIViewController {
     var foodArr:[Hits]=[]
     var selectedSection: EatCategory?
     var selectedFood: UserFood?
+    var selectedDate: Date?
     var delegate: SaveData?
     var newFoodInDiary : FoodInDiary?
     
@@ -37,6 +38,8 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(selectedDate)
         
         foodTableView.delegate = self
         foodTableView.dataSource = self
@@ -136,6 +139,7 @@ class SearchViewController: UIViewController {
             let vc = navBar.topViewController as! SetFoodViewController
             vc.selectedFood = self.selectedFood
             vc.selectedSection = self.selectedSection ?? EatCategory.pagi
+            vc.selectedDate = self.selectedDate
             vc.delegate = self
         }
     }

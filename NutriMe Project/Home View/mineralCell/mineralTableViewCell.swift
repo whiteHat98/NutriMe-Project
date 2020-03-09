@@ -16,17 +16,17 @@ class mineralTableViewCell: UITableViewCell {
     var numOfGlass: Float = 0.0
     var numOfMinGlass: Float = 8.0
     @IBAction func addWater(_ sender: Any) {
-        showAlert(title: "Add Mineral", adding: true)
+        showAlert(title: "Add 1 Glass of Water", adding: true)
 
     }
     
     @IBAction func minWater(_ sender: Any) {
-        showAlert(title: "Remove Mineral", adding: false)
+        showAlert(title: "Remove 1 Glass of Water", adding: false)
  
     }
     
     func showAlert(title: String, adding: Bool){
-        let alert = UIAlertController(title: title, message: "You will \(title) to your data!", preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: "You will \(title)\n(1 glass of water = 250 ml)", preferredStyle: .alert)
         
         let actionOK = UIAlertAction(title: "OK", style: .default, handler: .some({ (_) in
             if adding{

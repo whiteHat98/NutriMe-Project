@@ -98,6 +98,8 @@ class DatabaseNutriMe{
                     self.totalProtein += data.value(forKey: "foodProtein") as! Double
                     self.totalFat += data.value(forKey: "foodFat") as! Double
                 }
+                print("Before \(self.totalCarbohidrates)")
+                print("Before \(self.totalFat)")
                 completion()
             }
         }
@@ -107,6 +109,10 @@ class DatabaseNutriMe{
         guard let id = UserDefaults.standard.string(forKey: "todayReportRecordID") else { return }
         let recordName = UserDefaults.standard.string(forKey: "todayReportRecordID")
         let reportRecord = CKRecord.init(recordType: "Report", recordID: CKRecord.ID.init(recordName: recordName ?? "test"))
+        
+        print(self.totalCarbohidrates)
+        print(self.totalFat)
+        
         reportRecord.setValue(self.userInfo.userID, forKey: "userID")
         reportRecord.setValue(self.userInfo.caloriesGoal, forKey: "caloriesGoal")
         reportRecord.setValue(self.userInfo.carbohydrateGoal, forKey: "carbohydrateGoal")

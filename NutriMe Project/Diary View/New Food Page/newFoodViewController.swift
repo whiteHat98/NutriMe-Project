@@ -153,7 +153,7 @@ extension newFoodViewController : UITableViewDelegate, UITableViewDataSource {
         case 0:
             if indexPath.row == 0 {
                 cell.labelText.text = "Food Name"
-                cell.textField.placeholder = "Apel"
+                cell.textField.placeholder = "Apple"
             }
             else if indexPath.row == 1 {
                 cell.labelText.text = "Portion per Serving"

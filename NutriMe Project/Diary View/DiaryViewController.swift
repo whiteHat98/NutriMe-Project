@@ -47,6 +47,8 @@ class DiaryViewController: UIViewController {
     let database = CKContainer.default().publicCloudDatabase
     var userID:String = ""
     
+    var selectedDate: String = ""
+    
     @IBOutlet weak var lblKetHari: UILabel!
     @IBOutlet weak var diaryTable: UITableView!
     
@@ -148,7 +150,7 @@ class DiaryViewController: UIViewController {
         }
         
         //        formatter.dateFormat = "EEEE, d MMM yyyy"
-        let selectedDate: String = "\(getSelectedDate)"
+        selectedDate = "\(getSelectedDate)"
         print(selectedDate)
         
         let predicate1 = NSPredicate(format: "userID == %@", userID)
@@ -187,7 +189,7 @@ class DiaryViewController: UIViewController {
                     
                     self.userDiary = Diary(id: id, category: category, date: date, foodName: foodName, foodCalories: foodCalories, foodCarbohydrate: foodCarbohydrate, foodFat: foodFat, foodProtein: foodProtein, portion: portion)
                     
-                    print(category)
+                   // print(category)
                     
                     if category == "Breakfast" {
                         self.diaryPagi.append(self.userDiary!)
@@ -206,26 +208,14 @@ class DiaryViewController: UIViewController {
                     //                    self.totalKarboHarian += self.userDiary!.foodCarbohydrate
                     //                    self.totalLemakHarian += self.userDiary!.foodFat
                     //                    self.totalProteinHarian += self.userDiary!.foodProtein
+                    
                 }
-                
-                //                self.totalKaloriHarian = self.totalKaloriPagi + self.totalKaloriSiang + self.totalKaloriMalam
-                //
-                //                UserDefaults.standard.set(self.totalKaloriHarian, forKey: "kaloriHarian")
-                //                UserDefaults.standard.set(self.totalKarboHarian, forKey: "karboHarian")
-                //                UserDefaults.standard.set(self.totalLemakHarian, forKey: "lemakHarian")
-                //                UserDefaults.standard.set(self.totalProteinHarian, forKey: "proteinHarian")
-                //
-                //
-
-                
                 DispatchQueue.main.async {
                     self.diaryTable.reloadData()
                     self.refreshControl.endRefreshing()
                 }
-                
             }
         }
-        
     }
     
     func setDiary(arrayDiary: [Diary]){
@@ -238,7 +228,13 @@ class DiaryViewController: UIViewController {
         if segue.identifier == "toSearchPage"{
             let vc = segue.destination as! SearchViewController
             vc.selectedSection = self.selectedSection
+            let formatter = DateFormatter()
+            formatter.dateFormat = "EEEE, d MMM yyyy"
+            let getSelectedDate = formatter.date(from: selectedDate)
+            print(getSelectedDate)
+            vc.selectedDate = getSelectedDate
             vc.delegate = self
+            
         }
         else if segue.identifier == "segueToDetailFood" {
             let vc = segue.destination as! detailFoodViewController

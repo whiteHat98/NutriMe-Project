@@ -172,6 +172,9 @@ class editProfileViewController: UIViewController {
     }
     
     @IBAction func doneButtonClick(_ sender: Any) {
+        self.navigationItem.hidesBackButton = true
+        doneButton.isEnabled = false
+        
         updateRecord()
     }
     

@@ -155,11 +155,13 @@
                     <navigationItem key="navigationItem" title="Dashboard" largeTitleDisplayMode="never" id="k8U-Fz-HDi"/>
                     <connections>
                         <outlet property="activityCaloriesLabel" destination="10H-yE-Pdu" id="cas-ww-mi7"/>
+                        <outlet property="activityView" destination="NQv-dK-Crh" id="pW5-P8-61k"/>
                         <outlet property="btnActivityLevel" destination="SL2-ol-geA" id="wd8-ra-KNP"/>
                         <outlet property="buttonProfile" destination="KSt-au-b7f" id="YRX-FW-Hc1"/>
                         <outlet property="caloriesGoalLabel" destination="fwr-9p-mSE" id="VQp-nU-nWb"/>
                         <outlet property="caloriesNeededLabel" destination="NwN-Zp-khl" id="ec5-1q-Omj"/>
                         <outlet property="caloriesTitleLabel" destination="RIN-cG-Spf" id="I6W-kj-W0n"/>
+                        <outlet property="caloriesView" destination="VMD-Q2-3B0" id="don-km-HL8"/>
                         <outlet property="currentCaloriesLabel" destination="wh6-g6-vdX" id="8Ay-DY-hlt"/>
                         <outlet property="dashboardTableView" destination="oP3-rS-EUB" id="hxz-K9-HUg"/>
                         <segue destination="Mrm-TO-fVb" kind="show" identifier="toProfile" id="sgW-G2-d99"/>
@@ -739,7 +741,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyY-bT-gio">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyY-bT-gio">
                                                     <rect key="frame" x="20" y="40" width="314" height="39"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>

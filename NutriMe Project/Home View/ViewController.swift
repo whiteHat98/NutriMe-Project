@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var caloriesTitleLabel: UILabel!
     @IBOutlet weak var buttonProfile: UIButton!
     
+    @IBOutlet weak var caloriesView: UIView!
+    @IBOutlet weak var activityView: UIView!
     var appDelegate = UIApplication.shared.delegate as? AppDelegate
     let healthKitStore = HKHealthStore()
     
@@ -72,6 +74,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let pathLeft = UIBezierPath(roundedRect:caloriesView.bounds, byRoundingCorners:[.topLeft, .bottomLeft], cornerRadii: CGSize(width: 10, height: 10))
+        let maskLayerLeft = CAShapeLayer()
+        
+        let pathRight = UIBezierPath(roundedRect:activityView.bounds, byRoundingCorners:[.topRight, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
+        let maskLayerRight = CAShapeLayer()
+
+        maskLayerLeft.path = pathLeft.cgPath
+        caloriesView.layer.mask = maskLayerLeft
+        maskLayerRight.path = pathRight.cgPath
+        activityView.layer.mask = maskLayerRight
+        
         checkUserInfo {
             let decoded = UserDefaults.standard.object(forKey: "userInfo") as! Data
             do{

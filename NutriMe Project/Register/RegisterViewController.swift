@@ -86,6 +86,9 @@ class RegisterViewController: UIViewController {
             record.setValue("Female", forKey: "gender")
         }
         
+        UserDefaults.standard.set(false, forKey: "isReportCreated")
+
+        
         database.save(record) { (record, error) in
             
             if error == nil {
@@ -342,28 +345,28 @@ extension RegisterViewController: UITextFieldDelegate{
         
         if textFieldRow == 0 {
             if textField.text == "" {
-                textField.attributedPlaceholder = NSAttributedString(string: "Nama harus diisi", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
+                textField.attributedPlaceholder = NSAttributedString(string: "Name must be filled", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
             }
             nameText = txtName.text ?? ""
         }
         
         if textFieldRow == 1 {
             if textField.text == "" {
-                textField.attributedPlaceholder = NSAttributedString(string: "Tanggal Lahir harus diisi", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
+                textField.attributedPlaceholder = NSAttributedString(string: "Date of birth must be filled", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
             }
             dobText = txtDob.text ?? ""
         }
         
         if textFieldRow == 2 {
             if textField.text == "" {
-                textField.attributedPlaceholder = NSAttributedString(string: "Tinggi Badan harus diisi", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
+                textField.attributedPlaceholder = NSAttributedString(string: "Height must be filed", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
             }
             heightText = txtHeight.text ?? ""
         }
         
         if textFieldRow == 3 {
             if textField.text == "" {
-                textField.attributedPlaceholder = NSAttributedString(string: "Berat Badan harus diisi", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
+                textField.attributedPlaceholder = NSAttributedString(string: "Weight must be filled", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemRed])
             }
             weightText = txtWeight.text ?? ""
         }

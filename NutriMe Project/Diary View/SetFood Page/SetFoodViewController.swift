@@ -20,6 +20,7 @@ class SetFoodViewController: UIViewController {
     
     var selectedSection: EatCategory?
     var selectedFood: UserFood?
+    var selectedDate: Date?
     var totalPorsi: Float = 1.0
     
     var date = Date()
@@ -56,34 +57,33 @@ class SetFoodViewController: UIViewController {
         diaryRecord.setValue(totalFat, forKey: "foodFat")
         diaryRecord.setValue(totalProtein, forKey: "foodProtein")
         diaryRecord.setValue(totalPorsi, forKey: "portion")
-        diaryRecord.setValue(formatter.string(from: date), forKey: "date")
+        diaryRecord.setValue(formatter.string(from: selectedDate ?? date), forKey: "date")
         diaryRecord.setValue(selectedCategory, forKey: "category")
         
         self.database.save(diaryRecord) { (record, error) in
             if error == nil {
                 print(record!.recordID.recordName)
                 //Dismiss View
-                DispatchQueue.main.async {
+               // DispatchQueue.main.async {
                     UserDefaults.standard.set(true, forKey: "needUpdate")
                     
                     let db = DatabaseNutriMe()
                     guard let userID = UserDefaults.standard.value(forKey: "currentUserID") as? String else {return}
                     db.fetchDataUser(userID: userID, completion: { (userInfo) in
                         DispatchQueue.main.async {
-                            
                             db.userInfo = userInfo
                            //self.getUserData()
                             db.getUserData {
                              DispatchQueue.main.async {
                                  if !UserDefaults.standard.bool(forKey: "isReportCreated"){
                                      db.createReportRecord()
-                                 }else{
-                                     if UserDefaults.standard.bool(forKey: "needUpdate"){
-                                         db.updateReport()
-                                         UserDefaults.standard.set(false, forKey: "needUpdate")
-                                        print("test work")
-                                     }
-                                 }
+                                }
+//                                 }else{
+//                                    if UserDefaults.standard.bool(forKey: "needUpdate"){
+//                                        db.updateReport()
+//                                        UserDefaults.standard.set(false, forKey: "needUpdate")
+//                                    }
+//                                 }
                                 let recom = Recommendation(name: self.selectedFood!.name, category: self.foodCategory(selectedFood: self.selectedFood!), desc: self.getDesc(category: self.foodCategory(selectedFood: self.selectedFood!), macro: self.selectedFood!.makros!), restriction: "", userID: userID, totalInDiary: 1)
                                 self.dbNutriMe.updateRecommendation(recommendation: recom)
                                 
@@ -93,9 +93,11 @@ class SetFoodViewController: UIViewController {
                          }
                      }
                     })
-                }
+               // }
             }
         }
+        
+
         
     }
     
@@ -178,7 +180,7 @@ extension SetFoodViewController: UITableViewDelegate, UITableViewDataSource{
             cell.accessoryType = .disclosureIndicator
         }else{
             formatter.dateFormat = "EEEE, d MMM yyyy"
-            cell.lblName.text = formatter.string(from: date)
+            cell.lblName.text = formatter.string(from: selectedDate ?? date)
             cell.lblDetail.text = ""
             cell.accessoryType = .disclosureIndicator
         }

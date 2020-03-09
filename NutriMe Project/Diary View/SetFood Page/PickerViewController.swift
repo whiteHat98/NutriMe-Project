@@ -117,7 +117,7 @@ extension PickerViewController : UIPickerViewDelegate, UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerCode == 1{
-            return "\(portionPicker[row]) Porsi"
+            return "\(portionPicker[row]) Portion(s)"
         }else if pickerCode == 2{
             return eatCategoryPicker[row].rawValue
         }
