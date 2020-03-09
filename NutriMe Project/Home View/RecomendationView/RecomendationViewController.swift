@@ -72,9 +72,13 @@ class RecomendationViewController: UIViewController {
         foodRecommendation.removeAll()
         
         let predicate = NSPredicate(format: "category == %@", self.macroCategory)
+        let predicate2 = NSPredicate(format: "userID in %@", [self.userInfo?.userID ?? "", ""])
+        //let predicate3 = NSPredicate(format: "userID == %@", "")
         
-        let recommendationQuery = CKQuery(recordType: "Recommendation", predicate: predicate)
+        //let compoundPre = NSCompoundPredicate(orPredicateWithSubpredicates: [predicate2, predicate3])
         
+        let recommendationQuery = CKQuery(recordType: "Recommendation", predicate: NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2]))
+
         database.perform(recommendationQuery, inZoneWith: nil) { (record, error) in
             if error == nil {
                 for data in record! {
