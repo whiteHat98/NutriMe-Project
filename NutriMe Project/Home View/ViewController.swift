@@ -158,6 +158,21 @@ class ViewController: UIViewController {
                 self.db.userInfo = userInfo
 
                 self.caloriesGoalLabel.text = "\(10 * Double(userInfo.caloriesGoal! * ((self.selectedActivities?.caloriesMultiply)!)).rounded() / 10) calories"
+                
+                self.userInfo?.caloriesGoal = Float(10 * Double(userInfo.caloriesGoal! * ((self.selectedActivities?.caloriesMultiply)!)).rounded() / 10)
+                let carbohydrate = (0.6 * (self.userInfo?.caloriesGoal!)!) / 4
+                
+                // 15% Protein (4 kalori / gram)
+                let protein = (0.15 * (self.userInfo?.caloriesGoal!)!) / 4
+    
+                // 35% Lemak (9 kalori / gram)
+                let fat = (0.35 * (self.userInfo?.caloriesGoal!)!) / 9
+    
+                self.userInfo?.carbohydrateGoal = carbohydrate
+                self.userInfo?.proteinGoal = protein
+                self.userInfo?.fatGoal = fat
+               
+                 self.dashboardTableView.reloadData()
 
 
                 self.dashboardTableView.reloadData()
@@ -230,7 +245,6 @@ class ViewController: UIViewController {
                                     }
                                 }
                             }
-
                 })
             }
         })
@@ -393,7 +407,23 @@ extension ViewController : UpdateData{
                 //self.btnActivityLevel.titleLabel?.adjustsFontSizeToFitWidth = true
                 self.btnActivityLevel.titleLabel?.text = "Activity Level-\(activity.level.rawValue)"
             }
+           // self.dashboardTableView.reloadData()
+            // 60% Karbohidrat (4 kalori / gram)
             UserDefaults.standard.set(self.btnActivityLevel.titleLabel?.text, forKey: "activityLabel")
+//            guard let userI = self.userInfo else {return}
+//            let carbohydrate = (0.6 * userI.caloriesGoal!) / 4
+//
+//            // 15% Protein (4 kalori / gram)
+//            let protein = (0.15 * userI.caloriesGoal!) / 4
+//
+//            // 35% Lemak (9 kalori / gram)
+//            let fat = (0.35 * userI.caloriesGoal!) / 9
+//
+//            self.userInfo?.carbohydrateGoal = carbohydrate
+//            self.userInfo?.proteinGoal = protein
+//            self.userInfo?.fatGoal = fat
+
+           
         }
     }
     

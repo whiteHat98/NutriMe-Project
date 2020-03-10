@@ -161,7 +161,7 @@ extension newFoodViewController : UITableViewDelegate, UITableViewDataSource {
             }
             else if indexPath.row == 2 {
                 cell.labelText.text = "Total Calories"
-                cell.textField.placeholder = "200 g"
+                cell.textField.placeholder = "200 Cal"
             }
             cell.textField.tag = indexPath.row
             print(cell.textField.tag)
@@ -254,7 +254,7 @@ extension newFoodViewController: UITextFieldDelegate {
         }
         else if textFieldRow == 2 {
             if kaloriMakanan != "" {
-                textField.text = "\(kaloriMakanan) g"
+                textField.text = "\(kaloriMakanan) Cal"
             }
         }
         else if textFieldRow == 3 {

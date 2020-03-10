@@ -80,7 +80,7 @@ class DiaryViewController: UIViewController {
         
         selectedDateLabel.text = "\(selectedDay) \(selectedMonth) \(selectedYear)"
         monthLabel.text = "\(selectedMonth) \(calendarYear)"
-        scrollTo(item: selectedDay, section: 0)
+        scrollTo(item: selectedDay-1, section: 0)
         CalendarCollectionView.reloadData()
         
         queryUserFood()

@@ -247,6 +247,11 @@
                                                     <state key="normal" title="Add to Diary">
                                                         <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="7"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="btnAddToDiary:" destination="RrZ-wg-df2" eventType="touchUpInside" id="avN-iH-PhP"/>
                                                     </connections>

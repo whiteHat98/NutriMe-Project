@@ -249,7 +249,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.lblFoodName.text = food.fields.item_name
             cell.lblCalories.text = "\(food.fields.nf_calories) Cal"
-            cell.lblNutrition.text = "Carb: \(food.fields.nf_total_carbohydrate), Pro: \(food.fields.nf_protein), Fat: \(food.fields.nf_total_fat)"
+            cell.lblNutrition.text = "Carb: \(food.fields.nf_total_carbohydrate)g | Pro: \(food.fields.nf_protein)g | Fat: \(food.fields.nf_total_fat)g"
             cell.foodHits = food
             cell.isUserFood = false
             cell.delegate = self
@@ -274,8 +274,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 let food = arrayUserFood[indexPath.row - 1]
                 cell.lblFoodName.text = food.name
-                cell.lblCalories.text = "\(food.calories) Kkal"
-                cell.lblNutrition.text = "Carb: \(food.makros!.carbohydrate), Pro: \(food.makros!.protein), Fat: \(food.makros!.fat)"
+                cell.lblCalories.text = "\(food.calories) Cal"
+                cell.lblNutrition.text = "Carb: \(food.makros!.carbohydrate)g | Pro: \(food.makros!.protein)g | Fat: \(food.makros!.fat)g"
                 cell.userFood = food
                 cell.isUserFood = true
                 cell.delegate = self
